@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TP-PW3-GRUPO-5", "TP-PW3-GRUPO-5\TP-PW3-GRUPO-5.csproj", "{F1557241-7DB5-44DA-AA16-BA473C1D72F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TP-PW3-GRUPO-5", "TP-PW3-GRUPO-5\TP-PW3-GRUPO-5.csproj", "{F1557241-7DB5-44DA-AA16-BA473C1D72F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entidades", "Entidades\Entidades.csproj", "{2DCE5330-E857-4417-9192-06C0485A5C9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entidades", "Entidades\Entidades.csproj", "{2DCE5330-E857-4417-9192-06C0485A5C9D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

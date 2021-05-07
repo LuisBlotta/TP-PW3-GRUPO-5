@@ -1,0 +1,24 @@
+﻿@model List<Entidades.Usuario>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Email</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Ver</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Entidades.Usuario usuario in Model)
+        {
+            <tr>
+                <td>@usuario.Nombre</td>
+                <td>@usuario.Email</td>
+                <td>@usuario.Apellido</td>
+                <td>Ver</td>
+            </tr>
+        }
+
+    </tbody>
+</table>
