@@ -18,6 +18,19 @@ namespace TP_PW3_GRUPO_5.Controllers
             return View(ObtenerUsuarios());
         }
 
+        public IActionResult NuevoUsuario()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult NuevoUsuario(Usuario usuario)
+        {
+
+            return View();
+        }
+
         [HttpPost]
         public IActionResult ObtenerFiltros([FromBody] UsuarioFiltro usuarioFiltro)
         {
