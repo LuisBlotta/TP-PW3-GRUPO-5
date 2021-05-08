@@ -40,7 +40,7 @@
             <th scope="col">Nombre</th>
             <th scope="col">Email</th>
             <th scope="col">Apellido</th>
-            <th scope="col">Ver</th>
+            <th scope="col">Acciones</th>
         </tr>
     </thead>
     <tbody id="tbody">
@@ -50,7 +50,7 @@
                 <td>@usuario.Nombre</td>
                 <td>@usuario.Email</td>
                 <td>@usuario.Apellido</td>
-                <td><a href="#">Ver</a></td>
+                <td><a class="mr-2" href="/usuario/detalleUsuario?accion=ver">Ver</a><a class="mr-2" href="/usuario/detalleUsuario?accion=editar">Editar</a><a href="#">Borrar</a></td>
             </tr>
         }
 

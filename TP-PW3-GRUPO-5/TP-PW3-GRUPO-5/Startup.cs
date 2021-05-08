@@ -49,6 +49,10 @@ namespace TP_PW3_GRUPO_5
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "detalleUsuario",
+                    pattern: "Usuario/DetalleUsuario/{accion}");
+
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
