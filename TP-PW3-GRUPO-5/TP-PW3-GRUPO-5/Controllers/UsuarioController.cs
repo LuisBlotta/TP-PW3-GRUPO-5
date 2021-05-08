@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Entidades;
-
+using System.Web.Helpers;
+using System.Text.Json;
+using Clases_auxiliares;
 
 namespace TP_PW3_GRUPO_5.Controllers
 {
@@ -12,12 +14,22 @@ namespace TP_PW3_GRUPO_5.Controllers
     {
         public IActionResult Index()
         {
-
+            
             return View(ObtenerUsuarios());
         }
-  
 
-        public List<Usuario> ObtenerUsuarios()
+        [HttpPost]
+        public IActionResult ObtenerFiltros([FromBody] UsuarioFiltro usuarioFiltro)
+        {
+
+            var resultado = JsonSerializer.Serialize(ObtenerUsuarios(usuarioFiltro));
+
+            return Content(resultado);
+
+        }
+
+
+        public List<Usuario> ObtenerUsuarios(UsuarioFiltro usuarioFiltro = null)
         {
              List<Usuario> listaUsuarios = new List<Usuario>();
 
@@ -39,10 +51,17 @@ namespace TP_PW3_GRUPO_5.Controllers
             miUsuario3.Nombre = "Roque";
             miUsuario3.Email = "roque_perez@gmail.com";
             miUsuario3.Apellido = "Perez";
-            miUsuario3.FechaBorrado = DateTime.Now;
+            miUsuario3.FechaBorrado = DateTime.Now.AddHours(+2);
 
             listaUsuarios.Add(miUsuario3);
-            
+
+            if (usuarioFiltro != null)
+            {
+                listaUsuarios = listaUsuarios.Where(l => l.FechaBorrado > DateTime.Now).ToList();
+
+            }
+
+
             listaUsuarios = listaUsuarios.OrderBy(u => u.Nombre).ToList();
 
             return listaUsuarios;
