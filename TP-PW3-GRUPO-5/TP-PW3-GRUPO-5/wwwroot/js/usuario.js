@@ -1,19 +1,7 @@
-﻿
+﻿//Filtrado por nombre ,email y eliminados
 const btnEliminar = document.getElementById('eliminado');
 const inpNombre = document.getElementById('nombre');
 const inpEmail = document.getElementById('email');
-
-    //btnEliminar.addEventListener('click', () => {
-    //    obtenerResultados();
-    //});
-
-    //inpNombre.addEventListener('change', () => {
-    //    obtenerResultados();
-    //});
-
-    //inpEmail.addEventListener('change', () => {
-    //    obtenerResultados();
-    //});
 
     function generarTabla(resultados){
 
@@ -30,12 +18,14 @@ const inpEmail = document.getElementById('email');
                 ${resultado.Apellido}
                 </td>
                 <td class="btn-reserva">
-                <a class='w3-button w3-round-xlarge w3-green reserva' href='facturacionPorCliente.php?id=${resultado.Id}'>Ver</a>
+                <a class='' href=#>Ver</a>
                 </td></tr>`
         })
         $('#tbody').html(listado);
 
     };
+
+//Obtener resultados filtrados
 
     function obtenerResultados() {
 
@@ -66,3 +56,31 @@ const inpEmail = document.getElementById('email');
 $(document).ready(function () {
     $('.js-example-basic-single').select2();
 });
+
+////Paginacion
+//$(document).ready(function () {
+//    $('#example').DataTable();
+    
+//});
+
+$(document).ready(function () {
+    $('#example').DataTable({
+        "language": {
+            "paginate": {
+            "first": "Primera",
+            "last": "Ultima",
+            "next": "Siguiente",
+            "previous": "Anterior"
+        },
+            "lengthMenu": "Mostrar _MENU_ resultados por página",
+            "zeroRecords": "No se encontraron resultados",
+            "info": "Mostrando página  _PAGE_ de _PAGES_",
+            "infoEmpty": "Sin resultados",
+            "infoFiltered": "(filtered from _MAX_ total records)",
+
+        }
+        
+    });
+    $('#example_filter').hide();
+});
+

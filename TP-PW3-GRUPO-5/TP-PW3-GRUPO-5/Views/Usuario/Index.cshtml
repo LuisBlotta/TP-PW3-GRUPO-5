@@ -1,6 +1,6 @@
 ﻿@model List<Entidades.Usuario>
 @section Scripts{
-    <script src="~/js/usuarioFiltros.js"></script>
+    <script src="~/js/usuario.js"></script>
 }
 
 <div class="row">
@@ -34,7 +34,7 @@
 <br />
 
 
-<table class="table">
+<table class="table" id="example">
     <thead class="thead-dark">
         <tr>
             <th scope="col">Nombre</th>
@@ -50,7 +50,7 @@
                 <td>@usuario.Nombre</td>
                 <td>@usuario.Email</td>
                 <td>@usuario.Apellido</td>
-                <td>Ver</td>
+                <td><a href="#">Ver</a></td>
             </tr>
         }
 

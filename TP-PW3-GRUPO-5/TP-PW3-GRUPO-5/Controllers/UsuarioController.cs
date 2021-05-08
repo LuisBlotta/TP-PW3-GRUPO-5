@@ -14,7 +14,7 @@ namespace TP_PW3_GRUPO_5.Controllers
     {
         public IActionResult Index()
         {
-            
+
             return View(ObtenerUsuarios());
         }
 
@@ -31,21 +31,31 @@ namespace TP_PW3_GRUPO_5.Controllers
 
         public List<Usuario> ObtenerUsuarios(UsuarioFiltro usuarioFiltro = null)
         {
-             List<Usuario> listaUsuarios = new List<Usuario>();
 
-            Usuario miUsuario1 = new Usuario();
-            miUsuario1.Nombre = "Xuan";
-            miUsuario1.Email = "Xuan_perez@gmail.com";
-            miUsuario1.Apellido = "Perez";
+            List<Usuario> listaUsuarios = new List<Usuario>();
 
-            listaUsuarios.Add(miUsuario1);
+            for (int i = 0; i < 40; i++)
+            {
+                Usuario miUsuario1 = new Usuario();
+                miUsuario1.Nombre = "Xuan" +i;
+                miUsuario1.Email = "Xuan_perez@gmail.com";
+                miUsuario1.Apellido = "Perez" + i;
 
-            Usuario miUsuario2 = new Usuario();
-            miUsuario2.Nombre = "Luis";
-            miUsuario2.Email = "luis_alvarez@gmail.com";
-            miUsuario2.Apellido = "Alvarez";
+                listaUsuarios.Add(miUsuario1);
+            }
+            //Usuario miUsuario1 = new Usuario();
+            //miUsuario1.Nombre = "Xuan";
+            //miUsuario1.Email = "Xuan_perez@gmail.com";
+            //miUsuario1.Apellido = "Perez";
 
-            listaUsuarios.Add(miUsuario2);
+            //listaUsuarios.Add(miUsuario1);
+
+            //Usuario miUsuario2 = new Usuario();
+            //miUsuario2.Nombre = "Luis";
+            //miUsuario2.Email = "luis_alvarez@gmail.com";
+            //miUsuario2.Apellido = "Alvarez";
+
+            //listaUsuarios.Add(miUsuario2);
 
             Usuario miUsuario3 = new Usuario();
             miUsuario3.Nombre = "Roque";
@@ -54,6 +64,8 @@ namespace TP_PW3_GRUPO_5.Controllers
             miUsuario3.FechaBorrado = DateTime.Now.AddHours(+2);
 
             listaUsuarios.Add(miUsuario3);
+
+
 
             if (usuarioFiltro != null)
             {
@@ -65,8 +77,8 @@ namespace TP_PW3_GRUPO_5.Controllers
             listaUsuarios = listaUsuarios.OrderBy(u => u.Nombre).ToList();
 
             return listaUsuarios;
-            
+
         }
 
-}
+    }
 }
