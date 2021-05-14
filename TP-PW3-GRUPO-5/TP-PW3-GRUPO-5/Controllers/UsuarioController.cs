@@ -62,7 +62,6 @@ namespace TP_PW3_GRUPO_5.Controllers
 
         }
 
-
         public List<Usuario> ObtenerUsuarios(UsuarioFiltro usuarioFiltro = null)
         {
 
@@ -95,9 +94,22 @@ namespace TP_PW3_GRUPO_5.Controllers
 
             if (usuarioFiltro != null)
             {
-                listaUsuarios = listaUsuarios.Where(l => l.FechaBorrado > DateTime.Now).ToList();
-
+                if (usuarioFiltro.Nombre != "")
+                {
+                    listaUsuarios = listaUsuarios.Where(l => l.Nombre == (usuarioFiltro.Nombre)).ToList();
+                }
+                if (usuarioFiltro.Email != "")
+                {
+                    listaUsuarios = listaUsuarios.Where(l => l.Email == (usuarioFiltro.Email)).ToList();
+                }
+                if (usuarioFiltro.Eliminado)
+                {
+                    listaUsuarios = listaUsuarios.Where(l => l.FechaBorrado < DateTime.Now).ToList();
+                }
+                
             }
+          
+
             listaUsuarios = listaUsuarios.OrderBy(u => u.Nombre).ToList();
 
             return listaUsuarios;

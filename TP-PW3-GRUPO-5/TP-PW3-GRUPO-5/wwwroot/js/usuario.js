@@ -3,7 +3,7 @@ const btnEliminar = document.getElementById('eliminado');
 const inpNombre = document.getElementById('nombre');
 const inpEmail = document.getElementById('email');
 
-function generarTabla(resultados) {
+function GenerarTabla(resultados) {
 
     var table = $('#example').DataTable();
     table.destroy();
@@ -37,12 +37,12 @@ function generarTabla(resultados) {
 
 //Obtener resultados filtrados
 
-function obtenerResultados() {
+function ObtenerResultados() {
 
     let data = {
         Nombre: document.getElementById('nombre').value,
         Email: document.getElementById('email').value,
-        Eliminado: true
+        Eliminado: document.getElementById('eliminado').checked
     }
 
     fetch('https://localhost:44344/usuario/ObtenerFiltros', {
@@ -57,8 +57,8 @@ function obtenerResultados() {
 
         )
         .then(data => {
-            generarTabla(data)
-            paginacion();
+            GenerarTabla(data);
+            Paginacion();
         })
 }
 
@@ -71,7 +71,7 @@ $(document).ready(function () {
 ////Paginacion
 
 
-function paginacion() {
+function Paginacion() {
 
     $('#example').DataTable({
         retrieve: true,
@@ -94,6 +94,9 @@ function paginacion() {
 }
 
 $(document).ready(function () {
-    paginacion();
+    Paginacion();
+    ObtenerResultados();
 });
+
+
 

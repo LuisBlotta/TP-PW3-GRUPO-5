@@ -9,7 +9,7 @@
             <h3>Filtros</h3>
             <div class="filtro-container d-flex justify-content-between align-items-center row">
                 <div class="col-12 col-md-4">
-                    <select class="js-example-basic-single col-12" id="nombre" onchange="obtenerResultados()">
+                    <select class="js-example-basic-single col-12" id="nombre" onchange="ObtenerResultados()">
                         <option value="">Nombre</option>
                         @foreach (Entidades.Usuario usuario in Model)
                         {
@@ -19,7 +19,7 @@
                 </div>
 
                 <div class="col-12 col-md-4">
-                    <select class="js-example-basic-single col-12" id="email" onchange="obtenerResultados()">
+                    <select class="js-example-basic-single col-12" id="email" onchange="ObtenerResultados()">
                         <option value="">Email</option>
                         @foreach (Entidades.Usuario usuario in Model)
                         {
@@ -30,7 +30,7 @@
 
                 <div class="col-12 col-md-3 form-check">
                     <label class="col-8 form-check-label" for="eliminado">Excluir Eliminados</label>
-                    <input class="form-check-input" type="checkbox" name="eliminado" id="eliminado" checked="true" onclick="obtenerResultados()" />
+                    <input class="form-check-input" type="checkbox" name="eliminado" id="eliminado" checked="true" onclick="ObtenerResultados()" />
                 </div>
             </div>
         </div>
@@ -46,23 +46,7 @@
                     </tr>
                 </thead>
                 <tbody id="tbody">
-                    @foreach (Entidades.Usuario usuario in Model)
-                    {
-                        <tr>
-                            <td>@usuario.Nombre</td>
-                            <td>@usuario.Apellido</td>
-                            <td>@usuario.Email</td>
-                            <td>
-                                <a class="me-3" href="/usuario/detalleUsuario?accion=ver" data-toggle="tooltip"
-                                   title="Ver"><i class="fas fa-eye"></i></a>
-                                <a class="me-3" href="/usuario/detalleUsuario?accion=editar" data-toggle="tooltip"
-                                   title="Editar"><i class="fas fa-edit"></i></a>
-                                <a href="#" data-toggle="tooltip" title="Borrar">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    }
+
                 </tbody>
             </table>
         </div>
