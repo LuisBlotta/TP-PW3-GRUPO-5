@@ -16,6 +16,25 @@ namespace TP_PW3_GRUPO_5.Controllers
             return View(ObtenerArticulos());
         }
 
+        public IActionResult DetalleArticulo(string accion)
+        {
+            Articulo miArticulo1 = new Articulo();
+            miArticulo1.IdArticulo = 205;
+            miArticulo1.Codigo = 22;
+            miArticulo1.Descripcion = "Maquina de cortar pasto";
+
+            ViewData["accion"] = accion;
+            return View(miArticulo1);
+        }
+
+        [HttpPost]
+        public IActionResult EditarArticulo(Articulo articulo)
+        {
+
+            return View();
+        }
+
+
         [HttpPost]
         public IActionResult ObtenerFiltros([FromBody] ArticuloFiltro articuloFiltro)
         {
