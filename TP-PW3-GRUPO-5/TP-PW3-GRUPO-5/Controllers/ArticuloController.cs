@@ -16,6 +16,18 @@ namespace TP_PW3_GRUPO_5.Controllers
             return View(ObtenerArticulos());
         }
 
+        public IActionResult NuevoArticulo()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult NuevoArticulo(Articulo articulo)
+        {
+
+            return View();
+        }
         public IActionResult DetalleArticulo(string accion)
         {
             Articulo miArticulo1 = new Articulo();
