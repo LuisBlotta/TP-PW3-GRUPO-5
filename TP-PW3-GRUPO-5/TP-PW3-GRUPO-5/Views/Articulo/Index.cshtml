@@ -1,0 +1,57 @@
+﻿@model List<Entidades.Articulo>
+@section Scripts{
+    <script src="~/js/articulo.js"></script>
+}
+
+<main class="main crear-usuario-container">
+    <div class="container">
+        <div class="filter-containet mb-5">
+            <h3>Filtros</h3>
+            <div class="filtro-container d-flex justify-content-between align-items-center row">
+                <div class="col-12 col-md-4">
+                    <select class="js-example-basic-single col-12" id="descripcion" onchange="ObtenerResultados()">
+                        <option value="">Descripcion</option>
+                        @foreach (Entidades.Articulo articulo in Model)
+                        {
+                            <option value="@articulo.Descripcion">@articulo.Descripcion</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="col-12 col-md-4">
+                    <select class="js-example-basic-single col-12" id="codigo" onchange="ObtenerResultados()">
+                        <option value="">Codigo</option>
+                        @foreach (Entidades.Articulo articulo in Model)
+                        {
+                            <option value="@articulo.Codigo">@articulo.Codigo</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="col-12 col-md-3 form-check">
+                    <label class="col-8 form-check-label" for="eliminado">Excluir Eliminados</label>
+                    <input class="form-check-input" type="checkbox" name="eliminado" id="eliminado" checked="true" onclick="ObtenerResultados()" />
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table class="table table-hover" id="example">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">Codigo</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+
+
+
