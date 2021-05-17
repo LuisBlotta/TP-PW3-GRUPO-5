@@ -1,0 +1,61 @@
+﻿@model List<Entidades.Cliente>
+@section Scripts{
+    <script src="~/js/cliente.js"></script>
+}
+
+<main class="main crear-usuario-container">
+    <div class="container">
+        <div class="filter-containet mb-5">
+            <h3>Filtros</h3>
+            <div class="d-flex justify-content-end">
+                <a class="btn btn-primary" href="Cliente/nuevoCliente">Nuevo Cliente</a>
+            </div>
+            <div class="filtro-container d-flex justify-content-between align-items-center row">
+                <div class="col-12 col-md-4">
+                    <select class="js-example-basic-single col-12" id="nombre" onchange="ObtenerResultados()">
+                        <option value="">Nombre</option>
+                        @foreach (Entidades.Cliente cliente in Model)
+                        {
+                            <option value="@cliente.Nombre">@cliente.Nombre</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="col-12 col-md-4">
+                    <select class="js-example-basic-single col-12" id="numero" onchange="ObtenerResultados()">
+                        <option value="">Numero</option>
+                        @foreach (Entidades.Cliente cliente1 in Model)
+                        {
+                            <option value="@cliente1.Numero">@cliente1.Numero</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="col-12 col-md-3 form-check">
+                    <label class="col-8 form-check-label" for="eliminado">Excluir Eliminados</label>
+                    <input class="form-check-input" type="checkbox" name="eliminado" id="eliminado" checked="true" onclick="ObtenerResultados()" />
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table class="table table-hover" id="example">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Numero</th>
+                        <th scope="col">Telefono</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+
+
+

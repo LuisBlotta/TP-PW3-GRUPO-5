@@ -6,7 +6,7 @@
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
         <script src="~/js/deshabilitarInputs.js"></script>
     }
-    <h3 class="text-center">Ver usuario @Model.Nombre @Model.Apellido (@Model.IdUsuario)</h3>
+    <h3 class="text-center">Ver usuario @Model.Nombre @Model.Apellido (ID: @Model.IdUsuario)</h3>
     }
 else
 {
@@ -14,7 +14,7 @@ else
     @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     }
-    <h3 class="text-center mb-2">Editar usuario @Model.Nombre @Model.Apellido (@Model.IdUsuario)</h3>
+    <h3 class="text-center mb-2">Editar usuario @Model.Nombre @Model.Apellido (ID: @Model.IdUsuario)</h3>
 }
 
 <div class="row d-flex justify-content-center">
@@ -57,7 +57,7 @@ else
                 <input type="submit" value="Editar" class="btn btn-primary" id="btnEditar" />
             </div>
             <div class="form-group d-flex justify-content-start">
-                <a class="btn btn-primary" href="index">Volver</a>
+                <a class="btn btn-primary" href="/Usuario/Index">Volver</a>
             </div>
         </form>
     </div>
