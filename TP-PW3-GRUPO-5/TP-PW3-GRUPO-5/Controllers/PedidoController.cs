@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using ViewModels;
 
 namespace TP_PW3_GRUPO_5.Controllers
 {
@@ -13,7 +14,11 @@ namespace TP_PW3_GRUPO_5.Controllers
     {
         public IActionResult Index()
         {
-            return View(ObtenerPedidos());
+            List<Pedido> pedidos = ObtenerPedidos();
+            var prueba = PedidoCliente.obtenerPedidosCliente(pedidos);
+
+
+            return View();
         }
 
 
@@ -55,8 +60,8 @@ namespace TP_PW3_GRUPO_5.Controllers
                 miPedido1.NroPedido = i;
                 miPedido1.Cliente = micliente1;
                 miPedido1.EstadoPedido = estadoPedido1;
-                miPedido1.FechaCreacion = DateTime.Now.AddDays(-1);
-                miPedido1.FechaModificacion = DateTime.Now;
+                miPedido1.FechaCreacion = DateTime.Now.AddDays(-2);
+                miPedido1.FechaModificacion = DateTime.Now.AddHours(-3);
 
                 listaPedidos.Add(miPedido1);
 
@@ -65,7 +70,7 @@ namespace TP_PW3_GRUPO_5.Controllers
                 miPedido2.Cliente = micliente2;
                 miPedido2.EstadoPedido = estadoPedido2;
                 miPedido2.FechaCreacion = DateTime.Now.AddMonths(-4);
-                miPedido2.FechaModificacion = DateTime.Now;
+                miPedido2.FechaModificacion = DateTime.Now.AddDays(-5);
 
                 listaPedidos.Add(miPedido2);
 
@@ -74,10 +79,20 @@ namespace TP_PW3_GRUPO_5.Controllers
                 miPedido3.Cliente = micliente3;
                 miPedido3.EstadoPedido = estadoPedido3;
                 miPedido3.FechaCreacion = DateTime.Now.AddDays(-5);
-                miPedido3.FechaModificacion = DateTime.Now;
+                miPedido3.FechaModificacion = DateTime.Now.AddMinutes(-10);
                 miPedido3.FechaBorrado = DateTime.Now.AddHours(+2);
 
                 listaPedidos.Add(miPedido3);
+
+                Pedido miPedido4 = new Pedido();
+                miPedido4.NroPedido = i;
+                miPedido4.Cliente = micliente3;
+                miPedido4.EstadoPedido = estadoPedido3;
+                miPedido4.FechaCreacion = DateTime.Now.AddDays(-1);
+                miPedido4.FechaModificacion = DateTime.Now.AddDays(-1).AddHours(-3);
+                miPedido4.FechaBorrado = DateTime.Now.AddHours(+2);
+
+                listaPedidos.Add(miPedido4);
             }
 
             if (pedidoFiltro != null)
@@ -96,7 +111,6 @@ namespace TP_PW3_GRUPO_5.Controllers
                 //}
 
             }
-
 
             listaPedidos = listaPedidos.OrderBy(u => u.EstadoPedido.Descripcion).ThenBy(o=> o.FechaModificacion).ToList();
 

@@ -11,7 +11,7 @@ namespace ViewModels
         public string Estado { get; set; }
         public string UltimaModificacion { get; set; }
 
-        public List<PedidoCliente> obtenerPedidosCliente (List<Pedido> pedidos)
+        public static List<PedidoCliente> obtenerPedidosCliente (List<Pedido> pedidos)
         {
             List<PedidoCliente> pedidosClientes = new List<PedidoCliente>();
 
@@ -22,19 +22,40 @@ namespace ViewModels
                 pedidoCliente.NroPedido = pedido.NroPedido;
                 pedidoCliente.Estado = pedido.EstadoPedido.Descripcion;
                 pedidoCliente.UltimaModificacion = calcularUltimaModificacion(pedido);
+                pedidosClientes.Add(pedidoCliente);
             }
 
             return pedidosClientes;
         }
     
-        public string calcularUltimaModificacion(Pedido pedido)
+        public static string calcularUltimaModificacion(Pedido pedido)
         {
             DateTime fechaActual = DateTime.Now;
             DateTime fechaUltimaModificacion = pedido.FechaModificacion;
             double horasDiferencia = (fechaActual - fechaUltimaModificacion).TotalHours;
+            string ultimaModificacion = "";
+            string cliente = pedido.Cliente.Nombre;
 
 
-            return "";
+            if (horasDiferencia < 1)
+            {
+                double minutos = Math.Round(horasDiferencia * 60);
+                ultimaModificacion = "Hace " + minutos + " minutos (" + cliente + ")";
+            }
+            if(horasDiferencia>= 1 && horasDiferencia < 24)
+            {
+                ultimaModificacion = "Hoy " + fechaUltimaModificacion.ToString("HH:mm") + " (" + cliente + ")";
+            }
+            if (horasDiferencia>= 24 && horasDiferencia <48)
+            {
+                ultimaModificacion = "Ayer " + fechaUltimaModificacion.ToString("HH:mm") + " (" + cliente + ")";
+            }
+            if(horasDiferencia>=48)
+            {
+                ultimaModificacion = "El día " + fechaUltimaModificacion.ToString("dd-MM-yyyy HH:mm") + " (" + cliente + ")";
+            }
+
+            return ultimaModificacion;
         }
     }
 }
