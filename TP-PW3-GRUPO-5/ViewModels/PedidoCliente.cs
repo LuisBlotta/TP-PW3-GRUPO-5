@@ -11,7 +11,7 @@ namespace ViewModels
         public string Estado { get; set; }
         public string UltimaModificacion { get; set; }
 
-        public static List<PedidoCliente> obtenerPedidosCliente (List<Pedido> pedidos)
+        public static List<PedidoCliente> ObtenerPedidosCliente (List<Pedido> pedidos)
         {
             List<PedidoCliente> pedidosClientes = new List<PedidoCliente>();
 
@@ -21,14 +21,15 @@ namespace ViewModels
                 pedidoCliente.Cliente = pedido.Cliente.Nombre;
                 pedidoCliente.NroPedido = pedido.NroPedido;
                 pedidoCliente.Estado = pedido.EstadoPedido.Descripcion;
-                pedidoCliente.UltimaModificacion = calcularUltimaModificacion(pedido);
+                pedidoCliente.UltimaModificacion = CalcularUltimaModificacion(pedido);
                 pedidosClientes.Add(pedidoCliente);
             }
 
             return pedidosClientes;
         }
     
-        public static string calcularUltimaModificacion(Pedido pedido)
+        
+        public static string CalcularUltimaModificacion(Pedido pedido)
         {
             DateTime fechaActual = DateTime.Now;
             DateTime fechaUltimaModificacion = pedido.FechaModificacion;
@@ -36,7 +37,8 @@ namespace ViewModels
             string ultimaModificacion = "";
             string cliente = pedido.Cliente.Nombre;
 
-
+            
+            
             if (horasDiferencia < 1)
             {
                 double minutos = Math.Round(horasDiferencia * 60);

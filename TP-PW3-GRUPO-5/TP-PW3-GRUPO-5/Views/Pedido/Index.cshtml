@@ -1,4 +1,7 @@
-﻿@model List<Entidades.Pedido>
+﻿@model List<ViewModels.PedidoCliente>
+@{ 
+    ViewModels.ClientesEstadoPedido clientesEstadoPedido = (ViewModels.ClientesEstadoPedido) ViewData["selectFiltrado"];
+}
 @section Scripts{
     <script src="~/js/pedido.js"></script>
 }
@@ -14,9 +17,9 @@
                 <div class="col-12 col-md-4">
                     <select class="js-example-basic-single col-12" id="cliente" onchange="ObtenerResultados()">
                         <option value="">Cliente</option>
-                        @foreach (Entidades.Pedido pedido in Model)
+                        @foreach (string cliente in clientesEstadoPedido.Clientes)
                         {
-                            <option value="@pedido.Cliente.Nombre">@pedido.Cliente.Nombre</option>
+                            <option value="@cliente">@cliente</option>
                         }
                     </select>
                 </div>
@@ -24,9 +27,9 @@
                 <div class="col-12 col-md-4">
                     <select class="js-example-basic-single col-12" id="estado" onchange="ObtenerResultados()">
                         <option value="">Estado</option>
-                        @foreach (Entidades.Pedido pedido in Model)
+                        @foreach (string estado  in clientesEstadoPedido.EstadosPedidos)
                         {
-                            <option value="@pedido.EstadoPedido">@pedido.EstadoPedido</option>
+                            <option value="@estado">@estado</option>
                         }
                     </select>
                 </div>

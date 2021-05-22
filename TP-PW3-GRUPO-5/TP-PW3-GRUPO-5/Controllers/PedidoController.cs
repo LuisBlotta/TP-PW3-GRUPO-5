@@ -15,19 +15,17 @@ namespace TP_PW3_GRUPO_5.Controllers
         public IActionResult Index()
         {
             List<Pedido> pedidos = ObtenerPedidos();
-            var prueba = PedidoCliente.obtenerPedidosCliente(pedidos);
-
-
-            return View();
+            List<PedidoCliente> pedidosClientes = PedidoCliente.ObtenerPedidosCliente(pedidos);    
+            ViewData["selectFiltrado"] = ClientesEstadoPedido.ObtenerInfoSelects(pedidos);
+            return View(pedidosClientes);
         }
 
 
         [HttpPost]
         public IActionResult ObtenerFiltros([FromBody] PedidoFiltro pedidoFiltro)
         {
-
-            var resultado = JsonSerializer.Serialize(ObtenerPedidos(pedidoFiltro));
-
+            List<PedidoCliente> pedidosClientes = PedidoCliente.ObtenerPedidosCliente(ObtenerPedidos(pedidoFiltro));
+            var resultado = JsonSerializer.Serialize(pedidosClientes);
             return Content(resultado);
 
         }
@@ -46,6 +44,9 @@ namespace TP_PW3_GRUPO_5.Controllers
 
                 Cliente micliente3 = new Cliente();
                 micliente3.Nombre = "Windows";
+
+                Cliente micliente4 = new Cliente();
+                micliente4.Nombre = "Linux";
 
                 EstadoPedido estadoPedido1 = new EstadoPedido();
                 estadoPedido1.Descripcion = "Abierto";
@@ -86,7 +87,7 @@ namespace TP_PW3_GRUPO_5.Controllers
 
                 Pedido miPedido4 = new Pedido();
                 miPedido4.NroPedido = i;
-                miPedido4.Cliente = micliente3;
+                miPedido4.Cliente = micliente4;
                 miPedido4.EstadoPedido = estadoPedido3;
                 miPedido4.FechaCreacion = DateTime.Now.AddDays(-1);
                 miPedido4.FechaModificacion = DateTime.Now.AddDays(-1).AddHours(-3);
@@ -97,22 +98,26 @@ namespace TP_PW3_GRUPO_5.Controllers
 
             if (pedidoFiltro != null)
             {
-                //if (pedidoFiltro.Descripcion != "")
-                //{
-                //    listaArticulos = listaArticulos.Where(l => l.Descripcion == (articuloFiltro.Descripcion)).ToList();
-                //}
-                //if (articuloFiltro.Codigo != null)
-                //{
-                //    listaArticulos = listaArticulos.Where(l => l.Codigo == (articuloFiltro.Codigo)).ToList();
-                //}
-                //if (articuloFiltro.Eliminado)
-                //{
-                //    listaArticulos = listaArticulos.Where(l => l.FechaBorrado < DateTime.Now).ToList();
-                //}
+                if (pedidoFiltro.Cliente != "")
+                {
+                    listaPedidos = listaPedidos.Where(l => l.Cliente.Nombre == (pedidoFiltro.Cliente)).ToList();
+                }
+                if (pedidoFiltro.Estado != "")
+                {
+                    listaPedidos = listaPedidos.Where(l => l.EstadoPedido.Descripcion == (pedidoFiltro.Estado)).ToList();
+                }
+                if (pedidoFiltro.Eliminado)
+                {
+                    listaPedidos = listaPedidos.Where(l => l.FechaBorrado < DateTime.Now).ToList();
+                }
+                if (pedidoFiltro.UltimosDosMeses)
+                {
+                    listaPedidos = listaPedidos.Where(l => l.FechaCreacion >= DateTime.Now.AddMonths(-2)).ToList();
+                }
 
             }
 
-            listaPedidos = listaPedidos.OrderBy(u => u.EstadoPedido.Descripcion).ThenBy(o=> o.FechaModificacion).ToList();
+            listaPedidos = listaPedidos.OrderBy(u => u.EstadoPedido.Descripcion).ThenByDescending(o => o.FechaModificacion).ToList();
 
             return listaPedidos;
 

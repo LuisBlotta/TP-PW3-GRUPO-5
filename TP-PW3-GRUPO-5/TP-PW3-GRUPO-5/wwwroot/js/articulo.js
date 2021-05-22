@@ -76,6 +76,7 @@ $(document).ready(function () {
 function Paginacion() {
 
     $('#example').DataTable({
+        ordering: false,
         retrieve: true,
         destroy: true,
         "language": {

@@ -1,4 +1,4 @@
-﻿//Filtrado por nombre ,email y eliminados
+﻿//Filtrado por nombre ,estado y eliminados
 const btnEliminar = document.getElementById('eliminado');
 const cliente = document.getElementById('cliente');
 const estado = document.getElementById('estado');
@@ -13,10 +13,10 @@ function GenerarTabla(resultados) {
 
     resultados.forEach(resultado => {
         listado += `<tr><td>
-                ${resultado.Cliente.Nombre} - #${resultado.NroPedido}
+                ${resultado.Cliente} - #${resultado.NroPedido}
                 </td>
                 <td>
-                ${resultado.EstadoPedido.Descripcion}
+                ${resultado.Estado}
                 </td>
                 <td>
                 ${resultado.UltimaModificacion}
@@ -75,6 +75,7 @@ $(document).ready(function () {
 function Paginacion() {
 
     $('#example').DataTable({
+        ordering : false,
         retrieve: true,
         destroy: true,
         "language": {
