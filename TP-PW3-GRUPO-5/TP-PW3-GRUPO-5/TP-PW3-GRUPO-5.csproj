@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Clases_auxiliares\Clases_auxiliares.csproj" />
     <ProjectReference Include="..\Entidades\Entidades.csproj" />
+    <ProjectReference Include="..\Servicios\Servicios.csproj" />
     <ProjectReference Include="..\ViewModels\ViewModels.csproj" />
   </ItemGroup>
 

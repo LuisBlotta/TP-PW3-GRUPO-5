@@ -1,6 +1,7 @@
 ﻿using Clases_auxiliares;
 using Entidades;
 using Microsoft.AspNetCore.Mvc;
+using Servicios;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,16 @@ namespace TP_PW3_GRUPO_5.Controllers
 {
     public class ClienteController : Controller
     {
+        IClienteServicio clienteServicio;
+
+        public ClienteController()
+        {
+            clienteServicio = new ClienteServicio();    
+        }
         public IActionResult Index()
         {
-            return View(ObtenerClientes());
+            ViewData["selectClientes"] = clienteServicio.ObtenerSelectClientes();
+            return View(clienteServicio.ObtenerClientes());
         }
 
         public IActionResult NuevoCliente()
@@ -54,70 +62,9 @@ namespace TP_PW3_GRUPO_5.Controllers
         public IActionResult ObtenerFiltros([FromBody] ClienteFiltro clienteFiltro)
         {
 
-            var resultado = JsonSerializer.Serialize(ObtenerClientes(clienteFiltro));
+            var resultado = JsonSerializer.Serialize(clienteServicio.ObtenerClientes(clienteFiltro));
 
             return Content(resultado);
-
-        }
-
-        public List<Cliente> ObtenerClientes(ClienteFiltro clienteFiltro = null)
-        {
-
-            List<Cliente> listaClientes = new List<Cliente>();
-
-            for (int i = 0; i < 80; i++)
-            {
-                Cliente micliente1 = new Cliente();
-                micliente1.Nombre = "Pepe" + i;
-                micliente1.Numero = i;
-                micliente1.Telefono = "1111-2222";
-
-
-                listaClientes.Add(micliente1);
-
-                Cliente micliente2 = new Cliente();
-                micliente2.Nombre = "Juanito" + i;
-                micliente2.Numero = i;
-                micliente2.Telefono = "1111-2222";
-
-
-
-                listaClientes.Add(micliente2);
-
-                Cliente micliente3 = new Cliente();
-                micliente3.Nombre = "Manolo" + i;
-                micliente3.Numero = i;
-                micliente3.Telefono = "1111-2222";
-                micliente3.FechaBorrado = DateTime.Now.AddHours(+2);
-
-
-
-                listaClientes.Add(micliente3);
-
-
-            }
-
-            if (clienteFiltro != null)
-            {
-                if (clienteFiltro.Nombre != "")
-                {
-                    listaClientes = listaClientes.Where(l => l.Nombre == (clienteFiltro.Nombre)).ToList();
-                }
-                if (clienteFiltro.Numero != null)
-                {
-                    listaClientes = listaClientes.Where(l => l.Numero == (clienteFiltro.Numero)).ToList();
-                }
-                if (clienteFiltro.Eliminado)
-                {
-                    listaClientes = listaClientes.Where(l => l.FechaBorrado < DateTime.Now).ToList();
-                }
-
-            }
-
-
-            listaClientes = listaClientes.OrderBy(u => u.Nombre).ToList();
-
-            return listaClientes;
 
         }
     }

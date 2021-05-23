@@ -1,4 +1,7 @@
 ﻿@model List<Entidades.Cliente>
+@{ 
+    List<string> selectClientes = (List<string>)ViewData["selectClientes"];
+}
 @section Scripts{
     <script src="~/js/cliente.js"></script>
 }
@@ -14,9 +17,9 @@
                 <div class="col-12 col-md-4">
                     <select class="js-example-basic-single col-12" id="nombre" onchange="ObtenerResultados()">
                         <option value="">Nombre</option>
-                        @foreach (Entidades.Cliente cliente in Model)
+                        @foreach (string cliente in selectClientes)
                         {
-                            <option value="@cliente.Nombre">@cliente.Nombre</option>
+                            <option value="@cliente">@cliente</option>
                         }
                     </select>
                 </div>
@@ -24,9 +27,9 @@
                 <div class="col-12 col-md-4">
                     <select class="js-example-basic-single col-12" id="numero" onchange="ObtenerResultados()">
                         <option value="">Numero</option>
-                        @foreach (Entidades.Cliente cliente1 in Model)
+                        @foreach (Entidades.Cliente cliente in Model)
                         {
-                            <option value="@cliente1.Numero">@cliente1.Numero</option>
+                            <option value="@cliente.Numero">@cliente.Numero</option>
                         }
                     </select>
                 </div>
