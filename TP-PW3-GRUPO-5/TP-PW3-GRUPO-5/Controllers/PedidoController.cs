@@ -14,10 +14,13 @@ namespace TP_PW3_GRUPO_5.Controllers
     public class PedidoController : Controller
     {
         IPedidoServicio pedidoServicio;
-
+        IClienteServicio clienteServicio;
+        IArticuloServicio articuloServicio;
         public PedidoController()
         {
             pedidoServicio = new PedidoServicio();
+            clienteServicio = new ClienteServicio();
+            articuloServicio = new ArticuloServicio();
         }
         public IActionResult Index()
         {
@@ -35,6 +38,16 @@ namespace TP_PW3_GRUPO_5.Controllers
             var resultado = JsonSerializer.Serialize(pedidosClientes);
             return Content(resultado);
 
+        }
+
+        public IActionResult NuevoPedido()
+        {
+            ClientesArticulos clientesArticulos = ClientesArticulos.ObtenerClientesArticulos
+                (
+                clienteServicio.ObtenerClientes(), articuloServicio.ObtenerArticulos()
+                );
+
+            return View(clientesArticulos);
         }
     }
 }
