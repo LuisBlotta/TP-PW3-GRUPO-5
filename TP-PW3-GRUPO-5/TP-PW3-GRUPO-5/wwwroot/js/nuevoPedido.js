@@ -2,46 +2,40 @@
 
 function AgregarArticulo() {
     let codigo = Number.parseInt(document.getElementById("articulo").value);
-    let descripcion = "UNA DESCRIPCION";
+    let select = document.getElementById("articulo");
+    let descripcion = select.options[select.selectedIndex].text;
     let cantidad = Number.parseInt(document.getElementById("cantidad").value);
 
     if (!Number.isNaN(codigo) && !Number.isNaN(cantidad)) {
+        let articulo = {
+            Codigo: codigo,
+            Descripcion: descripcion,
+            Cantidad: cantidad
+        };
+
         if (articulos.length != 0) {
-            
+
             if (BuscarArticulo(codigo)) {
-                let posicion = articulos.findIndex(o => o.Codigo = codigo);
+                let posicion = articulos.findIndex(o => o.Codigo == codigo);
                 let articuloBuscado = articulos[posicion];
-                let cantidadAnterior = articuloBuscado.Cantidad;
-                let cantidadActual = cantidadAnterior + cantidad;
-                let articulo = {
-                    Codigo: codigo,
-                    Descripcion: descripcion,
-                    Cantidad: cantidadActual
-                };
-                articulos.splice(posicion,1, articulo);
-                //Aca hay que agregar logica que ordene la lista por el codigo.
+                let cantidadNueva = articuloBuscado.Cantidad;
+                articulo.Cantidad += cantidadNueva;
+
+                articulos.splice(posicion, 1);
+                articulos.push(articulo);
+                articulos.sort(Compare);
                 CargarTabla(articulos);
                 $('#errorSelect').html("");
             } else {
-                let articulo = {
-                    Codigo: codigo,
-                    Descripcion: descripcion,
-                    Cantidad: cantidad
-                };
                 articulos.push(articulo);
-                //Aca hay que agregar logica que ordene la lista por el codigo.
+                articulos.sort(Compare);
                 CargarTabla(articulos);
-                $('#errorSelect').html("");            
+                $('#errorSelect').html("");
             }
 
         } else {
-            let articulo = {
-                Codigo: codigo,
-                Descripcion: descripcion,
-                Cantidad: cantidad
-            };
             articulos.push(articulo);
-            //Aca hay que agregar logica que ordene la lista por el codigo.
+            articulos.sort(Compare);
             CargarTabla(articulos);
             $('#errorSelect').html("");
         }
@@ -51,7 +45,12 @@ function AgregarArticulo() {
         $('#errorSelect').html(error);
     }
 }
+function Compare(a, b) {
+    if (a.Codigo > b.Codigo) return 1;
+    if (a.Codigo < b.Codigo) return -1;
 
+    return 0;
+}
 function BuscarArticulo(codigo) {
     let seEncontro = false;
     articulos.forEach(a => {
