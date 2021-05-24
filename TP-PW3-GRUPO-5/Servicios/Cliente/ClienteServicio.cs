@@ -25,7 +25,7 @@ namespace Servicios
                 listaClientes.Add(micliente1);
 
                 Cliente micliente2 = new Cliente();
-                micliente2.Nombre = "Juanito" + i;
+                micliente2.Nombre = "Juanito";
                 micliente2.Numero = i;
                 micliente2.Telefono = "1111-2222";
 
@@ -34,10 +34,10 @@ namespace Servicios
                 listaClientes.Add(micliente2);
 
                 Cliente micliente3 = new Cliente();
-                micliente3.Nombre = "Manolo" + i;
+                micliente3.Nombre = "Manolo";
                 micliente3.Numero = i;
                 micliente3.Telefono = "1111-2222";
-                micliente3.FechaBorrado = DateTime.Now.AddHours(+2);
+                micliente3.BorradoPor = new Usuario();
 
 
 
@@ -58,7 +58,7 @@ namespace Servicios
                 }
                 if (clienteFiltro.Eliminado)
                 {
-                    listaClientes = listaClientes.Where(l => l.FechaBorrado < DateTime.Now).ToList();
+                    listaClientes = listaClientes.Where(l => l.BorradoPor == null).ToList();
                 }
 
             }

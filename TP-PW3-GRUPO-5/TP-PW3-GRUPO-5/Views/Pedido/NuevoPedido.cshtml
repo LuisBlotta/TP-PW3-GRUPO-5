@@ -16,7 +16,7 @@
                         <option value="">Cliente</option>
                         @foreach (Entidades.Cliente c in Model.Clientes)
                         {
-                            <option value="@c.Numero">@c.Nombre</option>
+                            <option value="@c.Numero">@c.Nombre #@c.Numero</option>
                         }
                     </select>
                 </div>
@@ -27,7 +27,7 @@
                         <option value="">Articulo</option>
                         @foreach (Entidades.Articulo a in Model.Articulos)
                         {
-                            <option value="@a.Codigo">@a.Descripcion</option>
+                            <option value="@a.Codigo">@a.Descripcion #@a.Codigo</option>
                         }
                     </select>
                 </div>

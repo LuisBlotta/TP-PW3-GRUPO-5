@@ -4,6 +4,7 @@ function AgregarArticulo() {
     let codigo = Number.parseInt(document.getElementById("articulo").value);
     let select = document.getElementById("articulo");
     let descripcion = select.options[select.selectedIndex].text;
+    descripcion = descripcion.split("#")[0];
     let cantidad = Number.parseInt(document.getElementById("cantidad").value);
 
     if (!Number.isNaN(codigo) && !Number.isNaN(cantidad)) {
@@ -22,22 +23,33 @@ function AgregarArticulo() {
                 articulo.Cantidad += cantidadNueva;
 
                 articulos.splice(posicion, 1);
-                articulos.push(articulo);
+                if (articulo.Cantidad > 0) {
+                    articulos.push(articulo);
+                    $('#errorSelect').html("");
+                }
                 articulos.sort(Compare);
                 CargarTabla(articulos);
-                $('#errorSelect').html("");
             } else {
-                articulos.push(articulo);
+                if (cantidad > 0) {
+                    articulos.push(articulo);
+                    $('#errorSelect').html("");
+                } else {
+                    $('#errorSelect').html("Ingrese una cantidad valida");
+                }
                 articulos.sort(Compare);
                 CargarTabla(articulos);
-                $('#errorSelect').html("");
             }
 
         } else {
-            articulos.push(articulo);
+            if (cantidad > 0) {
+                articulos.push(articulo);
+                $('#errorSelect').html("");
+            } else {
+                $('#errorSelect').html("Ingrese una cantidad valida");
+            }
             articulos.sort(Compare);
             CargarTabla(articulos);
-            $('#errorSelect').html("");
+            
         }
 
     } else {

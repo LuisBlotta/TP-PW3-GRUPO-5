@@ -17,23 +17,23 @@ namespace Servicios
             for (int i = 0; i < 80; i++)
             {
                 Articulo miArticulo1 = new Articulo();
-                miArticulo1.Descripcion = "Tuerca" + i;
+                miArticulo1.Descripcion = "Tuerca";
                 miArticulo1.Codigo = i;
 
 
                 listaArticulos.Add(miArticulo1);
 
                 Articulo miArticulo2 = new Articulo();
-                miArticulo2.Descripcion = "Tornillo" + i;
+                miArticulo2.Descripcion = "Tornillo";
                 miArticulo2.Codigo = i;
 
 
                 listaArticulos.Add(miArticulo2);
 
                 Articulo miArticulo3 = new Articulo();
-                miArticulo3.Descripcion = "Martillo" + i;
+                miArticulo3.Descripcion = "Martillo";
                 miArticulo3.Codigo = i;
-                miArticulo3.FechaBorrado = DateTime.Now.AddHours(+2);
+                miArticulo3.BorradoPor = new Usuario();
 
 
                 listaArticulos.Add(miArticulo3);
@@ -53,7 +53,7 @@ namespace Servicios
                 }
                 if (articuloFiltro.Eliminado)
                 {
-                    listaArticulos = listaArticulos.Where(l => l.FechaBorrado < DateTime.Now).ToList();
+                    listaArticulos = listaArticulos.Where(l => l.BorradoPor == null ).ToList();
                 }
 
             }

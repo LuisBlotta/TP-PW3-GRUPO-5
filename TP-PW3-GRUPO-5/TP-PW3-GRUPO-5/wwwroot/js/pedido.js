@@ -25,12 +25,16 @@ function GenerarTabla(resultados) {
                 <a class="me-3" href="/pedido/detallePedido?accion=ver" data-toggle="tooltip"
                     title="Ver"><i class="fas fa-eye"></i></a>
                 <a class="me-3" href="/pedido/detallePedido?accion=editar" data-toggle="tooltip"
-                    title="Editar"><i class="fas fa-edit"></i></a>
-                <a href="#" data-toggle="tooltip" title="Borrar">
-                    <i class="fas fa-trash-alt"></i>
-                </a>
-                </td>        
-        </tr>`
+                    title="Editar"><i class="fas fa-edit"></i></a>`;
+        if (!resultado.seBorro) {
+            listado += `
+            <a href = "#" data-toggle="tooltip" title = "Borrar" >
+                <i class="fas fa-trash-alt"></i>
+            </a > `;
+        } else {
+            listado += `<i title = "Eliminado" class="fas fa-ban" ></i > `;
+        }
+        listado += `</td ></tr >`;
     })
     $('#tbody').html(listado);
 

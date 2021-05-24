@@ -61,7 +61,7 @@ namespace Servicios
                 miPedido3.EstadoPedido = estadoPedido3;
                 miPedido3.FechaCreacion = DateTime.Now.AddDays(-5);
                 miPedido3.FechaModificacion = DateTime.Now.AddMinutes(-10);
-                miPedido3.FechaBorrado = DateTime.Now.AddHours(+2);
+                miPedido3.BorradoPor = new Usuario();
 
                 listaPedidos.Add(miPedido3);
 
@@ -71,7 +71,8 @@ namespace Servicios
                 miPedido4.EstadoPedido = estadoPedido3;
                 miPedido4.FechaCreacion = DateTime.Now.AddDays(-1);
                 miPedido4.FechaModificacion = DateTime.Now.AddDays(-1).AddHours(-3);
-                miPedido4.FechaBorrado = DateTime.Now.AddHours(+2);
+                miPedido4.BorradoPor = new Usuario();
+
 
                 listaPedidos.Add(miPedido4);
             }
@@ -88,7 +89,7 @@ namespace Servicios
                 }
                 if (pedidoFiltro.Eliminado)
                 {
-                    listaPedidos = listaPedidos.Where(l => l.FechaBorrado < DateTime.Now).ToList();
+                    listaPedidos = listaPedidos.Where(l => l.BorradoPor == null).ToList();
                 }
                 if (pedidoFiltro.UltimosDosMeses)
                 {

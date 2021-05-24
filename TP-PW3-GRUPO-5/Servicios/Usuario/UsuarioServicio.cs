@@ -34,7 +34,7 @@ namespace Servicios
                 miUsuario3.Nombre = "Roque" + i;
                 miUsuario3.Email = "roque_perez@gmail.com";
                 miUsuario3.Apellido = "Perez" + i;
-                miUsuario3.FechaBorrado = DateTime.Now.AddHours(+2);
+                miUsuario3.BorradoPor = new Usuario();
 
                 listaUsuarios.Add(miUsuario3);
             }
@@ -51,13 +51,13 @@ namespace Servicios
                 }
                 if (usuarioFiltro.Eliminado)
                 {
-                    listaUsuarios = listaUsuarios.Where(l => l.FechaBorrado < DateTime.Now).ToList();
+                    listaUsuarios = listaUsuarios.Where(l => l.BorradoPor == null).ToList();
                 }
 
-            }
+            }            
 
 
-            listaUsuarios = listaUsuarios.OrderBy(u => u.Nombre).ToList();
+           listaUsuarios = listaUsuarios.OrderBy(u => u.Nombre).ToList();
 
             return listaUsuarios;
         }

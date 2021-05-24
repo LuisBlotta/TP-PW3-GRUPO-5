@@ -10,6 +10,7 @@ namespace ViewModels
         public int NroPedido { get; set; }
         public string Estado { get; set; }
         public string UltimaModificacion { get; set; }
+        public Boolean seBorro { get; set; }
 
         public static List<PedidoCliente> ObtenerPedidosCliente (List<Pedido> pedidos)
         {
@@ -22,6 +23,8 @@ namespace ViewModels
                 pedidoCliente.NroPedido = pedido.NroPedido;
                 pedidoCliente.Estado = pedido.EstadoPedido.Descripcion;
                 pedidoCliente.UltimaModificacion = CalcularUltimaModificacion(pedido);
+                pedidoCliente.seBorro = pedido.BorradoPor != null ? true : false;
+
                 pedidosClientes.Add(pedidoCliente);
             }
 
