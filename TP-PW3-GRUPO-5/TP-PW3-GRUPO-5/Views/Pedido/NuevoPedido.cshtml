@@ -16,7 +16,7 @@
         <form>
             <div class="row form-group">
                 <div class="col-md-4 d-flex justify-content-start">
-                    <select class="js-example-basic-single col-12" id="cliente" name="cliente">
+                    <select class="select2NuevoPedido col-12" id="cliente" name="cliente">
                         <option value="">Cliente</option>
                         @foreach (Entidades.Cliente c in Model.Clientes)
                         {
@@ -27,7 +27,7 @@
             </div>
             <div class="row form-group">
                 <div class="col-md-4">
-                    <select class="js-example-basic-single col-12" id="articulo" name="articulo">
+                    <select class="select2NuevoPedido col-12" id="articulo" name="articulo">
                         <option value="">Articulo</option>
                         @foreach (Entidades.Articulo a in Model.Articulos)
                         {
@@ -43,7 +43,7 @@
                 </div>
             </div>
             <div class="row d-flex justify-content-center">
-                <p class="text-danger" id="errorSelect"></p>
+                <label class="text-danger" id="errorSelect"></label>
             </div>
             <div class="row">
                 <div class="table-container">

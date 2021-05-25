@@ -12,7 +12,7 @@
             </div>
             <div class="filtro-container d-flex justify-content-between align-items-center row">
                 <div class="col-12 col-md-4">
-                    <select class="js-example-basic-single col-12" id="descripcion" onchange="ObtenerResultados()">
+                    <select class="select2Articulo col-12" id="descripcion" onchange="ObtenerResultados()">
                         <option value="">Descripcion</option>
                         @foreach (Entidades.Articulo articulo in Model)
                         {
@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="col-12 col-md-4">
-                    <select class="js-example-basic-single col-12" id="codigo" onchange="ObtenerResultados()">
+                    <select class="select2Articulo col-12" id="codigo" onchange="ObtenerResultados()">
                         <option value="">Codigo</option>
                         @foreach (Entidades.Articulo articulo in Model)
                         {

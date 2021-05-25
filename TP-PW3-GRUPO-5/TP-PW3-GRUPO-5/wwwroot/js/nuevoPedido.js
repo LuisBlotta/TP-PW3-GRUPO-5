@@ -15,9 +15,8 @@ function AgregarArticulo() {
         };
 
         if (articulos.length != 0) {
-
-            if (BuscarArticulo(codigo)) {
-                let posicion = articulos.findIndex(o => o.Codigo == codigo);
+            let posicion = articulos.findIndex(o => o.Codigo == codigo);
+            if (posicion != -1) {
                 let articuloBuscado = articulos[posicion];
                 let cantidadNueva = articuloBuscado.Cantidad;
                 articulo.Cantidad += cantidadNueva;
@@ -104,36 +103,43 @@ function CargarTabla(articulos) {
 //Enviar Formulario
 
 function MandarForm(accion) {
-
     let selectCliente = document.getElementById("cliente");
-    let nombreCl = selectCliente.options[selectCliente.selectedIndex].text;
-    nombreCl = nombreCl.split("#")[0];
+    let idCliente = Number.parseInt(selectCliente.value);
+
+    if (articulos.length > 0 && !Number.isNaN(idCliente)) {
+        let nombreCl = selectCliente.options[selectCliente.selectedIndex].text;
+        nombreCl = nombreCl.split("#")[0];
 
 
-    let data = {
-        NumeroCliente: document.getElementById('cliente').value,
-        Articulos: articulos,
-        Accion: accion,
-        Comentarios: document.getElementById('comentarios').value
+        let data = {
+            NumeroCliente: document.getElementById('cliente').value,
+            Articulos: articulos,
+            Accion: accion,
+            Comentarios: document.getElementById('comentarios').value
+        }
+
+        fetch('https://localhost:44344/Pedido/NuevoPedido', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response =>
+                response.json()
+            )
+            .then(data => {
+                if (data.Accion == "guardar") {
+                    window.location.href = '/Pedido/Index';
+                }
+                MostrarMensaje(data.Mensaje, nombreCl);
+                ResetForm();
+            })
+    } else {
+        let error = "Debe seleccionar un cliente y al menos un articulo.";
+        $('#errorSelect').html(error);
     }
 
-    fetch('https://localhost:44344/Pedido/NuevoPedido', {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-        .then(response =>
-            response.json()
-        )
-        .then(data => {
-            if (data.Accion == "guardar") {
-                window.location.href = '/Pedido/Index';
-            }
-            MostrarMensaje(data.Mensaje,nombreCl);
-            ResetForm();
-        })
 }
 
 function MostrarMensaje(mensaje, nombreCl) {
@@ -145,15 +151,17 @@ function MostrarMensaje(mensaje, nombreCl) {
 
 function ResetForm() {
     articulos = new Array();
-    document.getElementById("cliente").value = "";
-    document.getElementById("articulo").value = "";
+    document.getElementById("cliente").selectedIndex = 0;
+    document.getElementById("articulo").selectedIndex = 0;
+    $('.select2NuevoPedido').select2();
     document.getElementById("cantidad").value = "";
     document.getElementById("comentarios").value = "";
+    $('#errorSelect').html("");
     CargarTabla(articulos);
 }
 // Select2
 $(document).ready(function () {
-    $('.js-example-basic-single').select2();
+    $('.select2NuevoPedido').select2();
 });
 
 $(document).ready(function () {
