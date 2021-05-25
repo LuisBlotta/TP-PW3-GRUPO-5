@@ -17,10 +17,10 @@ namespace ViewModels
         {
             ClientesArticulos clientesArticulos = new ClientesArticulos();
 
-            //Filtra los que no estan eliminados. Faltaria logica para filtrar los quen no tengan pedidos abiertos en BD
-            clientesArticulos.Clientes = clientes.Where(o => o.FechaBorrado < DateTime.Now).OrderBy(o => o.Nombre).ToList();
             //Filtra los que no estan eliminados.
-            clientesArticulos.Articulos = articulos.Where(o => o.FechaBorrado < DateTime.Now).OrderBy(o => o.Descripcion).ToList();
+            clientesArticulos.Clientes = clientes.Where(o => o.BorradoPor == null).OrderBy(o => o.Nombre).ToList();
+            //Filtra los que no estan eliminados.
+            clientesArticulos.Articulos = articulos.Where(o => o.BorradoPor == null).OrderBy(o => o.Descripcion).ToList();
 
             return clientesArticulos;
         }

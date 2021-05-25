@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Entidades
 {
@@ -6,7 +7,7 @@ namespace Entidades
     {
         public int IdPedido { get; set; }
         public int NroPedido { get; set; }
-        public Articulo Articulo { get; set; }
+        public List<Articulo> Articulos { get; set; }
         public Cliente Cliente { get; set; }
         public EstadoPedido EstadoPedido { get; set; }
         public string Comentarios { get; set; }
@@ -26,7 +27,7 @@ namespace Entidades
                        Usuario borradopor,
                        int idPedido,
                        int nroPedido,
-                       Articulo articulo,
+                       List<Articulo> articulos,
                        Cliente cliente,
                        EstadoPedido estadoPedido,
                        string comentarios) : base(fechacreacion, fechamodificacion, fechaborrado, creadopor, modificadopor, borradopor)
@@ -34,7 +35,7 @@ namespace Entidades
 
             IdPedido = idPedido;
             NroPedido = nroPedido;
-            Articulo = articulo;
+            Articulos = articulos;
             Cliente = cliente;
             EstadoPedido = estadoPedido;
             Comentarios = comentarios;

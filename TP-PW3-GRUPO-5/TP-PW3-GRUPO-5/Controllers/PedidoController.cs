@@ -49,5 +49,21 @@ namespace TP_PW3_GRUPO_5.Controllers
 
             return View(clientesArticulos);
         }
+        [HttpPost]
+        public IActionResult NuevoPedido([FromBody] PedidoNuevoFiltro pedidoNuevoFiltro)
+        {
+            AccionMensaje accionMensaje = new AccionMensaje();
+            string resultado = "";
+            if (pedidoNuevoFiltro.Accion == "guardar")
+            {
+                accionMensaje.Accion = pedidoNuevoFiltro.Accion;
+                 resultado = JsonSerializer.Serialize(accionMensaje);
+                return Content(resultado);
+            }
+
+            accionMensaje.Mensaje = "El pedido ha sido creado exitosamente.";
+            resultado = JsonSerializer.Serialize(accionMensaje);
+            return Content(resultado);
+        }
     }
 }

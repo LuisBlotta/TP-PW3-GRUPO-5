@@ -2,8 +2,8 @@
 
 function AgregarArticulo() {
     let codigo = Number.parseInt(document.getElementById("articulo").value);
-    let select = document.getElementById("articulo");
-    let descripcion = select.options[select.selectedIndex].text;
+    let selectArticulo = document.getElementById("articulo");
+    let descripcion = selectArticulo.options[selectArticulo.selectedIndex].text;
     descripcion = descripcion.split("#")[0];
     let cantidad = Number.parseInt(document.getElementById("cantidad").value);
 
@@ -49,7 +49,7 @@ function AgregarArticulo() {
             }
             articulos.sort(Compare);
             CargarTabla(articulos);
-            
+
         }
 
     } else {
@@ -101,45 +101,63 @@ function CargarTabla(articulos) {
 
 };
 
-//Obtener resultados filtrados
+//Enviar Formulario
 
-//function ObtenerResultados() {
-//    var codigo = document.getElementById('codigo').value;
+function MandarForm(accion) {
 
-//    if (codigo == "") {
-//        codigo = null;
-//    }
-
-//    let data = {
-//        Descripcion: document.getElementById('descripcion').value,
-//        Codigo: codigo,
-//        Eliminado: document.getElementById('eliminado').checked
-//    }
-
-//    fetch('https://localhost:44344/articulo/ObtenerFiltros', {
-//        method: 'POST',
-//        headers: {
-//            'Content-type': 'application/json'
-//        },
-//        body: JSON.stringify(data)
-//    })
-//        .then(response =>
-//            response.json()
-
-//        )
-//        .then(data => {
-//            GenerarTabla(data);
-//            Paginacion();
-//        })
-//}
+    let selectCliente = document.getElementById("cliente");
+    let nombreCl = selectCliente.options[selectCliente.selectedIndex].text;
+    nombreCl = nombreCl.split("#")[0];
 
 
+    let data = {
+        NumeroCliente: document.getElementById('cliente').value,
+        Articulos: articulos,
+        Accion: accion,
+        Comentarios: document.getElementById('comentarios').value
+    }
+
+    fetch('https://localhost:44344/Pedido/NuevoPedido', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response =>
+            response.json()
+        )
+        .then(data => {
+            if (data.Accion == "guardar") {
+                window.location.href = '/Pedido/Index';
+            }
+            MostrarMensaje(data.Mensaje,nombreCl);
+            ResetForm();
+        })
+}
+
+function MostrarMensaje(mensaje, nombreCl) {
+    let html = `<div class="alert alert-success alert-dismissible "><label>Pedido de ${nombreCl} nro. 123 creado con exito</label>
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    </div>`
+    $('#alert').html(html);
+}
+
+function ResetForm() {
+    articulos = new Array();
+    document.getElementById("cliente").value = "";
+    document.getElementById("articulo").value = "";
+    document.getElementById("cantidad").value = "";
+    document.getElementById("comentarios").value = "";
+    CargarTabla(articulos);
+}
 // Select2
 $(document).ready(function () {
     $('.js-example-basic-single').select2();
 });
 
 $(document).ready(function () {
+    $('.alert').hide();
     CargarTabla(articulos);
 });
 
