@@ -79,6 +79,7 @@ function CargarTabla(articulos) {
                    <td colspan = "4" >No se cargaron articulos</td >
                    </tr >`;
     } else {
+        let posicion = 0;
         articulos.forEach(articulo => {
             listado += `<tr><td>
                 ${articulo.Descripcion}
@@ -90,9 +91,10 @@ function CargarTabla(articulos) {
                 ${articulo.Cantidad}
                 </td>
                 <td>
-                <a>Quitar</a>
+                <a onclick="quitarArticulo(${posicion})">Quitar</a>
                 </td>                  
         </tr>`
+            posicion++;
         })
     }
 
@@ -157,6 +159,12 @@ function ResetForm() {
     document.getElementById("cantidad").value = "";
     document.getElementById("comentarios").value = "";
     $('#errorSelect').html("");
+    CargarTabla(articulos);
+}
+
+function quitarArticulo(posicion) {
+    articulos.splice(posicion, 1);
+    articulos.sort(Compare);
     CargarTabla(articulos);
 }
 // Select2
