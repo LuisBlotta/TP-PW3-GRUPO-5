@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TP_PW3_GRUPO_5.Models;
 
 namespace TP_PW3_GRUPO_5
 {

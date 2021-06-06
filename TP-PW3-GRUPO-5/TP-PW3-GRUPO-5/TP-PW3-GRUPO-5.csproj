@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Clases_auxiliares\Clases_auxiliares.csproj" />
+    <ProjectReference Include="..\Contexto_de_datos\Contexto_de_datos.csproj" />
     <ProjectReference Include="..\Entidades\Entidades.csproj" />
     <ProjectReference Include="..\Servicios\Servicios.csproj" />
     <ProjectReference Include="..\ViewModels\ViewModels.csproj" />
