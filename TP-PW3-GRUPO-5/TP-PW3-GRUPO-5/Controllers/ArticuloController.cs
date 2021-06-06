@@ -3,20 +3,25 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Entidades;
+//using Entidades;
 using Servicios;
 using Clases_auxiliares;
 using System.Text.Json;
+using TP_PW3_GRUPO_5.Models;
 
 namespace TP_PW3_GRUPO_5.Controllers
 {
     public class ArticuloController : Controller
     {
         IArticuloServicio articuloServicio;
+        _20211CTPContext context;
 
-        public ArticuloController()
+           
+
+        public ArticuloController(_20211CTPContext ctx)
         {
-             articuloServicio = new ArticuloServicio();
+            context = ctx;
+            articuloServicio = new ArticuloServicio();
         }
         public IActionResult Index()
         {
@@ -29,6 +34,31 @@ namespace TP_PW3_GRUPO_5.Controllers
             return View();
         }
 
+        public IActionResult PruebaNuevoArticulo()
+        {
+            Models.Articulo prueba = new Models.Articulo();
+
+
+            prueba.Codigo = "8";
+            prueba.Descripcion = "PruebaNuevoArt";
+
+            context.Articulos.Add(prueba);
+            context.SaveChanges();
+
+            return View(context.Articulos.ToList());
+            //return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult PruebaModificarArticulo(int id)
+        {
+            Models.Articulo articulo = context.Articulos.Find(id);
+            articulo.Codigo = "2";
+            context.SaveChanges();
+
+            return RedirectToAction(nameof(PruebaNuevoArticulo));
+            //return RedirectToAction(nameof(Index));
+        }
+
         [HttpPost]
         public IActionResult NuevoArticulo(Articulo articulo)
         {
@@ -39,7 +69,7 @@ namespace TP_PW3_GRUPO_5.Controllers
         {
             Articulo miArticulo1 = new Articulo();
             miArticulo1.IdArticulo = 205;
-            miArticulo1.Codigo = 22;
+            miArticulo1.Codigo = "22";
             miArticulo1.Descripcion = "Maquina de cortar pasto";
 
             ViewData["accion"] = accion;
