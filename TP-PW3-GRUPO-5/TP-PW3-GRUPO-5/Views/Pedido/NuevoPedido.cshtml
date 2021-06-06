@@ -18,7 +18,7 @@
                 <div class="col-md-4 d-flex justify-content-start">
                     <select class="select2NuevoPedido col-12" id="cliente" name="cliente">
                         <option value="">Cliente</option>
-                        @foreach (Entidades.Cliente c in Model.Clientes)
+                        @foreach (Contexto_de_datos.Models.Cliente c in Model.Clientes)
                         {
                             <option value="@c.Numero">@c.Nombre #@c.Numero</option>
                         }
@@ -29,7 +29,7 @@
                 <div class="col-md-4">
                     <select class="select2NuevoPedido col-12" id="articulo" name="articulo">
                         <option value="">Articulo</option>
-                        @foreach (Entidades.Articulo a in Model.Articulos)
+                        @foreach (Contexto_de_datos.Models.Articulo a in Model.Articulos)
                         {
                             <option value="@a.Codigo">@a.Descripcion #@a.Codigo</option>
                         }

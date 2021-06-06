@@ -41,15 +41,9 @@ function GenerarTabla(resultados) {
 //Obtener resultados filtrados
 
 function ObtenerResultados() {
-    var codigo = document.getElementById('codigo').value;
-
-    if (codigo == "") {
-        codigo = null;
-    }
-
     let data = {
         Descripcion: document.getElementById('descripcion').value,
-        Codigo: codigo,
+        Codigo: document.getElementById('codigo').value,
         Eliminado: document.getElementById('eliminado').checked
     }
 

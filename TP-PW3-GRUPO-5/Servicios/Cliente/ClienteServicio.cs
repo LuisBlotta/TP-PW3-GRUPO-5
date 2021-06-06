@@ -1,5 +1,5 @@
 ﻿using Clases_auxiliares;
-using Entidades;
+using Contexto_de_datos.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +37,7 @@ namespace Servicios
                 micliente3.Nombre = "Manolo";
                 micliente3.Numero = i;
                 micliente3.Telefono = "1111-2222";
-                micliente3.BorradoPor = new Usuario();
+                micliente3.BorradoPor = 1;
 
 
 

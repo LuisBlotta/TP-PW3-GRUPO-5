@@ -1,4 +1,4 @@
-﻿@model List<Entidades.Articulo>
+﻿@model List<Contexto_de_datos.Models.Articulo>
 @section Scripts{
     <script src="~/js/articulo.js"></script>
 }
@@ -14,7 +14,7 @@
                 <div class="col-12 col-md-4">
                     <select class="select2Articulo col-12" id="descripcion" onchange="ObtenerResultados()">
                         <option value="">Descripcion</option>
-                        @foreach (Entidades.Articulo articulo in Model)
+                        @foreach (Contexto_de_datos.Models.Articulo articulo in Model)
                         {
                             <option value="@articulo.Descripcion">@articulo.Descripcion</option>
                         }
@@ -24,7 +24,7 @@
                 <div class="col-12 col-md-4">
                     <select class="select2Articulo col-12" id="codigo" onchange="ObtenerResultados()">
                         <option value="">Codigo</option>
-                        @foreach (Entidades.Articulo articulo in Model)
+                        @foreach (Contexto_de_datos.Models.Articulo articulo in Model)
                         {
                             <option value="@articulo.Codigo">@articulo.Codigo</option>
                         }

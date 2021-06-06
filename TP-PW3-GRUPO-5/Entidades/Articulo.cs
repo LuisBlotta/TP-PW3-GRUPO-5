@@ -7,7 +7,7 @@ namespace Entidades
     {
         public int IdArticulo { get; set; }
         [Required(ErrorMessage ="Debe ingresar un código de artículo")]
-        public int Codigo { get; set; }
+        public string Codigo { get; set; }
         [Required(ErrorMessage = "Debe ingresar una descripción del artículo")]
         public string Descripcion { get; set; }
 
@@ -23,7 +23,7 @@ namespace Entidades
                         Usuario modificadopor,
                         Usuario borradopor,
                         int idArticulo, 
-                        int codigo, 
+                        string codigo, 
                         string descripcion) : base(fechacreacion, fechamodificacion, fechaborrado, creadopor, modificadopor, borradopor)
         {
 

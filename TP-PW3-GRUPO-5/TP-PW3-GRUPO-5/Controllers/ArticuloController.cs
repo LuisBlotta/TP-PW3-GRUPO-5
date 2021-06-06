@@ -26,7 +26,7 @@ namespace TP_PW3_GRUPO_5.Controllers
         }
         public IActionResult Index()
         {
-            return View(articuloServicio.ObtenerArticulos());
+            return View(context.Articulos.ToList());
         }
 
         public IActionResult NuevoArticulo()

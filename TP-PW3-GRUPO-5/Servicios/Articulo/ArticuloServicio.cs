@@ -1,5 +1,5 @@
 ﻿using Clases_auxiliares;
-using Entidades;
+using Contexto_de_datos.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,36 +10,11 @@ namespace Servicios
 {
     public class ArticuloServicio : IArticuloServicio
     {
+        _20211CTPContext context = new _20211CTPContext();
+
         public List<Articulo> ObtenerArticulos(ArticuloFiltro articuloFiltro = null)
         {
-            List<Articulo> listaArticulos = new List<Articulo>();
-
-            for (int i = 0; i < 80; i++)
-            {
-                Articulo miArticulo1 = new Articulo();
-                miArticulo1.Descripcion = "Tuerca";
-                miArticulo1.Codigo = i;
-
-
-                listaArticulos.Add(miArticulo1);
-
-                Articulo miArticulo2 = new Articulo();
-                miArticulo2.Descripcion = "Tornillo";
-                miArticulo2.Codigo = i;
-
-
-                listaArticulos.Add(miArticulo2);
-
-                Articulo miArticulo3 = new Articulo();
-                miArticulo3.Descripcion = "Martillo";
-                miArticulo3.Codigo = i;
-                miArticulo3.BorradoPor = new Usuario();
-
-
-                listaArticulos.Add(miArticulo3);
-
-
-            }
+            List<Articulo> listaArticulos = context.Articulos.ToList();
 
             if (articuloFiltro != null)
             {
@@ -47,7 +22,7 @@ namespace Servicios
                 {
                     listaArticulos = listaArticulos.Where(l => l.Descripcion == (articuloFiltro.Descripcion)).ToList();
                 }
-                if (articuloFiltro.Codigo != null)
+                if (articuloFiltro.Codigo != "")
                 {
                     listaArticulos = listaArticulos.Where(l => l.Codigo == (articuloFiltro.Codigo)).ToList();
                 }
