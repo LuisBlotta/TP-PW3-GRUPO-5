@@ -55,31 +55,53 @@ namespace TP_PW3_GRUPO_5.Controllers
                 }
                 else
                 {
-                    ViewData["mensaje"] = $"El artículo {miArticulo.Codigo} - {miArticulo.Descripcion} se agregó correctamente.";
+                    TempData["mensaje"] = $"El artículo {miArticulo.Codigo} - {miArticulo.Descripcion} se agregó correctamente.";
                     return RedirectToAction(nameof(NuevoArticulo));
                 }
                 
             }
             return View(articulo);
         }
-        public IActionResult DetalleArticulo(string accion)
+        public IActionResult DetalleArticulo(string accion,int id)
         {
-            Articulo miArticulo1 = new Articulo();
-            miArticulo1.IdArticulo = 205;
-            miArticulo1.Codigo = "22";
-            miArticulo1.Descripcion = "Maquina de cortar pasto";
+            Entidades.Articulo miArticulo = new Entidades.Articulo();
+            Articulo articuloBD = context.Articulos.Find(id);
+
+            miArticulo.IdArticulo = articuloBD.IdArticulo;
+            miArticulo.Codigo = articuloBD.Codigo;
+            miArticulo.Descripcion = articuloBD.Descripcion;
 
             ViewData["accion"] = accion;
-            return View(miArticulo1);
+            return View(miArticulo);
         }
 
         [HttpPost]
-        public IActionResult EditarArticulo(Articulo articulo)
+        public IActionResult EditarArticulo(Entidades.Articulo articulo)
         {
-
-            return View();
+            if (ModelState.IsValid)
+            {
+                Articulo articuloBD = context.Articulos.Find(articulo.IdArticulo);
+                articuloBD.Codigo = articulo.Codigo;
+                articuloBD.Descripcion = articulo.Descripcion;
+                articuloBD.FechaModificacion = DateTime.Now;
+                //FALTA AGREGAR MODIFICADO POR
+                context.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return Redirect($"/articulo/detallearticulo/editar/{articulo.IdArticulo}");
+            }      
         }
+        public IActionResult EliminarArticulo(int id)
+        {
+            Articulo articuloBD = context.Articulos.Find(id);
+            articuloBD.FechaBorrado = DateTime.Now;
+            //FALTA BORRADO POR Y CONFIRMACION DEL BORRADO
+            context.SaveChanges();
+            return RedirectToAction(nameof(Index));
 
+        }
 
         [HttpPost]
         public IActionResult ObtenerFiltros([FromBody] ArticuloFiltro articuloFiltro)

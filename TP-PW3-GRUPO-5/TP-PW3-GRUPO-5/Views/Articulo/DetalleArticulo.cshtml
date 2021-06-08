@@ -23,6 +23,7 @@ else
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="row form-group">
                 <div class="col-md-6">
+                    <input asp-for="IdArticulo" hidden value="@Model.IdArticulo" />
                     <label asp-for="Codigo" class="control-label"></label>
                     <input asp-for="Codigo" class="form-control" value="@Model.Codigo" />
                     <span asp-validation-for="Codigo" class="text-danger"></span>
