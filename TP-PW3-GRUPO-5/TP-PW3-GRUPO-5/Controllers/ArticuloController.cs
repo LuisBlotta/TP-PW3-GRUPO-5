@@ -35,36 +35,32 @@ namespace TP_PW3_GRUPO_5.Controllers
             return View();
         }
 
-        public IActionResult PruebaNuevoArticulo()
-        {
-            Articulo prueba = new Articulo();
-
-
-            prueba.Codigo = "8";
-            prueba.Descripcion = "PruebaNuevoArt";
-
-            context.Articulos.Add(prueba);
-            context.SaveChanges();
-
-            return View(context.Articulos.ToList());
-            //return RedirectToAction(nameof(Index));
-        }
-
-        public IActionResult PruebaModificarArticulo(int id)
-        {
-            Articulo articulo = context.Articulos.Find(id);
-            articulo.Codigo = "2";
-            context.SaveChanges();
-
-            return RedirectToAction(nameof(PruebaNuevoArticulo));
-            //return RedirectToAction(nameof(Index));
-        }
 
         [HttpPost]
-        public IActionResult NuevoArticulo(Articulo articulo)
+        public IActionResult NuevoArticulo(Entidades.Articulo articulo, string submit)
         {
+            if(ModelState.IsValid)
+            {
+                Articulo miArticulo = new Articulo();
 
-            return View();
+                miArticulo.Codigo = articulo.Codigo;
+                miArticulo.Descripcion = articulo.Descripcion;
+                
+                context.Articulos.Add(miArticulo);
+                context.SaveChanges();
+
+                if(submit == "Guardar")
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    ViewData["mensaje"] = $"El artículo {miArticulo.Codigo} - {miArticulo.Descripcion} se agregó correctamente.";
+                    return RedirectToAction(nameof(NuevoArticulo));
+                }
+                
+            }
+            return View(articulo);
         }
         public IActionResult DetalleArticulo(string accion)
         {
