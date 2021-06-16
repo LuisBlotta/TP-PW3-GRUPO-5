@@ -1,4 +1,4 @@
-﻿@model List<Entidades.Usuario>
+﻿@model List<Contexto_de_datos.Models.Usuario>
 @section Scripts{
     <script src="~/js/usuario.js"></script>
 }
@@ -13,7 +13,7 @@
                 <div class="col-12 col-md-4">
                     <select class="select2Usuario col-12" id="nombre" onchange="ObtenerResultados()">
                         <option value="">Nombre</option>
-                        @foreach (Entidades.Usuario usuario in Model)
+                        @foreach (Contexto_de_datos.Models.Usuario usuario in Model)
                         {
                             <option value="@usuario.Nombre">@usuario.Nombre</option>
                         }
@@ -23,7 +23,7 @@
                 <div class="col-12 col-md-4">
                     <select class="select2Usuario col-12" id="email" onchange="ObtenerResultados()">
                         <option value="">Email</option>
-                        @foreach (Entidades.Usuario usuario in Model)
+                        @foreach (Contexto_de_datos.Models.Usuario usuario in Model)
                         {
                             <option value="@usuario.Email">@usuario.Email</option>
                         }

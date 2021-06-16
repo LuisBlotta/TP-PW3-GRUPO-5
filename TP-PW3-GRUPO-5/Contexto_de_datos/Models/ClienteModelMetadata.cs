@@ -15,7 +15,7 @@ namespace Contexto_de_datos.Models
     }
     public class ClienteModelMetadata
     {
-        [RegularExpression(@"^\d$", ErrorMessage = "Ingrese un numero entero valido")]
+        [RegularExpression(@"^([0-9])*$", ErrorMessage = "Ingrese un numero entero valido")]
         public int? Numero { get; set; }
 
         [Required(ErrorMessage = "Ingrese un nombre de cliente")]

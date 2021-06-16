@@ -1,5 +1,5 @@
 ﻿using Clases_auxiliares;
-using Entidades;
+using Contexto_de_datos.Models;
 using System.Collections.Generic;
 
 namespace Servicios

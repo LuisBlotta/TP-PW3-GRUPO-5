@@ -1,5 +1,5 @@
 ﻿using Clases_auxiliares;
-using Entidades;
+using Contexto_de_datos.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,34 +10,11 @@ namespace Servicios
 {
     public class UsuarioServicio : IUsuarioServicio
     {
+        _20211CTPContext context = new _20211CTPContext();
+
         public List<Usuario> ObtenerUsuarios(UsuarioFiltro usuarioFiltro = null)
         {
-            List<Usuario> listaUsuarios = new List<Usuario>();
-
-            for (int i = 0; i < 80; i++)
-            {
-                Usuario miUsuario1 = new Usuario();
-                miUsuario1.Nombre = "Xuan" + i;
-                miUsuario1.Email = "Xuan_perez@gmail.com";
-                miUsuario1.Apellido = "Perez" + i;
-
-                listaUsuarios.Add(miUsuario1);
-
-                Usuario miUsuario2 = new Usuario();
-                miUsuario2.Nombre = "Luis" + i;
-                miUsuario2.Email = "luis_alvarez@gmail.com";
-                miUsuario2.Apellido = "Alvarez" + i;
-
-                listaUsuarios.Add(miUsuario2);
-
-                Usuario miUsuario3 = new Usuario();
-                miUsuario3.Nombre = "Roque" + i;
-                miUsuario3.Email = "roque_perez@gmail.com";
-                miUsuario3.Apellido = "Perez" + i;
-                miUsuario3.BorradoPor = new Usuario();
-
-                listaUsuarios.Add(miUsuario3);
-            }
+            List<Usuario> listaUsuarios = context.Usuarios.ToList();
 
             if (usuarioFiltro != null)
             {
