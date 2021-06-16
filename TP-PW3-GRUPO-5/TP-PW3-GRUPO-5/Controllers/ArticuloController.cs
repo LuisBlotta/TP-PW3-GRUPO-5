@@ -37,12 +37,13 @@ namespace TP_PW3_GRUPO_5.Controllers
 
 
         [HttpPost]
-        public IActionResult NuevoArticulo(Entidades.Articulo articulo, string submit)
+        public IActionResult NuevoArticulo(Articulo articulo, string submit)
         {
             if(ModelState.IsValid)
             {
                 Articulo miArticulo = new Articulo();
 
+                miArticulo.FechaCreacion = DateTime.Now;
                 miArticulo.Codigo = articulo.Codigo;
                 miArticulo.Descripcion = articulo.Descripcion;
                 
@@ -64,7 +65,7 @@ namespace TP_PW3_GRUPO_5.Controllers
         }
         public IActionResult DetalleArticulo(string accion,int id)
         {
-            Entidades.Articulo miArticulo = new Entidades.Articulo();
+            Articulo miArticulo = new Articulo();
             Articulo articuloBD = context.Articulos.Find(id);
 
             miArticulo.IdArticulo = articuloBD.IdArticulo;
@@ -76,7 +77,7 @@ namespace TP_PW3_GRUPO_5.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditarArticulo(Entidades.Articulo articulo)
+        public IActionResult EditarArticulo(Articulo articulo)
         {
             if (ModelState.IsValid)
             {
