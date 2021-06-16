@@ -21,13 +21,13 @@ function GenerarTabla(resultados) {
                 ${resultado.Telefono}
                 </td>
                 <td>
-                <a class="me-3" href="/cliente/detalleCliente?accion=ver" data-toggle="tooltip"
+                <a class="me-3" href="/cliente/detalleCliente?accion=ver&id=${resultado.IdCliente}" data-toggle="tooltip"
                     title="Ver"><i class="fas fa-eye"></i></a>
-                <a class="me-3" href="/cliente/detalleCliente?accion=editar" data-toggle="tooltip"
+                <a class="me-3" href="/cliente/detalleCliente?accion=editar&id=${resultado.IdCliente}" data-toggle="tooltip"
                     title="Editar"><i class="fas fa-edit"></i></a>`;
         if (resultado.BorradoPor == null) {
             listado += `
-            <a href="#" data-toggle="tooltip" title="Borrar">
+            <a href="/cliente/eliminarCliente?id=${resultado.IdCliente}" data-toggle="tooltip" title="Borrar">
                 <i class="fas fa-trash-alt"></i>
             </a>`;
         } else {

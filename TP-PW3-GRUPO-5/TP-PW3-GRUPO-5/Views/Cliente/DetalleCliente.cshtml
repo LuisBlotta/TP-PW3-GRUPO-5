@@ -1,4 +1,4 @@
-﻿@model Entidades.Cliente
+﻿@model Contexto_de_datos.Models.Cliente
 @if (ViewData["accion"].ToString() == "ver")
 {
     ViewData["Title"] = "Ver Cliente";
@@ -23,6 +23,7 @@ else
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="row form-group">
                 <div class="col-md-6">
+                    <input asp-for="IdCliente" hidden value="@Model.IdCliente" />
                     <label asp-for="Nombre" class="control-label"></label>
                     <input asp-for="Nombre" class="form-control" value="@Model.Nombre" />
                     <span asp-validation-for="Nombre" class="text-danger"></span>

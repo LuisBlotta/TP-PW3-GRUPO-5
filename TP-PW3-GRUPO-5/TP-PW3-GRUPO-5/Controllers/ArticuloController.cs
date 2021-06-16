@@ -41,13 +41,8 @@ namespace TP_PW3_GRUPO_5.Controllers
         {
             if(ModelState.IsValid)
             {
-                Articulo miArticulo = new Articulo();
-
-                miArticulo.FechaCreacion = DateTime.Now;
-                miArticulo.Codigo = articulo.Codigo;
-                miArticulo.Descripcion = articulo.Descripcion;
-                
-                context.Articulos.Add(miArticulo);
+                articulo.FechaCreacion = DateTime.Now;             
+                context.Articulos.Add(articulo);
                 context.SaveChanges();
 
                 if(submit == "Guardar")
@@ -56,7 +51,7 @@ namespace TP_PW3_GRUPO_5.Controllers
                 }
                 else
                 {
-                    TempData["mensaje"] = $"El artículo {miArticulo.Codigo} - {miArticulo.Descripcion} se agregó correctamente.";
+                    TempData["mensaje"] = $"El artículo {articulo.Codigo} - {articulo.Descripcion} se agregó correctamente.";
                     return RedirectToAction(nameof(NuevoArticulo));
                 }
                 
@@ -65,13 +60,8 @@ namespace TP_PW3_GRUPO_5.Controllers
         }
         public IActionResult DetalleArticulo(string accion,int id)
         {
-            Articulo miArticulo = new Articulo();
-            Articulo articuloBD = context.Articulos.Find(id);
 
-            miArticulo.IdArticulo = articuloBD.IdArticulo;
-            miArticulo.Codigo = articuloBD.Codigo;
-            miArticulo.Descripcion = articuloBD.Descripcion;
-
+            Articulo miArticulo = context.Articulos.Find(id);
             ViewData["accion"] = accion;
             return View(miArticulo);
         }

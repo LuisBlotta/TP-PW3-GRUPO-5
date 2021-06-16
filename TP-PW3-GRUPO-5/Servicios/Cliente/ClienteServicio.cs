@@ -10,41 +10,10 @@ namespace Servicios
 {
     public class ClienteServicio : IClienteServicio
     {
+        _20211CTPContext context = new _20211CTPContext();
         public List<Cliente> ObtenerClientes(ClienteFiltro clienteFiltro = null)
         {
-            List<Cliente> listaClientes = new List<Cliente>();
-
-            for (int i = 0; i < 80; i++)
-            {
-                Cliente micliente1 = new Cliente();
-                micliente1.Nombre = "Pepe";
-                micliente1.Numero = i;
-                micliente1.Telefono = "1111-2222";
-
-
-                listaClientes.Add(micliente1);
-
-                Cliente micliente2 = new Cliente();
-                micliente2.Nombre = "Juanito";
-                micliente2.Numero = i;
-                micliente2.Telefono = "1111-2222";
-
-
-
-                listaClientes.Add(micliente2);
-
-                Cliente micliente3 = new Cliente();
-                micliente3.Nombre = "Manolo";
-                micliente3.Numero = i;
-                micliente3.Telefono = "1111-2222";
-                micliente3.BorradoPor = 1;
-
-
-
-                listaClientes.Add(micliente3);
-
-
-            }
+            List<Cliente> listaClientes = context.Clientes.ToList();
 
             if (clienteFiltro != null)
             {

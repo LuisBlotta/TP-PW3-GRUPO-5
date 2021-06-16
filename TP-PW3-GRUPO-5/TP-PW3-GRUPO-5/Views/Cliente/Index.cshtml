@@ -1,4 +1,4 @@
-﻿@model List<Entidades.Cliente>
+﻿@model List<Contexto_de_datos.Models.Cliente>
 @{ 
     List<string> selectClientes = (List<string>)ViewData["selectClientes"];
 }
@@ -11,7 +11,7 @@
         <div class="filter-containet mb-5">
             <h3>Filtros</h3>
             <div class="d-flex justify-content-end">
-                <a class="btn btn-primary" href="Cliente/nuevoCliente">Nuevo Cliente</a>
+                <a class="btn btn-primary" href="/Cliente/nuevoCliente">Nuevo Cliente</a>
             </div>
             <div class="filtro-container d-flex justify-content-between align-items-center row">
                 <div class="col-12 col-md-4">
@@ -27,7 +27,7 @@
                 <div class="col-12 col-md-4">
                     <select class="select2Cliente col-12" id="numero" onchange="ObtenerResultados()">
                         <option value="">Numero</option>
-                        @foreach (Entidades.Cliente cliente in Model)
+                        @foreach (Contexto_de_datos.Models.Cliente cliente in Model)
                         {
                             <option value="@cliente.Numero">@cliente.Numero</option>
                         }
