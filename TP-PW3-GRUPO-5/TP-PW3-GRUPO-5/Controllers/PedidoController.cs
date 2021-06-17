@@ -68,5 +68,34 @@ namespace TP_PW3_GRUPO_5.Controllers
             resultado = JsonSerializer.Serialize(accionMensaje);
             return Content(resultado);
         }
+
+        public IActionResult DetallePedido(string accion, int id)
+        {
+            Pedido miPedido = pedidoServicio.ObtenerPorId(id);
+            ViewData["accion"] = accion;
+            ViewData["articulos"] = articuloServicio.ObtenerArticulos();
+            return View(miPedido);
+        }
+
+        [HttpPost]
+        public IActionResult EditarPedido(Pedido pedido)
+        {
+            if (ModelState.IsValid)
+            {
+                pedidoServicio.Modificar(pedido);
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return Redirect($"/pedido/detallepedido/editar/{pedido.IdPedido}");
+            }
+        }
+
+        public IActionResult EliminarPedido(int id)
+        {
+            pedidoServicio.Baja(id);
+            return RedirectToAction(nameof(Index));
+
+        }
     }
 }

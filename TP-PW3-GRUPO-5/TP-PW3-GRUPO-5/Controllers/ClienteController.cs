@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Contexto_de_datos.Models;
+using System.Text.Json.Serialization;
 
 namespace TP_PW3_GRUPO_5.Controllers
 {
@@ -85,11 +86,11 @@ namespace TP_PW3_GRUPO_5.Controllers
         [HttpPost]
         public IActionResult ObtenerFiltros([FromBody] ClienteFiltro clienteFiltro)
         {
-
-            var resultado = JsonSerializer.Serialize(clienteServicio.ObtenerClientes(clienteFiltro));
-
+            List<Cliente> clientes = clienteServicio.ObtenerClientes(clienteFiltro);
+            var resultado = JsonSerializer.Serialize(clientes);
             return Content(resultado);
 
         }
+
     }
 }

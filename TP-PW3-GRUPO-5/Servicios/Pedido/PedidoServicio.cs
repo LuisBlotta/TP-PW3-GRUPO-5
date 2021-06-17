@@ -1,5 +1,6 @@
 ﻿using Clases_auxiliares;
 using Contexto_de_datos.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +42,20 @@ namespace Servicios
             }
         }
 
+        public void Baja(int id)
+        {
+            Pedido pedido = ObtenerPorId(id);
+            pedido.FechaBorrado = DateTime.Now;
+            //FALTA BORRADO POR
+            context.SaveChanges();
+        }
+
+        public void Modificar(Pedido pedido)
+        {
+            Pedido pedidoBD = ObtenerPorId(pedido.IdPedido);
+            // VER
+        }
+
         public int ObtenerNumeroPedido()
         {
             return context.Pedidos.Max(o => o.NroPedido) + 1;
@@ -48,7 +63,7 @@ namespace Servicios
 
         public List<Pedido> ObtenerPedidos(PedidoFiltro pedidoFiltro = null)
         {
-            List<Pedido> listaPedidos = context.Pedidos.ToList();
+            List<Pedido> listaPedidos = context.Pedidos.Include(o=>o.IdEstadoNavigation).Include(o=>o.IdClienteNavigation).ToList();
          
 
             if (pedidoFiltro != null)
@@ -77,7 +92,9 @@ namespace Servicios
             return listaPedidos;
         }
 
-
-
+        public Pedido ObtenerPorId(int id)
+        {
+            return context.Pedidos.Include(o=>o.IdClienteNavigation).Include(o=>o.IdEstadoNavigation).FirstOrDefault(o=>o.IdPedido == id);
+        }
     }
 }

@@ -7,6 +7,7 @@ namespace ViewModels
     public class PedidoCliente
     {
         public string Cliente { get; set; }
+        public int IdPedido { get; set; }
         public int NroPedido { get; set; }
         public string Estado { get; set; }
         public string UltimaModificacion { get; set; }
@@ -19,6 +20,7 @@ namespace ViewModels
             foreach (var pedido in pedidos)
             {
                 PedidoCliente pedidoCliente = new PedidoCliente();
+                pedidoCliente.IdPedido = pedido.IdPedido;
                 pedidoCliente.Cliente = pedido.IdClienteNavigation.Nombre;
                 pedidoCliente.NroPedido = pedido.NroPedido;
                 pedidoCliente.Estado = pedido.IdEstadoNavigation.Descripcion;

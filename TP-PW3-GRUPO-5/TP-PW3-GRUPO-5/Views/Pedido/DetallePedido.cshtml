@@ -1,0 +1,103 @@
+﻿@model Contexto_de_datos.Models.Pedido
+@if (ViewData["accion"].ToString() == "ver")
+{
+    ViewData["Title"] = "Ver Pedido";
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        <script src="~/js/deshabilitarInputs.js"></script>
+    }
+    <h3 class="text-center">Ver Pedido @Model.NroPedido (Cliente: @Model.IdClienteNavigation.Nombre)</h3>
+}
+else
+{
+    ViewData["Title"] = "Editar Pedido";
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+    <h3 class="text-center mb-5">Editar Pedido @Model.NroPedido (Cliente: @Model.IdClienteNavigation.Nombre)</h3>
+}
+
+<div class="row d-flex justify-content-center">
+    <div class="col-md-8">
+        <form>
+            <div class="row">
+                <div class="col-md-4 d-flex justify-content-start">
+                    <a href="/Cliente/DetalleCliente/Ver/@Model.IdCliente">@Model.IdClienteNavigation.Nombre</a> - # @Model.NroPedido
+                </div>
+                <div class="col-md-6 d-flex justify-content-start">
+                    Ultima Modificacion: @ViewModels.PedidoCliente.CalcularUltimaModificacion(Model)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 d-flex justify-content-start">
+                    <label>Estado: @Model.IdEstadoNavigation.Descripcion</label>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4">
+                    <select class="select2NuevoPedido col-12" id="articulo" name="articulo">
+                        <option value="">Articulo</option>
+                        @foreach (Contexto_de_datos.Models.Articulo a in (List<Contexto_de_datos.Models.Articulo>)ViewData["articulos"])
+                        {
+                            <option value="@a.Codigo">@a.Descripcion #@a.Codigo</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <input type="number" class="form-control" name="cantidad" id="cantidad" placeholder="Cantidad" />
+                </div>
+                <div class="col-md-4">
+                    <input type="button" class="btn btn-primary" name="agregar" id="agregar" value="Agregar" onclick="AgregarArticulo()" />
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <label class="text-danger" id="errorSelect"></label>
+            </div>
+            <div class="row">
+                <div class="table-container">
+                    <table class="table table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Descripcion</th>
+                                <th scope="col">Codigo</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Quitar</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col form-group">
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" value="@Model.Comentarios" id="comentarios" style="height: 100px"></textarea>
+                        <label for="comentarios">Comentarios</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group d-flex justify-content-center row">
+                <div class="col-md-2">
+                    <input type="button" value="Guardar" class="btn btn-primary" name="submit" onclick="MandarForm('guardar')" />
+                </div>
+                <div class="col-md-2">
+                    <input type="button" value="Cerrar" class="btn btn-primary" name="submit" onclick="MandarForm('cerrar')" />
+                </div>
+                <div class="col-md-2">
+                    <input type="button" value="Entregado" class="btn btn-primary" name="submit" onclick="MandarForm('entregado')" />
+                </div>
+                <div class="col-md-2">
+                    <a href="/Pedido/eliminarPedido/@Model.IdPedido" class="btn btn-primary">Eliminar</a>
+                </div>
+                <div class="col-md-2">
+                    <a class="btn btn-primary" href="/Pedido/Index">Volver</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
