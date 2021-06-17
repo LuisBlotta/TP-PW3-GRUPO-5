@@ -5,6 +5,8 @@
     @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
         <script src="~/js/deshabilitarInputs.js"></script>
+        <script src="~/js/detallePedido.js"></script>
+
     }
     <h3 class="text-center">Ver Pedido @Model.NroPedido (Cliente: @Model.IdClienteNavigation.Nombre)</h3>
 }
@@ -12,6 +14,7 @@ else
 {
     ViewData["Title"] = "Editar Pedido";
     @section Scripts {
+        <script src="~/js/deshabilitarInputs.js"></script>
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     }
     <h3 class="text-center mb-5">Editar Pedido @Model.NroPedido (Cliente: @Model.IdClienteNavigation.Nombre)</h3>
