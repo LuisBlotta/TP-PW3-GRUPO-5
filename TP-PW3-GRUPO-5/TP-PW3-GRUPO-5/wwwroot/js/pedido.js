@@ -22,13 +22,13 @@ function GenerarTabla(resultados) {
                 ${resultado.UltimaModificacion}
                 </td>
                 <td>
-                <a class="me-3" href="/pedido/detallePedido?accion=ver" data-toggle="tooltip"
+                <a class="me-3" href="/pedido/detallePedido/ver/${resultado.IdPedido}" data-toggle="tooltip"
                     title="Ver"><i class="fas fa-eye"></i></a>
-                <a class="me-3" href="/pedido/detallePedido?accion=editar" data-toggle="tooltip"
+                <a class="me-3" href="/pedido/detallePedido/editar/${resultado.IdPedido}" data-toggle="tooltip"
                     title="Editar"><i class="fas fa-edit"></i></a>`;
         if (!resultado.seBorro) {
             listado += `
-            <a href = "#" data-toggle="tooltip" title = "Borrar" >
+            <a href = "/pedido/eliminarPedido/${resultado.IdPedido}" data-toggle="tooltip" title = "Borrar" >
                 <i class="fas fa-trash-alt"></i>
             </a > `;
         } else {

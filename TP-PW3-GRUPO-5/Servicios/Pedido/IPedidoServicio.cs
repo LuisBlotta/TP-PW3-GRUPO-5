@@ -7,5 +7,8 @@ namespace Servicios
     public interface IPedidoServicio
     {
         public List<Pedido> ObtenerPedidos(PedidoFiltro pedidoFiltro = null);
+
+        public void Alta(PedidoNuevoFiltro pedidoNuevoFiltro);
+        public int ObtenerNumeroPedido();
     }
 }

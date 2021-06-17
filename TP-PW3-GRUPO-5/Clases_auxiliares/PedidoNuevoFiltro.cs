@@ -8,8 +8,8 @@ namespace Clases_auxiliares
 {
     public class PedidoNuevoFiltro
     {
-        public string NumeroCliente { get; set; }
-        public List<object> Articulos { get; set; }
+        public int IdCliente { get; set; }
+        public List<ArticuloCantidad> Articulos { get; set; }
 
         public string Accion { get; set; }
         public string Comentarios { get; set; }

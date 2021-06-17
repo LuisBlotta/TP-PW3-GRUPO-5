@@ -20,7 +20,7 @@ namespace TP_PW3_GRUPO_5.Controllers
         public PedidoController(_20211CTPContext ctx)
         {
             context = ctx;
-            pedidoServicio = new PedidoServicio();
+            pedidoServicio = new PedidoServicio(context);
             clienteServicio = new ClienteServicio(context);
             articuloServicio = new ArticuloServicio(context);
         }
@@ -56,6 +56,7 @@ namespace TP_PW3_GRUPO_5.Controllers
         {
             AccionMensaje accionMensaje = new AccionMensaje();
             string resultado = "";
+            pedidoServicio.Alta(pedidoNuevoFiltro);
             if (pedidoNuevoFiltro.Accion == "guardar")
             {
                 accionMensaje.Accion = pedidoNuevoFiltro.Accion;

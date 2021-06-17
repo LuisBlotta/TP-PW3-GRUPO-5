@@ -11,5 +11,7 @@ namespace Servicios
         public void Baja(int id);
         public void Modificar(Articulo articulo);
         public Articulo ObtenerPorId(int id);
+
+        public Articulo ObtenerPorCodigo(string codigo);
     }
 }

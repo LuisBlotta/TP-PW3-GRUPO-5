@@ -66,6 +66,11 @@ namespace Servicios
             return listaArticulos;
         }
 
+        public Articulo ObtenerPorCodigo(string codigo)
+        {
+            return context.Articulos.First(o => o.Codigo == codigo);
+        }
+
         public Articulo ObtenerPorId(int id)
         {
             return context.Articulos.Find(id);

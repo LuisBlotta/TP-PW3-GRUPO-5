@@ -1,15 +1,15 @@
 ﻿var articulos = new Array();
 
 function AgregarArticulo() {
-    let codigo = Number.parseInt(document.getElementById("articulo").value);
+    let codigo = document.getElementById("articulo").value;
     let selectArticulo = document.getElementById("articulo");
     let descripcion = selectArticulo.options[selectArticulo.selectedIndex].text;
     descripcion = descripcion.split("#")[0];
     let cantidad = Number.parseInt(document.getElementById("cantidad").value);
 
-    if (!Number.isNaN(codigo) && !Number.isNaN(cantidad)) {
+    if (codigo != "" && !Number.isNaN(cantidad)) {
         let articulo = {
-            Codigo: codigo,
+            Codigo: document.getElementById("articulo").value,
             Descripcion: descripcion,
             Cantidad: cantidad
         };
@@ -62,15 +62,6 @@ function Compare(a, b) {
 
     return 0;
 }
-function BuscarArticulo(codigo) {
-    let seEncontro = false;
-    articulos.forEach(a => {
-        if (a.Codigo == codigo) {
-            seEncontro = true;
-        }
-    });
-    return seEncontro;
-}
 
 function CargarTabla(articulos) {
     listado = '';
@@ -114,7 +105,7 @@ function MandarForm(accion) {
 
 
         let data = {
-            NumeroCliente: document.getElementById('cliente').value,
+            IdCliente: document.getElementById('cliente').value,
             Articulos: articulos,
             Accion: accion,
             Comentarios: document.getElementById('comentarios').value

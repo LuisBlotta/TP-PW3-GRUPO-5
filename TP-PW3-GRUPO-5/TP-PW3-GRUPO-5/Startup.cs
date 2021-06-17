@@ -1,16 +1,10 @@
 using Contexto_de_datos.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using TP_PW3_GRUPO_5.Models;
 
 namespace TP_PW3_GRUPO_5
 {
@@ -27,7 +21,7 @@ namespace TP_PW3_GRUPO_5
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<_20211CTPContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("_20211CTPContext")));
+            options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("_20211CTPContext")));
             services.AddControllersWithViews();
 
         }

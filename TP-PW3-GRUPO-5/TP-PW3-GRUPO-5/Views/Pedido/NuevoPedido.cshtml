@@ -20,7 +20,7 @@
                         <option value="">Cliente</option>
                         @foreach (Contexto_de_datos.Models.Cliente c in Model.Clientes)
                         {
-                            <option value="@c.Numero">@c.Nombre #@c.Numero</option>
+                            <option value="@c.IdCliente">@c.Nombre #@c.Numero</option>
                         }
                     </select>
                 </div>

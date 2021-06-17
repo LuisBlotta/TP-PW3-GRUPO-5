@@ -3,16 +3,52 @@ using Contexto_de_datos.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Servicios
 {
     public class PedidoServicio : IPedidoServicio
     {
+        private _20211CTPContext context;
+        private IClienteServicio clienteServicio;
+        private IArticuloServicio articuloServicio;
+        public PedidoServicio(_20211CTPContext ctx)
+        {
+            context = ctx;
+            clienteServicio = new ClienteServicio(context);
+            articuloServicio = new ArticuloServicio(context);
+        }
+
+        public void Alta(PedidoNuevoFiltro pedidoNuevoFiltro)
+        {
+            Pedido miPedido = new Pedido();
+            miPedido.FechaCreacion = DateTime.Now;
+            miPedido.IdCliente = pedidoNuevoFiltro.IdCliente;
+            miPedido.IdEstado = 1;
+            miPedido.NroPedido = ObtenerNumeroPedido();
+            miPedido.Comentarios = pedidoNuevoFiltro.Comentarios;
+            //FALTA CREADO POR
+            context.Pedidos.Add(miPedido);
+            context.SaveChanges();
+            int idPedido = context.Pedidos.Max(o=>o.IdPedido);
+            foreach (ArticuloCantidad articulo in pedidoNuevoFiltro.Articulos)
+            {
+                PedidoArticulo pedidoArticulo = new PedidoArticulo();
+                pedidoArticulo.Cantidad = articulo.Cantidad;
+                pedidoArticulo.IdArticulo = articuloServicio.ObtenerPorCodigo(articulo.Codigo).IdArticulo;
+                pedidoArticulo.IdPedido = idPedido;
+                context.PedidoArticulos.Add(pedidoArticulo);
+                context.SaveChanges();
+            }
+        }
+
+        public int ObtenerNumeroPedido()
+        {
+            return context.Pedidos.Max(o => o.NroPedido) + 1;
+        }
+
         public List<Pedido> ObtenerPedidos(PedidoFiltro pedidoFiltro = null)
         {
-            List<Pedido> listaPedidos = new List<Pedido>();
+            List<Pedido> listaPedidos = context.Pedidos.ToList();
          
 
             if (pedidoFiltro != null)
@@ -40,5 +76,8 @@ namespace Servicios
 
             return listaPedidos;
         }
+
+
+
     }
 }

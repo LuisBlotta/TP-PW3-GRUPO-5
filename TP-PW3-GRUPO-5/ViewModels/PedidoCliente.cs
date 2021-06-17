@@ -1,5 +1,4 @@
-﻿
-using Contexto_de_datos.Models;
+﻿using Contexto_de_datos.Models;
 using System;
 using System.Collections.Generic;
 
@@ -35,33 +34,37 @@ namespace ViewModels
         
         public static string CalcularUltimaModificacion(Pedido pedido)
         {
-            DateTime fechaActual = DateTime.Now;
-            DateTime fechaUltimaModificacion = (DateTime)pedido.FechaModificacion;
-            double horasDiferencia = (fechaActual - fechaUltimaModificacion).TotalHours;
-            string ultimaModificacion = "";
-            string cliente = pedido.IdClienteNavigation.Nombre;
+            if (pedido.FechaModificacion != null)
+            {
+                DateTime fechaActual = DateTime.Now;
+                DateTime fechaUltimaModificacion = (DateTime)pedido.FechaModificacion;
+                double horasDiferencia = (fechaActual - fechaUltimaModificacion).TotalHours;
+                string ultimaModificacion = "";
+                string cliente = pedido.IdClienteNavigation.Nombre;
 
-            
-            
-            if (horasDiferencia < 1)
-            {
-                double minutos = Math.Round(horasDiferencia * 60);
-                ultimaModificacion = "Hace " + minutos + " minutos (" + cliente + ")";
-            }
-            if(horasDiferencia>= 1 && horasDiferencia < 24)
-            {
-                ultimaModificacion = "Hoy " + fechaUltimaModificacion.ToString("HH:mm") + " (" + cliente + ")";
-            }
-            if (horasDiferencia>= 24 && horasDiferencia <48)
-            {
-                ultimaModificacion = "Ayer " + fechaUltimaModificacion.ToString("HH:mm") + " (" + cliente + ")";
-            }
-            if(horasDiferencia>=48)
-            {
-                ultimaModificacion = "El día " + fechaUltimaModificacion.ToString("dd-MM-yyyy HH:mm") + " (" + cliente + ")";
-            }
 
-            return ultimaModificacion;
+
+                if (horasDiferencia < 1)
+                {
+                    double minutos = Math.Round(horasDiferencia * 60);
+                    ultimaModificacion = "Hace " + minutos + " minutos (" + cliente + ")";
+                }
+                if (horasDiferencia >= 1 && horasDiferencia < 24)
+                {
+                    ultimaModificacion = "Hoy " + fechaUltimaModificacion.ToString("HH:mm") + " (" + cliente + ")";
+                }
+                if (horasDiferencia >= 24 && horasDiferencia < 48)
+                {
+                    ultimaModificacion = "Ayer " + fechaUltimaModificacion.ToString("HH:mm") + " (" + cliente + ")";
+                }
+                if (horasDiferencia >= 48)
+                {
+                    ultimaModificacion = "El día " + fechaUltimaModificacion.ToString("dd-MM-yyyy HH:mm") + " (" + cliente + ")";
+                }
+
+                return ultimaModificacion;
+            }
+            return "---";
         }
     }
 }
