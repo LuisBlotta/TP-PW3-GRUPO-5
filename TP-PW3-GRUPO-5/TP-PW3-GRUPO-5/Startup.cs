@@ -56,8 +56,13 @@ namespace TP_PW3_GRUPO_5
             {
                 endpoints.MapControllerRoute(
                     name: "detalleUsuario",
-                    pattern: "Usuario/DetalleUsuario/{accion}/{id}");
-
+                    pattern: "/{controller=Usuario}/{action=DetalleUsuario}/{accion}/{id}");
+                endpoints.MapControllerRoute(
+                    name: "detalleArticulo",
+                    pattern: "/{controller=Articulo}/{action=DetalleArticulo}/{accion}/{id}");
+                endpoints.MapControllerRoute(
+                    name: "detalleCliente",
+                    pattern: "/{controller=Cliente}/{action=DetalleCliente}/{accion}/{id}");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

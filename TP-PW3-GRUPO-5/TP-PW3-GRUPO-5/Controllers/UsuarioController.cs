@@ -10,13 +10,13 @@ namespace TP_PW3_GRUPO_5.Controllers
 {
     public class UsuarioController : Controller
     {
-        IUsuarioServicio usuarioServicio;
-        _20211CTPContext context;
+        private IUsuarioServicio usuarioServicio;
+        private _20211CTPContext context;
 
         public UsuarioController(_20211CTPContext ctx)
         {
             context = ctx;
-            usuarioServicio = new UsuarioServicio();
+            usuarioServicio = new UsuarioServicio(context);
         }
         public IActionResult Index()
         {
@@ -35,17 +35,14 @@ namespace TP_PW3_GRUPO_5.Controllers
         {
             if (ModelState.IsValid)
             {
-                usuario.FechaCreacion = DateTime.Now;
-                context.Usuarios.Add(usuario);
-                context.SaveChanges();
-
+                usuarioServicio.Alta(usuario);
                 return RedirectToAction(nameof(Index));
             }
             return View(usuario);
         }
         public IActionResult DetalleUsuario(string accion, int id)
         {
-            Usuario usuario = context.Usuarios.Find(id);
+            Usuario usuario = usuarioServicio.ObtenerPorId(id);
             ViewData["accion"] = accion;
             return View(usuario);
         }
@@ -55,16 +52,7 @@ namespace TP_PW3_GRUPO_5.Controllers
         {
             if (ModelState.IsValid)
             {
-                Usuario usuarioBD = context.Usuarios.Find(usuario.IdUsuario);
-                usuarioBD.EsAdmin = usuario.EsAdmin;
-                usuarioBD.Email = usuario.Email;
-                usuarioBD.Nombre = usuario.Nombre;
-                usuarioBD.Apellido = usuario.Apellido;
-                usuarioBD.FechaNacimiento = usuario.FechaNacimiento;
-                usuarioBD.Password = usuario.Password;
-                usuarioBD.FechaModificacion = DateTime.Now;
-                //FALTA AGREGAR MODIFICADO POR
-                context.SaveChanges();
+                usuarioServicio.Modificar(usuario);
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -74,11 +62,7 @@ namespace TP_PW3_GRUPO_5.Controllers
         }
         public IActionResult EliminarUsuario(int id)
         {
-            Usuario usuarioBD = context.Usuarios.Find(id);
-
-            usuarioBD.FechaBorrado = DateTime.Now;
-            //FALTA BORRADO POR Y CONFIRMACION DEL BORRADO
-            context.SaveChanges();
+            usuarioServicio.Baja(id);
             return RedirectToAction(nameof(Index));
 
         }

@@ -1,4 +1,5 @@
-﻿using Entidades;
+﻿
+using Contexto_de_datos.Models;
 using System;
 using System.Collections.Generic;
 
@@ -19,9 +20,9 @@ namespace ViewModels
             foreach (var pedido in pedidos)
             {
                 PedidoCliente pedidoCliente = new PedidoCliente();
-                pedidoCliente.Cliente = pedido.Cliente.Nombre;
+                pedidoCliente.Cliente = pedido.IdClienteNavigation.Nombre;
                 pedidoCliente.NroPedido = pedido.NroPedido;
-                pedidoCliente.Estado = pedido.EstadoPedido.Descripcion;
+                pedidoCliente.Estado = pedido.IdEstadoNavigation.Descripcion;
                 pedidoCliente.UltimaModificacion = CalcularUltimaModificacion(pedido);
                 pedidoCliente.seBorro = pedido.BorradoPor != null ? true : false;
 
@@ -35,10 +36,10 @@ namespace ViewModels
         public static string CalcularUltimaModificacion(Pedido pedido)
         {
             DateTime fechaActual = DateTime.Now;
-            DateTime fechaUltimaModificacion = pedido.FechaModificacion;
+            DateTime fechaUltimaModificacion = (DateTime)pedido.FechaModificacion;
             double horasDiferencia = (fechaActual - fechaUltimaModificacion).TotalHours;
             string ultimaModificacion = "";
-            string cliente = pedido.Cliente.Nombre;
+            string cliente = pedido.IdClienteNavigation.Nombre;
 
             
             

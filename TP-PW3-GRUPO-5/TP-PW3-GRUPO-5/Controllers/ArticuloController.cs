@@ -14,19 +14,17 @@ namespace TP_PW3_GRUPO_5.Controllers
 {
     public class ArticuloController : Controller
     {
-        IArticuloServicio articuloServicio;
-        _20211CTPContext context;
-
-           
+        private IArticuloServicio articuloServicio;
+        private _20211CTPContext context;          
 
         public ArticuloController(_20211CTPContext ctx)
         {
             context = ctx;
-            articuloServicio = new ArticuloServicio();
+            articuloServicio = new ArticuloServicio(context);
         }
         public IActionResult Index()
         {
-            return View(context.Articulos.ToList());
+            return View(articuloServicio.ObtenerArticulos());
         }
 
         public IActionResult NuevoArticulo()
@@ -41,9 +39,7 @@ namespace TP_PW3_GRUPO_5.Controllers
         {
             if(ModelState.IsValid)
             {
-                articulo.FechaCreacion = DateTime.Now;             
-                context.Articulos.Add(articulo);
-                context.SaveChanges();
+                articuloServicio.Alta(articulo);
 
                 if(submit == "Guardar")
                 {
@@ -60,8 +56,7 @@ namespace TP_PW3_GRUPO_5.Controllers
         }
         public IActionResult DetalleArticulo(string accion,int id)
         {
-
-            Articulo miArticulo = context.Articulos.Find(id);
+            Articulo miArticulo = articuloServicio.ObtenerPorId(id);
             ViewData["accion"] = accion;
             return View(miArticulo);
         }
@@ -71,12 +66,7 @@ namespace TP_PW3_GRUPO_5.Controllers
         {
             if (ModelState.IsValid)
             {
-                Articulo articuloBD = context.Articulos.Find(articulo.IdArticulo);
-                articuloBD.Codigo = articulo.Codigo;
-                articuloBD.Descripcion = articulo.Descripcion;
-                articuloBD.FechaModificacion = DateTime.Now;
-                //FALTA AGREGAR MODIFICADO POR
-                context.SaveChanges();
+                articuloServicio.Modificar(articulo);
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -86,10 +76,7 @@ namespace TP_PW3_GRUPO_5.Controllers
         }
         public IActionResult EliminarArticulo(int id)
         {
-            Articulo articuloBD = context.Articulos.Find(id);
-            articuloBD.FechaBorrado = DateTime.Now;
-            //FALTA BORRADO POR Y CONFIRMACION DEL BORRADO
-            context.SaveChanges();
+            articuloServicio.Baja(id);
             return RedirectToAction(nameof(Index));
 
         }

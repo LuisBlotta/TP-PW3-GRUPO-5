@@ -21,13 +21,13 @@ function GenerarTabla(resultados) {
                 ${resultado.Email}
                 </td>
                 <td>
-                <a class="me-3" href="/usuario/detalleUsuario?accion=ver&id=${resultado.IdUsuario}" data-toggle="tooltip"
+                <a class="me-3" href="/usuario/detalleUsuario/ver/${resultado.IdUsuario}" data-toggle="tooltip"
                     title="Ver"><i class="fas fa-eye"></i></a>
-                <a class="me-3" href="/usuario/detalleUsuario?accion=editar&id=${resultado.IdUsuario}" data-toggle="tooltip"
+                <a class="me-3" href="/usuario/detalleUsuario/editar/${resultado.IdUsuario}" data-toggle="tooltip"
                     title="Editar"><i class="fas fa-edit"></i></a>`;
         if (resultado.BorradoPor == null) {
             listado += `
-            <a href="/usuario/eliminarUsuario?id=${resultado.IdUsuario}" data-toggle="tooltip" title="Borrar">
+            <a href="/usuario/eliminarUsuario/${resultado.IdUsuario}" data-toggle="tooltip" title="Borrar">
                 <i class="fas fa-trash-alt"></i>
             </a>`;
         } else {

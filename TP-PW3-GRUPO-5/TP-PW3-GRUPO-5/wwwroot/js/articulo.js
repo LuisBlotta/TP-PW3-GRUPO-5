@@ -20,13 +20,13 @@ function GenerarTabla(resultados) {
                 ${resultado.Codigo}
                 </td>
                 <td>
-                <a class="me-3" href="/articulo/detalleArticulo?accion=ver&id=${resultado.IdArticulo}" data-toggle="tooltip"
+                <a class="me-3" href="/Articulo/DetalleArticulo/ver/${resultado.IdArticulo}" data-toggle="tooltip"
                     title="Ver"><i class="fas fa-eye"></i></a>
-                <a class="me-3" href="/articulo/detalleArticulo?accion=editar&id=${resultado.IdArticulo}" data-toggle="tooltip"
+                <a class="me-3" href="/Articulo/DetalleArticulo/editar/${resultado.IdArticulo}" data-toggle="tooltip"
                     title="Editar"><i class="fas fa-edit"></i></a>`;
         if (resultado.BorradoPor == null) {
             listado += `
-            <a href="/articulo/eliminarArticulo?id=${resultado.IdArticulo}" data-toggle="tooltip" title="Borrar">
+            <a href="/articulo/eliminarArticulo/${resultado.IdArticulo}" data-toggle="tooltip" title="Borrar">
                 <i class="fas fa-trash-alt"></i>
             </a>`;
         } else {

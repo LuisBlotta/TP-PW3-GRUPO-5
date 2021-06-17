@@ -1,4 +1,4 @@
-﻿using Entidades;
+﻿using Contexto_de_datos.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,21 +21,21 @@ namespace ViewModels
 
                 if (clientesEstadoPedido.Clientes.Count == 0)
                 {
-                    clientesEstadoPedido.Clientes.Add(p.Cliente.Nombre);
+                    clientesEstadoPedido.Clientes.Add(p.IdClienteNavigation.Nombre);
                 }
-                if (!clientesEstadoPedido.Clientes.Contains(p.Cliente.Nombre))
+                if (!clientesEstadoPedido.Clientes.Contains(p.IdClienteNavigation.Nombre))
                 {
-                    clientesEstadoPedido.Clientes.Add(p.Cliente.Nombre);
+                    clientesEstadoPedido.Clientes.Add(p.IdClienteNavigation.Nombre);
                 }
 
 
                 if (clientesEstadoPedido.EstadosPedidos.Count == 0)
                 {
-                    clientesEstadoPedido.EstadosPedidos.Add(p.EstadoPedido.Descripcion);
+                    clientesEstadoPedido.EstadosPedidos.Add(p.IdEstadoNavigation.Descripcion);
                 }
-                if (!clientesEstadoPedido.EstadosPedidos.Contains(p.EstadoPedido.Descripcion))
+                if (!clientesEstadoPedido.EstadosPedidos.Contains(p.IdEstadoNavigation.Descripcion))
                 {
-                    clientesEstadoPedido.EstadosPedidos.Add(p.EstadoPedido.Descripcion);
+                    clientesEstadoPedido.EstadosPedidos.Add(p.IdEstadoNavigation.Descripcion);
                 }
 
             }

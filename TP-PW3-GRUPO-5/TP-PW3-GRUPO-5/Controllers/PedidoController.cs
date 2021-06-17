@@ -1,5 +1,5 @@
 ﻿using Clases_auxiliares;
-using Entidades;
+using Contexto_de_datos.Models;
 using Microsoft.AspNetCore.Mvc;
 using Servicios;
 using System;
@@ -13,14 +13,16 @@ namespace TP_PW3_GRUPO_5.Controllers
 {
     public class PedidoController : Controller
     {
-        IPedidoServicio pedidoServicio;
-        IClienteServicio clienteServicio;
-        IArticuloServicio articuloServicio;
-        public PedidoController()
+        private IPedidoServicio pedidoServicio;
+        private IClienteServicio clienteServicio;
+        private IArticuloServicio articuloServicio;
+        private _20211CTPContext context;
+        public PedidoController(_20211CTPContext ctx)
         {
+            context = ctx;
             pedidoServicio = new PedidoServicio();
-            clienteServicio = new ClienteServicio();
-            articuloServicio = new ArticuloServicio();
+            clienteServicio = new ClienteServicio(context);
+            articuloServicio = new ArticuloServicio(context);
         }
         public IActionResult Index()
         {

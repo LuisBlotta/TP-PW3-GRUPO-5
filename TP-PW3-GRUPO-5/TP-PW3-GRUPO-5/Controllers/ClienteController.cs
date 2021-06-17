@@ -13,18 +13,18 @@ namespace TP_PW3_GRUPO_5.Controllers
 {
     public class ClienteController : Controller
     {
-        IClienteServicio clienteServicio;
-        _20211CTPContext context;
+        private IClienteServicio clienteServicio;
+        private _20211CTPContext context;
 
         public ClienteController(_20211CTPContext ctx)
         {
             context = ctx;
-            clienteServicio = new ClienteServicio();    
+            clienteServicio = new ClienteServicio(context);    
         }
         public IActionResult Index()
         {
             ViewData["selectClientes"] = clienteServicio.ObtenerSelectClientes();
-            return View(context.Clientes.ToList());
+            return View(clienteServicio.ObtenerClientes());
         }
 
         public IActionResult NuevoCliente()
@@ -38,9 +38,8 @@ namespace TP_PW3_GRUPO_5.Controllers
         {
             if (ModelState.IsValid) 
             {
-                cliente.FechaCreacion = DateTime.Now;
-                context.Clientes.Add(cliente);
-                context.SaveChanges();
+                clienteServicio.Alta(cliente);
+
                 if (submit == "Guardar")
                 {
                     return RedirectToAction(nameof(Index));
@@ -52,11 +51,11 @@ namespace TP_PW3_GRUPO_5.Controllers
                 }
             }
 
-            return View();
+            return View(cliente);
         }
         public IActionResult DetalleCliente(string accion, int id)
         {
-            Cliente miCliente = context.Clientes.Find(id);
+            Cliente miCliente = clienteServicio.ObtenerPorId(id);
             ViewData["accion"] = accion;
             return View(miCliente);
         }
@@ -66,16 +65,7 @@ namespace TP_PW3_GRUPO_5.Controllers
         {
             if (ModelState.IsValid)
             {
-                Cliente clienteBD = context.Clientes.Find(cliente.IdCliente);
-                clienteBD.Nombre = cliente.Nombre;
-                clienteBD.Numero = cliente.Numero;
-                clienteBD.Telefono = cliente.Telefono;
-                clienteBD.Direccion = cliente.Direccion;
-                clienteBD.Email = cliente.Email;
-                clienteBD.Cuit = cliente.Cuit;
-                clienteBD.FechaModificacion = DateTime.Now;
-                //FALTA AGREGAR MODIFICADO POR
-                context.SaveChanges();
+                clienteServicio.Modificar(cliente);
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -86,10 +76,7 @@ namespace TP_PW3_GRUPO_5.Controllers
 
         public IActionResult EliminarCliente(int id)
         {
-            Cliente clienteBD = context.Clientes.Find(id);
-            clienteBD.FechaBorrado = DateTime.Now;
-            //FALTA BORRADO POR Y CONFIRMACION DEL BORRADO
-            context.SaveChanges();
+            clienteServicio.Baja(id);
             return RedirectToAction(nameof(Index));
 
         }

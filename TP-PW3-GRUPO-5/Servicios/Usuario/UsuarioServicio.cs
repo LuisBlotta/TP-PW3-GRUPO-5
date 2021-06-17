@@ -10,7 +10,45 @@ namespace Servicios
 {
     public class UsuarioServicio : IUsuarioServicio
     {
-        _20211CTPContext context = new _20211CTPContext();
+        _20211CTPContext context;
+
+        public UsuarioServicio(_20211CTPContext ctx)
+        {
+            context = ctx;
+        }
+
+        public void Alta(Usuario usuario)
+        {
+            context.Usuarios.Add(usuario);
+            context.SaveChanges();
+        }
+
+        public void Baja(int id)
+        {
+            Usuario usuarioBD = ObtenerPorId(id);
+            usuarioBD.FechaBorrado = DateTime.Now;
+            //FALTA BORRADO POR
+            context.SaveChanges();
+        }
+
+        public void Modificar(Usuario usuario)
+        {
+            Usuario usuarioBD = ObtenerPorId(usuario.IdUsuario);
+            usuarioBD.EsAdmin = usuario.EsAdmin;
+            usuarioBD.Email = usuario.Email;
+            usuarioBD.Nombre = usuario.Nombre;
+            usuarioBD.Apellido = usuario.Apellido;
+            usuarioBD.FechaNacimiento = usuario.FechaNacimiento;
+            usuarioBD.Password = usuario.Password;
+            usuarioBD.FechaModificacion = DateTime.Now;
+            //FALTA AGREGAR MODIFICADO POR
+            context.SaveChanges();
+        }
+
+        public Usuario ObtenerPorId(int id)
+        {
+            return context.Usuarios.Find(id);
+        }
 
         public List<Usuario> ObtenerUsuarios(UsuarioFiltro usuarioFiltro = null)
         {

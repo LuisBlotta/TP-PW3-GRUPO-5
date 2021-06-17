@@ -3,14 +3,41 @@ using Contexto_de_datos.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Servicios
 {
     public class ArticuloServicio : IArticuloServicio
     {
-        _20211CTPContext context = new _20211CTPContext();
+        private _20211CTPContext context;
+
+        public ArticuloServicio(_20211CTPContext ctx)
+        {
+            context = ctx;
+        }
+
+        public void Alta(Articulo articulo)
+        {
+            context.Articulos.Add(articulo);
+            context.SaveChanges();
+        }
+
+        public void Baja(int id)
+        {
+            Articulo articulo = ObtenerPorId(id);
+            articulo.FechaBorrado = DateTime.Now;
+            // FALTA BORRADO POR
+            context.SaveChanges();
+        }
+
+        public void Modificar(Articulo articulo)
+        {
+            Articulo articuloBD = ObtenerPorId(articulo.IdArticulo);
+            articuloBD.Codigo = articulo.Codigo;
+            articuloBD.Descripcion = articulo.Descripcion;
+            articuloBD.FechaModificacion = DateTime.Now;
+            //FALTA MODIFICADO POR
+            context.SaveChanges();
+        }
 
         public List<Articulo> ObtenerArticulos(ArticuloFiltro articuloFiltro = null)
         {
@@ -37,6 +64,11 @@ namespace Servicios
             listaArticulos = listaArticulos.OrderBy(u => u.Codigo).ToList();
 
             return listaArticulos;
+        }
+
+        public Articulo ObtenerPorId(int id)
+        {
+            return context.Articulos.Find(id);
         }
     }
 }
