@@ -9,7 +9,7 @@ function AgregarArticulo() {
 
     if (codigo != "" && !Number.isNaN(cantidad)) {
         let articulo = {
-            Codigo: document.getElementById("articulo").value,
+            Codigo: codigo,
             Descripcion: descripcion,
             Cantidad: cantidad
         };
