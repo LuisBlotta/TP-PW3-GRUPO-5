@@ -21,7 +21,7 @@ namespace TP_PW3_GRUPO_5
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<_20211CTPContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("_20211CTPContext")));
+            options./*UseLazyLoadingProxies().*/UseSqlServer(Configuration.GetConnectionString("_20211CTPContext")));
             services.AddControllersWithViews();
 
         }

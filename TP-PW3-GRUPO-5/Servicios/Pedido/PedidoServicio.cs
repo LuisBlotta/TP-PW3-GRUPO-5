@@ -94,7 +94,27 @@ namespace Servicios
 
         public Pedido ObtenerPorId(int id)
         {
-            return context.Pedidos.Include(o=>o.IdClienteNavigation).Include(o=>o.IdEstadoNavigation).FirstOrDefault(o=>o.IdPedido == id);
+            return context.Pedidos.Include(o=>o.PedidoArticulos).Include(o=>o.IdClienteNavigation).Include(o=>o.IdEstadoNavigation).FirstOrDefault(o=>o.IdPedido == id);
+        }
+        public List<PedidoArticulo> ObtenerPedidosArticulos(int id)
+        {
+            return context.PedidoArticulos.Include(o => o.IdArticuloNavigation).Where(o=>o.IdPedido == id).ToList();
+        }
+        public List<ArticuloCantidad> ObtenerPedidoDetalle(int id)
+        {
+            List<PedidoArticulo> pedidosArticulos = ObtenerPedidosArticulos(id);
+            List<ArticuloCantidad> articulosCantidad = new List<ArticuloCantidad>();
+
+            foreach (PedidoArticulo pedidoArticulo in pedidosArticulos)
+            {
+                ArticuloCantidad articuloCantidad = new ArticuloCantidad();
+                articuloCantidad.Cantidad = pedidoArticulo.Cantidad;
+                articuloCantidad.Codigo = pedidoArticulo.IdArticuloNavigation.Codigo;
+                articuloCantidad.Descripcion = pedidoArticulo.IdArticuloNavigation.Descripcion;
+                articulosCantidad.Add(articuloCantidad);
+            }
+
+            return articulosCantidad;
         }
     }
 }

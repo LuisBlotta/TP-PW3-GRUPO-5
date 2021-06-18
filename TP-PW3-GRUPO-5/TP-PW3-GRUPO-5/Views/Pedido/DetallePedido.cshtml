@@ -14,7 +14,7 @@ else
 {
     ViewData["Title"] = "Editar Pedido";
     @section Scripts {
-        <script src="~/js/deshabilitarInputs.js"></script>
+        <script src="~/js/detallePedido.js"></script>
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     }
     <h3 class="text-center mb-5">Editar Pedido @Model.NroPedido (Cliente: @Model.IdClienteNavigation.Nombre)</h3>
@@ -23,6 +23,7 @@ else
 <div class="row d-flex justify-content-center">
     <div class="col-md-8">
         <form>
+            <input type="number" value="@Model.IdPedido" hidden id="IdPedido" />
             <div class="row">
                 <div class="col-md-4 d-flex justify-content-start">
                     <a href="/Cliente/DetalleCliente/Ver/@Model.IdCliente">@Model.IdClienteNavigation.Nombre</a> - # @Model.NroPedido
@@ -38,7 +39,7 @@ else
             </div>
             <div class="row form-group">
                 <div class="col-md-4">
-                    <select class="select2NuevoPedido col-12" id="articulo" name="articulo">
+                    <select class="select2Pedido col-12" id="articulo" name="articulo">
                         <option value="">Articulo</option>
                         @foreach (Contexto_de_datos.Models.Articulo a in (List<Contexto_de_datos.Models.Articulo>)ViewData["articulos"])
                         {
@@ -68,6 +69,7 @@ else
                             </tr>
                         </thead>
                         <tbody id="tbody">
+
                         </tbody>
                     </table>
                 </div>

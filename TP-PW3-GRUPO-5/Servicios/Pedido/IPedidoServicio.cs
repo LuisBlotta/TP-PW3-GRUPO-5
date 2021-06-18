@@ -13,5 +13,8 @@ namespace Servicios
         public void Baja(int id);
         public void Modificar(Pedido pedido);
         public Pedido ObtenerPorId(int id);
+        public List<ArticuloCantidad> ObtenerPedidoDetalle(int id);
+        public List<PedidoArticulo> ObtenerPedidosArticulos(int id);
+
     }
 }
