@@ -11,7 +11,7 @@ namespace Servicios
         public void Alta(PedidoNuevoFiltro pedidoNuevoFiltro);
         public int ObtenerNumeroPedido();
         public void Baja(int id);
-        public void Modificar(Pedido pedido);
+        public void Modificar(EditarPedido pedido);
         public Pedido ObtenerPorId(int id);
         public List<ArticuloCantidad> ObtenerPedidoDetalle(int id);
         public List<PedidoArticulo> ObtenerPedidosArticulos(int id);

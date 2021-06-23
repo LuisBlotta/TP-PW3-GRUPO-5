@@ -24,6 +24,7 @@ else
     <div class="col-md-8">
         <form>
             <input type="number" value="@Model.IdPedido" hidden id="IdPedido" />
+            <input type="number" value="@Model.IdEstado" hidden id="IdEstado" />
             <div class="row">
                 <div class="col-md-4 d-flex justify-content-start">
                     <a href="/Cliente/DetalleCliente/Ver/@Model.IdCliente">@Model.IdClienteNavigation.Nombre</a> - # @Model.NroPedido
@@ -69,7 +70,6 @@ else
                             </tr>
                         </thead>
                         <tbody id="tbody">
-
                         </tbody>
                     </table>
                 </div>
@@ -78,7 +78,7 @@ else
             <div class="row">
                 <div class="col form-group">
                     <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a comment here" value="@Model.Comentarios" id="comentarios" style="height: 100px"></textarea>
+                        <textarea class="form-control" placeholder="Escriba su comentario aqui..."  id="comentarios" style="height: 100px">@Model.Comentarios</textarea>
                         <label for="comentarios">Comentarios</label>
                     </div>
                 </div>
@@ -89,7 +89,7 @@ else
                     <input type="button" value="Guardar" class="btn btn-primary" name="submit" onclick="MandarForm('guardar')" />
                 </div>
                 <div class="col-md-2">
-                    <input type="button" value="Cerrar" class="btn btn-primary" name="submit" onclick="MandarForm('cerrar')" />
+                    <input type="button" value="Guardar y cerrar" class="btn btn-primary" name="submit" onclick="MandarForm('cerrar')" />
                 </div>
                 <div class="col-md-2">
                     <input type="button" value="Entregado" class="btn btn-primary" name="submit" onclick="MandarForm('entregado')" />

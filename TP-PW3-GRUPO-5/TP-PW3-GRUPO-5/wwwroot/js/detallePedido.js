@@ -7,11 +7,6 @@ $(document).ready(function () {
 
 });
 
-function GenerarListaArticulos(lista) {
-    lista.forEach(resultado => {
-        articulos.push(resultado);
-    });
-}
 function AgregarArticulo() {
     let codigo = document.getElementById("articulo").value;
     let selectArticulo = document.getElementById("articulo");
@@ -114,12 +109,42 @@ function QuitarArticulo(posicion) {
     CargarTabla(articulos);
 }
 function MandarForm(accion) {
+    let idPedido = Number.parseInt(document.getElementById("IdPedido").value);
+    let idEstado = Number.parseInt(document.getElementById("IdEstado").value);
+    let comentarios = document.getElementById("comentarios").value;
+    if (accion == "entregado") {
+        var data = {
+            Comentarios: comentarios,
+            IdPedido: idPedido,
+            EstadoPedido: idEstado
+        }
+    } else {
+        var data = {
+            Comentarios: comentarios,
+            IdPedido: idPedido,
+            EstadoPedido: idEstado,
+            Articulos: articulos
+        }
+    }
 
+    fetch('https://localhost:44344/pedido/EditarPedido', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response =>
+            response.json()
+        )
+        .then(data => {
+            window.location.href = data;
+        })
 }
+
 
 function ObtenerResultados() {
     let data = Number.parseInt(document.getElementById("IdPedido").value);
-    let articulos = new Array();
     fetch('https://localhost:44344/pedido/ObtenerDetallePedido', {
         method: 'POST',
         headers: {

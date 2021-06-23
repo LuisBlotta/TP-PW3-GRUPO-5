@@ -86,17 +86,11 @@ namespace TP_PW3_GRUPO_5.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditarPedido(Pedido pedido)
+        public IActionResult EditarPedido([FromBody]EditarPedido pedidoAEditar)
         {
-            if (ModelState.IsValid)
-            {
-                pedidoServicio.Modificar(pedido);
-                return RedirectToAction(nameof(Index));
-            }
-            else
-            {
-                return Redirect($"/pedido/detallepedido/editar/{pedido.IdPedido}");
-            }
+            pedidoServicio.Modificar(pedidoAEditar);
+            string resultado = JsonSerializer.Serialize("/Pedido/Index");
+            return Content(resultado);
         }
 
         public IActionResult EliminarPedido(int id)

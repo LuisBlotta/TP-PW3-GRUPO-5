@@ -38,8 +38,9 @@ namespace Servicios
                 pedidoArticulo.IdArticulo = articuloServicio.ObtenerPorCodigo(articulo.Codigo).IdArticulo;
                 pedidoArticulo.IdPedido = idPedido;
                 context.PedidoArticulos.Add(pedidoArticulo);
-                context.SaveChanges();
             }
+            context.SaveChanges();
+
         }
 
         public void Baja(int id)
@@ -50,10 +51,29 @@ namespace Servicios
             context.SaveChanges();
         }
 
-        public void Modificar(Pedido pedido)
+        public void Modificar(EditarPedido pedido)
         {
             Pedido pedidoBD = ObtenerPorId(pedido.IdPedido);
-            // VER
+            pedidoBD.IdEstado = pedido.EstadoPedido;
+            pedidoBD.Comentarios = pedido.Comentarios;
+            if(pedido.Articulos != null)
+            {
+                pedidoBD.PedidoArticulos.Clear();
+                context.SaveChanges();
+
+                foreach (ArticuloCantidad articulo in pedido.Articulos)
+                {
+                    PedidoArticulo pedidoArticulo = new PedidoArticulo();
+                    pedidoArticulo.Cantidad = articulo.Cantidad;
+                    pedidoArticulo.IdArticulo = articuloServicio.ObtenerPorCodigo(articulo.Codigo).IdArticulo;
+                    pedidoArticulo.IdPedido = pedido.IdPedido;
+                    context.PedidoArticulos.Add(pedidoArticulo);
+                }
+            }
+            pedidoBD.FechaModificacion = DateTime.Now;
+            // FALTA MODIFICADO POR
+            context.SaveChanges();
+
         }
 
         public int ObtenerNumeroPedido()
