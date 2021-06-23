@@ -42,7 +42,7 @@ namespace TP_PW3_GRUPO_5.Controllers
 
         }
         [HttpPost]
-        public IActionResult ObtenerPedido([FromBody] int IdPedido)
+        public IActionResult ObtenerDetallePedido([FromBody] int IdPedido)
         {
             List<ArticuloCantidad> articulosCantidad = pedidoServicio.ObtenerPedidoDetalle(IdPedido);
             var resultado = JsonSerializer.Serialize(articulosCantidad);
