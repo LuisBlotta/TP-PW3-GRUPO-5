@@ -4,9 +4,8 @@
     ViewData["Title"] = "Ver Pedido";
     @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-        <script src="~/js/deshabilitarInputs.js"></script>
         <script src="~/js/detallePedido.js"></script>
-
+        <script src="~/js/deshabilitarInputs.js"></script>
     }
     <h3 class="text-center">Ver Pedido @Model.NroPedido (Cliente: @Model.IdClienteNavigation.Nombre)</h3>
 }
@@ -16,15 +15,17 @@ else
     @section Scripts {
         <script src="~/js/detallePedido.js"></script>
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
     }
     <h3 class="text-center mb-5">Editar Pedido @Model.NroPedido (Cliente: @Model.IdClienteNavigation.Nombre)</h3>
 }
 
 <div class="row d-flex justify-content-center">
     <div class="col-md-8">
-        <form>
+        <form id="myForm">
             <input type="number" value="@Model.IdPedido" hidden id="IdPedido" />
             <input type="number" value="@Model.IdEstado" hidden id="IdEstado" />
+
             <div class="row">
                 <div class="col-md-4 d-flex justify-content-start">
                     <a href="/Cliente/DetalleCliente/Ver/@Model.IdCliente">@Model.IdClienteNavigation.Nombre</a> - # @Model.NroPedido
@@ -38,23 +39,30 @@ else
                     <label>Estado: @Model.IdEstadoNavigation.Descripcion</label>
                 </div>
             </div>
-            <div class="row form-group">
-                <div class="col-md-4">
-                    <select class="select2Pedido col-12" id="articulo" name="articulo">
-                        <option value="">Articulo</option>
-                        @foreach (Contexto_de_datos.Models.Articulo a in (List<Contexto_de_datos.Models.Articulo>)ViewData["articulos"])
-                        {
-                            <option value="@a.Codigo">@a.Descripcion #@a.Codigo</option>
-                        }
-                    </select>
+
+            @if (Model.IdEstado == 1)
+            {
+                <div class="row form-group">
+                    <div class="col-md-4">
+                        <select class="select2Pedido col-12" id="articulo" name="articulo">
+                            <option value="">Articulo</option>
+                            @foreach (Contexto_de_datos.Models.Articulo a in (List<Contexto_de_datos.Models.Articulo>)ViewData["articulos"])
+                            {
+                                <option value="@a.Codigo">@a.Descripcion #@a.Codigo</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="number" class="form-control" name="cantidad" id="cantidad" placeholder="Cantidad" />
+                    </div>
+
+                    <div class="col-md-4">
+                        <input id="btnEditar" type="button" class="btn btn-primary" name="agregar" value="Agregar" onclick="AgregarArticulo()" />
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <input type="number" class="form-control" name="cantidad" id="cantidad" placeholder="Cantidad" />
-                </div>
-                <div class="col-md-4">
-                    <input type="button" class="btn btn-primary" name="agregar" id="agregar" value="Agregar" onclick="AgregarArticulo()" />
-                </div>
-            </div>
+            }
+
+
             <div class="row d-flex justify-content-center">
                 <label class="text-danger" id="errorSelect"></label>
             </div>
@@ -78,26 +86,35 @@ else
             <div class="row">
                 <div class="col form-group">
                     <div class="form-floating">
-                        <textarea class="form-control" placeholder="Escriba su comentario aqui..."  id="comentarios" style="height: 100px">@Model.Comentarios</textarea>
+                        <textarea class="form-control" placeholder="Escriba su comentario aqui..." id="comentarios" style="height: 100px">@Model.Comentarios</textarea>
                         <label for="comentarios">Comentarios</label>
                     </div>
                 </div>
             </div>
 
-            <div class="form-group d-flex justify-content-center row">
-                <div class="col-md-2">
-                    <input type="button" value="Guardar" class="btn btn-primary" name="submit" onclick="MandarForm('guardar')" />
+            <div class="form-group d-flex flex-wrap row justify-content-center">
+
+                @if (Model.IdEstado == 1)
+                {
+                    <div class="col">
+                        <input type="button" value="Guardar" class="btn btn-primary btnEditar" name="submit" onclick="MandarForm('guardar')" />
+                    </div>
+                    <div class="col">
+                        <input type="button" value="Guardar y Cerrar" class="btn btn-primary btnEditar" name="submit" onclick="MandarForm('cerrar')" />
+                    </div>
+                }
+
+                @if (Model.IdEstado != 3)
+                {
+                    <div class="col">
+                        <input type="button" value="Entregado" class="btn btn-primary btnEditar" name="submit" onclick="MandarForm('entregado')" />
+                    </div>
+                }
+
+                <div class="col">
+                    <a href="/Pedido/eliminarPedido/@Model.IdPedido" class="btn btn-primary btnEditar">Eliminar</a>
                 </div>
-                <div class="col-md-2">
-                    <input type="button" value="Guardar y cerrar" class="btn btn-primary" name="submit" onclick="MandarForm('cerrar')" />
-                </div>
-                <div class="col-md-2">
-                    <input type="button" value="Entregado" class="btn btn-primary" name="submit" onclick="MandarForm('entregado')" />
-                </div>
-                <div class="col-md-2">
-                    <a href="/Pedido/eliminarPedido/@Model.IdPedido" class="btn btn-primary">Eliminar</a>
-                </div>
-                <div class="col-md-2">
+                <div class="col">
                     <a class="btn btn-primary" href="/Pedido/Index">Volver</a>
                 </div>
             </div>

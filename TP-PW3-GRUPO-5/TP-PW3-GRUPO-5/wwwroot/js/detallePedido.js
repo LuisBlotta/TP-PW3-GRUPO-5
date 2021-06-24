@@ -4,6 +4,7 @@
 $(document).ready(function () {
     $('.select2Pedido').select2();
     ObtenerResultados();
+    deshabilitarQuitar();
 
 });
 
@@ -91,7 +92,7 @@ function CargarTabla(data) {
                 ${articulo.Cantidad}
                 </td>
                 <td>
-                <a onclick="QuitarArticulo(${posicion})">Quitar</a>
+                <a class='btnQuitar' onclick="QuitarArticulo(${posicion})">Quitar</a>
                 </td>                  
         </tr>`
             posicion++;
@@ -110,19 +111,25 @@ function QuitarArticulo(posicion) {
 }
 function MandarForm(accion) {
     let idPedido = Number.parseInt(document.getElementById("IdPedido").value);
-    let idEstado = Number.parseInt(document.getElementById("IdEstado").value);
     let comentarios = document.getElementById("comentarios").value;
     if (accion == "entregado") {
         var data = {
             Comentarios: comentarios,
             IdPedido: idPedido,
-            EstadoPedido: idEstado
+            EstadoPedido: 3
+        }
+    } else if (accion == "cerrar") {
+        var data = {
+            Comentarios: comentarios,
+            IdPedido: idPedido,
+            EstadoPedido: 2,
+            Articulos: articulos
         }
     } else {
         var data = {
             Comentarios: comentarios,
             IdPedido: idPedido,
-            EstadoPedido: idEstado,
+            EstadoPedido: 1,
             Articulos: articulos
         }
     }
@@ -159,5 +166,16 @@ function ObtenerResultados() {
         .then(data => {
             CargarTabla(data);
         })
+
+}
+
+function deshabilitarQuitar() {
+    var estado = Number.parseInt(document.getElementById("IdEstado").value);
+    if (estado != 1) {
+        setTimeout(function () {
+            $(".btnQuitar").hide();
+            $("#comentarios").prop("disabled", true);
+        }, 50);
+    }
 
 }
