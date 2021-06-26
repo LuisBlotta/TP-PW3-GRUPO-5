@@ -19,6 +19,7 @@ namespace Servicios
 
         public void Alta(Usuario usuario)
         {
+            usuario.FechaCreacion = DateTime.Now;
             context.Usuarios.Add(usuario);
             context.SaveChanges();
         }
@@ -45,6 +46,11 @@ namespace Servicios
             context.SaveChanges();
         }
 
+        public Usuario ObtenerPorEmail(string email)
+        {
+            return context.Usuarios.FirstOrDefault(o => o.Email == email);
+        }
+
         public Usuario ObtenerPorId(int id)
         {
             return context.Usuarios.Find(id);
@@ -69,10 +75,10 @@ namespace Servicios
                     listaUsuarios = listaUsuarios.Where(l => l.BorradoPor == null).ToList();
                 }
 
-            }            
+            }
 
 
-           listaUsuarios = listaUsuarios.OrderBy(u => u.Nombre).ToList();
+            listaUsuarios = listaUsuarios.OrderBy(u => u.Nombre).ToList();
 
             return listaUsuarios;
         }

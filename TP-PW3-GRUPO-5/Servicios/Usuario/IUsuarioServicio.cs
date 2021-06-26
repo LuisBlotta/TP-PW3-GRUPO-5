@@ -11,5 +11,6 @@ namespace Servicios
         public void Baja(int id);
         public void Modificar(Usuario usuario);
         public Usuario ObtenerPorId(int id);
+        public Usuario ObtenerPorEmail(string email);
     }
 }

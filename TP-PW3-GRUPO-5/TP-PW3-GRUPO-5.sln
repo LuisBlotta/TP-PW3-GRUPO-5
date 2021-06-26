@@ -5,15 +5,13 @@ VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TP-PW3-GRUPO-5", "TP-PW3-GRUPO-5\TP-PW3-GRUPO-5.csproj", "{F1557241-7DB5-44DA-AA16-BA473C1D72F1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entidades", "Entidades\Entidades.csproj", "{2DCE5330-E857-4417-9192-06C0485A5C9D}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clases_auxiliares", "Clases_auxiliares\Clases_auxiliares.csproj", "{E2E7E6C6-82B8-4294-8A48-644D3A9407DF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModels", "ViewModels\ViewModels.csproj", "{5D3E911A-9916-4330-B3E6-DFB5FF9B53D7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Servicios", "Servicios\Servicios.csproj", "{73025542-239F-499D-8E96-26A7BC611B21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contexto_de_datos", "Contexto_de_datos\Contexto_de_datos.csproj", "{23CBADC9-E044-4E62-A9D2-AC96F8DC7D7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contexto_de_datos", "Contexto_de_datos\Contexto_de_datos.csproj", "{23CBADC9-E044-4E62-A9D2-AC96F8DC7D7B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +23,6 @@ Global
 		{F1557241-7DB5-44DA-AA16-BA473C1D72F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1557241-7DB5-44DA-AA16-BA473C1D72F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1557241-7DB5-44DA-AA16-BA473C1D72F1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2DCE5330-E857-4417-9192-06C0485A5C9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2DCE5330-E857-4417-9192-06C0485A5C9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2DCE5330-E857-4417-9192-06C0485A5C9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2DCE5330-E857-4417-9192-06C0485A5C9D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E2E7E6C6-82B8-4294-8A48-644D3A9407DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E2E7E6C6-82B8-4294-8A48-644D3A9407DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2E7E6C6-82B8-4294-8A48-644D3A9407DF}.Release|Any CPU.ActiveCfg = Release|Any CPU

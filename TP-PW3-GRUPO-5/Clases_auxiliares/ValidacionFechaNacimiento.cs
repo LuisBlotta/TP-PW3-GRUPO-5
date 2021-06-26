@@ -7,14 +7,17 @@ using System.Threading.Tasks;
 
 namespace Clases_auxiliares
 {
-    public class ValidacionFechaNacimiento: ValidationAttribute
+    public class ValidacionFechaNacimiento : ValidationAttribute
     {
         public override bool IsValid(object value)
         {
-            DateTime fecha = (DateTime)value;
+            if (value != null)
+            {
+                DateTime fecha = (DateTime)value;
 
-            return fecha > DateTime.Now ? false : true;
-
+                return fecha > DateTime.Now ? false : true;
+            }
+            return false;
         }
     }
 }

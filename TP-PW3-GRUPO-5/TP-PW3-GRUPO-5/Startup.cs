@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace TP_PW3_GRUPO_5
 {
@@ -22,6 +23,12 @@ namespace TP_PW3_GRUPO_5
         {
             services.AddDbContext<_20211CTPContext>(options =>
             options./*UseLazyLoadingProxies().*/UseSqlServer(Configuration.GetConnectionString("_20211CTPContext")));
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = ".MyApp.Session";
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+            });
             services.AddControllersWithViews();
 
         }
@@ -45,7 +52,7 @@ namespace TP_PW3_GRUPO_5
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
