@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Clases_auxiliares
+﻿namespace Clases_auxiliares
 {
     public class PedidoFiltro
     {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Clases_auxiliares
 {
@@ -10,7 +6,6 @@ namespace Clases_auxiliares
     {
         public int IdCliente { get; set; }
         public List<ArticuloCantidad> Articulos { get; set; }
-
         public string Accion { get; set; }
         public string Comentarios { get; set; }
     }

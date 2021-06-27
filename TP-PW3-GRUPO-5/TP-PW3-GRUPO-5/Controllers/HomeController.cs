@@ -1,16 +1,12 @@
 ﻿using Contexto_de_datos.Models;
 using Clases_auxiliares;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Servicios;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using TP_PW3_GRUPO_5.Models;
 using Microsoft.AspNetCore.Http;
 using System.Text.Json;
+using System;
 
 namespace TP_PW3_GRUPO_5.Controllers
 {
@@ -52,15 +48,25 @@ namespace TP_PW3_GRUPO_5.Controllers
             Usuario user = usuarioServicio.ObtenerPorEmail(Email);
             if (user != null && Password == user.Password)
             {
+                user.FechaUltLogin = DateTime.Now;
+                context.SaveChanges();
+
                 UsuarioSesion usuarioSesion = new UsuarioSesion() { IdUsuario = user.IdUsuario, Nombre = user.Nombre, EsAdmin = user.EsAdmin };
                 HttpContext.Session.SetString("User", JsonSerializer.Serialize(usuarioSesion));
-                return RedirectToAction(nameof(Index));
+                TempData["nombre"] = usuarioSesion.Nombre;
+                return RedirectToAction("/Pedido");
             }
 
-            ViewData["error"] = "Los datos ingresados son incorrectos";
+            ViewData["error"] = "Email y/o contraseña inválidos";
             ViewData["email"] = Email;
             return View();
+        }
 
+        [HttpPost]
+        public IActionResult Salir()
+        {
+            HttpContext.Session.Remove(".MyApp.Session");
+            return RedirectToAction(nameof(Index));
         }
     }
 }

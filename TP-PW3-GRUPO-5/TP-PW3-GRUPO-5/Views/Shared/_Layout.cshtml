@@ -1,29 +1,27 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
-    <!--<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />-->
     <link rel="stylesheet" href="~/css/select2/select2.min.css" />
     <link rel="stylesheet" href="~/css/paginacion/jquery.dataTables.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/81ce8a99d9.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="icon" type="image/x-icon" href="https://i.postimg.cc/s2pj7L19/box.png">
 </head>
 <body>
     <header>
-
         <nav class="navbar navbar-expand-lg navbar-light bg-light nav-container mb-5">
             <div class="container">
                 <nav class="navbar navbar-light bg-light">
                     <div class="container-fluid">
-                        <a class="navbar-brand" href="#">
-                            <img src="https://i.postimg.cc/sXFKFktj/image.png"
-                                 alt="" width="30" height="24" class="d-inline-block align-text-top">
-                            nombre random
-                            <!-- agregar nombre pagina -->
+                        <a class="navbar-brand" href="/Home">
+                            <img src="https://i.postimg.cc/s2pj7L19/box.png"
+                                 alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                            Pedidos
                         </a>
                     </div>
                 </nav>
@@ -46,17 +44,28 @@
                             <a class="nav-link" href="/Usuario">Usuarios</a>
                         </li>
                     </ul>
-                    <form class="d-flex align-items-center">
-                        <!-- hide() si no está logueado -->
-                        <p class="mb-0 me-3">Hola, Robot</p> <!-- agregar nombre usuario actual -->
-                        <button class="btn" type="submit">Salir</button>
-                    </form>
+                    @{
+                        if (!string.IsNullOrEmpty((string)TempData["nombre"]))
+                        {
+                            var Nombre = "Hola, " + (string)TempData["nombre"];
+                            <form class="d-flex align-items-center" asp-action="Salir" asp-controller="Home" method="post">
+                                <p class="mb-0 me-3">@Nombre</p>
+                                <button class="btn btn-dark" type="submit">Salir</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form class="d-flex align-items-center">
+                                <a href="/Home/Ingresar" class="btn btn-dark">Ingresar</a>
+                            </form>
+                        }
+                    }
                 </div>
             </div>
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pt-3 pb-5">
             @RenderBody()
         </main>
     </div>
@@ -90,7 +99,7 @@
                 </div>
                 <div class="col-md mt-4 px-5 proyecto">
                     <div class="mb-4 p-4">
-                        <a class="btn py-3 px-4 mb-0 ir-arriba">
+                        <a class="btn py-3 px-4 mb-0 ir-arriba" id="irArriba">
                             Ir hacia arriba
                             <i class="fas fa-long-arrow-alt-up ms-4"></i>
                         </a>
@@ -128,6 +137,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/select2/select2.js"></script>
     <script src="~/js/paginacion/jquery.dataTables.min.js"></script>
+    <script src="~/js/footer.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>

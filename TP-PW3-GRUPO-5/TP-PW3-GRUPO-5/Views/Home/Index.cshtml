@@ -1,8 +1,19 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center mt-5">
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <img src="https://i.postimg.cc/4yTBnBn0/warehouse.png" alt="Almacen" class="img-fluid" />
+        </div>
+        <div class="col-12 col-md-6 mt-5">
+            <h1>Gestionar pedidos de clientes</h1>
+            <h6 class="my-4 mx-4 line-height">
+                Puedes gestionar los pedidos de los clientes y cambiarles de estado entre abierto, cerrado y entregado. A su vez se puede gestionar los
+                artículos, clientes y usuarios del sistema si el usuario es administrador
+            </h6>
+            <a href="/Pedido" class="btn mt-3">Crear pedido</a>
+        </div>
+    </div>
 </div>

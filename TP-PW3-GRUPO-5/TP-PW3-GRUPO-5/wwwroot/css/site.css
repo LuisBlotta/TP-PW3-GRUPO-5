@@ -12,6 +12,10 @@ a {
     color: #0366d6;
 }
 
+.line-height {
+    line-height: 1.45rem;
+}
+
 .btn-primary {
     color: #fff;
     background-color: #1b6ec2;
@@ -112,10 +116,19 @@ a.nav-link {
     border-radius: 5px;
 }
 
+    .btn.btn-dark {
+        border: 1px solid black;
+        background: black;
+    }
+
     .btn:hover {
         color: #fff;
         background: var(--purple);
         filter: brightness(90%);
+    }
+
+    .btn.btn-dark:hover {
+        background: black;
     }
 
 
