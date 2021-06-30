@@ -1,13 +1,12 @@
 ﻿using Clases_auxiliares;
 using Microsoft.AspNetCore.Mvc;
 using Servicios;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
-using System.Threading.Tasks;
 using Contexto_de_datos.Models;
-using System.Text.Json.Serialization;
+using Servicios.SessionManager;
+using System;
+using Microsoft.AspNetCore.Http;
 
 namespace TP_PW3_GRUPO_5.Controllers
 {
@@ -15,28 +14,52 @@ namespace TP_PW3_GRUPO_5.Controllers
     {
         private IClienteServicio clienteServicio;
         private _20211CTPContext context;
+        private ISessionManager sessionManager;
 
         public ClienteController(_20211CTPContext ctx)
         {
             context = ctx;
-            clienteServicio = new ClienteServicio(context);    
+            clienteServicio = new ClienteServicio(context);
+            sessionManager = new SessionManager();
         }
+
         public IActionResult Index()
         {
-            ViewData["selectClientes"] = clienteServicio.ObtenerSelectClientes();
-            return View(clienteServicio.ObtenerClientes());
+            if (!String.IsNullOrEmpty(HttpContext.Session.GetString("User")))
+            {
+                UsuarioSesion usuarioSesion = JsonSerializer.Deserialize<UsuarioSesion>(HttpContext.Session.GetString("User"));
+                SessionManager sesion = sessionManager.ValidarUsuario(usuarioSesion);
+
+                if (sesion.EsAdmin)
+                {
+                    ViewData["selectClientes"] = clienteServicio.ObtenerSelectClientes();
+                    return View(clienteServicio.ObtenerClientes());
+                }
+            }
+            TempData["url"] = "/Cliente/Index";
+            return Redirect("/Home/Ingresar");
         }
 
         public IActionResult NuevoCliente()
         {
+            if (!String.IsNullOrEmpty(HttpContext.Session.GetString("User")))
+            {
+                UsuarioSesion usuarioSesion = JsonSerializer.Deserialize<UsuarioSesion>(HttpContext.Session.GetString("User"));
+                SessionManager sesion = sessionManager.ValidarUsuario(usuarioSesion);
 
-            return View();
+                if (sesion.EsAdmin)
+                {
+                    return View();
+                }
+            }
+            TempData["url"] = "/Cliente/NuevoCliente";
+            return Redirect("/Home/Ingresar");
         }
 
         [HttpPost]
         public IActionResult NuevoCliente(Cliente cliente, string submit)
         {
-            if (ModelState.IsValid) 
+            if (ModelState.IsValid)
             {
                 clienteServicio.Alta(cliente);
 
@@ -50,14 +73,25 @@ namespace TP_PW3_GRUPO_5.Controllers
                     return RedirectToAction(nameof(NuevoCliente));
                 }
             }
-
             return View(cliente);
         }
+
         public IActionResult DetalleCliente(string accion, int id)
         {
-            Cliente miCliente = clienteServicio.ObtenerPorId(id);
-            ViewData["accion"] = accion;
-            return View(miCliente);
+            if (!String.IsNullOrEmpty(HttpContext.Session.GetString("User")))
+            {
+                UsuarioSesion usuarioSesion = JsonSerializer.Deserialize<UsuarioSesion>(HttpContext.Session.GetString("User"));
+                SessionManager sesion = sessionManager.ValidarUsuario(usuarioSesion);
+
+                if (sesion.EsAdmin)
+                {
+                    Cliente miCliente = clienteServicio.ObtenerPorId(id);
+                    ViewData["accion"] = accion;
+                    return View(miCliente);
+                }
+            }
+            TempData["url"] = $"/Cliente/DetalleCliente/{accion}/{id}";
+            return Redirect("/Home/Ingresar");
         }
 
         [HttpPost]
@@ -76,11 +110,20 @@ namespace TP_PW3_GRUPO_5.Controllers
 
         public IActionResult EliminarCliente(int id)
         {
-            clienteServicio.Baja(id);
-            return RedirectToAction(nameof(Index));
+            if (!String.IsNullOrEmpty(HttpContext.Session.GetString("User")))
+            {
+                UsuarioSesion usuarioSesion = JsonSerializer.Deserialize<UsuarioSesion>(HttpContext.Session.GetString("User"));
+                SessionManager sesion = sessionManager.ValidarUsuario(usuarioSesion);
 
+                if (sesion.EsAdmin)
+                {
+                    clienteServicio.Baja(id);
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            TempData["url"] = $"/Cliente/EliminarCliente/{id}";
+            return Redirect("/Home/Ingresar");
         }
-
 
         [HttpPost]
         public IActionResult ObtenerFiltros([FromBody] ClienteFiltro clienteFiltro)
@@ -88,8 +131,6 @@ namespace TP_PW3_GRUPO_5.Controllers
             List<Cliente> clientes = clienteServicio.ObtenerClientes(clienteFiltro);
             var resultado = JsonSerializer.Serialize(clientes);
             return Content(resultado);
-
         }
-
     }
 }

@@ -21,6 +21,7 @@ namespace TP_PW3_GRUPO_5.Controllers
             articuloServicio = new ArticuloServicio(context);
             sessionManager = new SessionManager();
         }
+
         public IActionResult Index()
         {
             if (!String.IsNullOrEmpty(HttpContext.Session.GetString("User")))
@@ -53,7 +54,6 @@ namespace TP_PW3_GRUPO_5.Controllers
             return Redirect("/Home/Ingresar");
         }
 
-
         [HttpPost]
         public IActionResult NuevoArticulo(Articulo articulo, string submit)
         {
@@ -70,10 +70,10 @@ namespace TP_PW3_GRUPO_5.Controllers
                     TempData["mensaje"] = $"El artículo {articulo.Codigo} - {articulo.Descripcion} se agregó correctamente.";
                     return RedirectToAction(nameof(NuevoArticulo));
                 }
-
             }
             return View(articulo);
         }
+
         public IActionResult DetalleArticulo(string accion, int id)
         {
             if (!String.IsNullOrEmpty(HttpContext.Session.GetString("User")))
@@ -105,6 +105,7 @@ namespace TP_PW3_GRUPO_5.Controllers
                 return Redirect($"/articulo/detallearticulo/editar/{articulo.IdArticulo}");
             }
         }
+
         public IActionResult EliminarArticulo(int id)
         {
             if (!String.IsNullOrEmpty(HttpContext.Session.GetString("User")))
@@ -128,6 +129,5 @@ namespace TP_PW3_GRUPO_5.Controllers
             var resultado = JsonSerializer.Serialize(articuloServicio.ObtenerArticulos(articuloFiltro));
             return Content(resultado);
         }
-
     }
 }
