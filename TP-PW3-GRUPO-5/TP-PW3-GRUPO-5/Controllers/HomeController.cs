@@ -14,6 +14,7 @@ namespace TP_PW3_GRUPO_5.Controllers
     {
         private IUsuarioServicio usuarioServicio;
         private _20211CTPContext context;
+        
 
         public HomeController(_20211CTPContext ctx)
         {
@@ -43,7 +44,7 @@ namespace TP_PW3_GRUPO_5.Controllers
         }
 
         [HttpPost]
-        public IActionResult Ingresar(string Email, string Password)
+        public IActionResult Ingresar(string Email, string Password, string Url)
         {
             Usuario user = usuarioServicio.ObtenerPorEmail(Email);
             if (user != null && Password == user.Password)
@@ -54,7 +55,8 @@ namespace TP_PW3_GRUPO_5.Controllers
                 UsuarioSesion usuarioSesion = new UsuarioSesion() { IdUsuario = user.IdUsuario, Nombre = user.Nombre, EsAdmin = user.EsAdmin };
                 HttpContext.Session.SetString("User", JsonSerializer.Serialize(usuarioSesion));
                 TempData["nombre"] = usuarioSesion.Nombre;
-                return RedirectToAction("/Pedido");
+
+                return Redirect(Url);
             }
 
             ViewData["error"] = "Email y/o contraseña inválidos";
@@ -66,6 +68,9 @@ namespace TP_PW3_GRUPO_5.Controllers
         public IActionResult Salir()
         {
             HttpContext.Session.Remove(".MyApp.Session");
+            HttpContext.Session.Clear();
+            TempData.Remove("nombre");
+
             return RedirectToAction(nameof(Index));
         }
     }

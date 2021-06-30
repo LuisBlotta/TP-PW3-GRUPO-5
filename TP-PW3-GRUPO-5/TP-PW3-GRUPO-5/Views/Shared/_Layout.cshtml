@@ -45,13 +45,17 @@
                         </li>
                     </ul>
                     @{
-                        if (!string.IsNullOrEmpty((string)TempData["nombre"]))
+                        if (TempData.Peek("nombre") != null)
                         {
-                            var Nombre = "Hola, " + (string)TempData["nombre"];
-                            <form class="d-flex align-items-center" asp-action="Salir" asp-controller="Home" method="post">
-                                <p class="mb-0 me-3">@Nombre</p>
-                                <button class="btn btn-dark" type="submit">Salir</button>
-                            </form>
+                            var nombreUsuario = TempData.Peek("nombre").ToString();
+                            if (!string.IsNullOrEmpty(nombreUsuario))
+                            {
+                                var Nombre = "Hola, " + nombreUsuario;
+                                <form class="d-flex align-items-center" asp-action="Salir" asp-controller="Home" method="post">
+                                    <p class="mb-0 me-3">@Nombre</p>
+                                    <button class="btn btn-dark" type="submit">Salir</button>
+                                </form>
+                            }
                         }
                         else
                         {
