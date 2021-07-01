@@ -1,18 +1,20 @@
 ﻿using Contexto_de_datos.Models;
 using Clases_auxiliares;
 using Microsoft.AspNetCore.Mvc;
-using Servicios;
 using System.Diagnostics;
 using TP_PW3_GRUPO_5.Models;
 using Microsoft.AspNetCore.Http;
 using System.Text.Json;
 using System;
+using Servicios;
+using Servicios.Login;
 
 namespace TP_PW3_GRUPO_5.Controllers
 {
     public class HomeController : Controller
     {
         private IUsuarioServicio usuarioServicio;
+        private ILoginServicio loginServicio;
         private _20211CTPContext context;
         
 
@@ -20,6 +22,7 @@ namespace TP_PW3_GRUPO_5.Controllers
         {
             context = ctx;
             usuarioServicio = new UsuarioServicio(context);
+            loginServicio = new LoginServicio(context);
         }
 
         public IActionResult Index()
@@ -46,16 +49,9 @@ namespace TP_PW3_GRUPO_5.Controllers
         [HttpPost]
         public IActionResult Ingresar(string Email, string Password, string Url)
         {
-            Usuario user = usuarioServicio.ObtenerPorEmail(Email);
-            if (user != null && Password == user.Password)
+            if (loginServicio.ValidarLogin(Email,Password,HttpContext.Session))
             {
-                user.FechaUltLogin = DateTime.Now;
-                context.SaveChanges();
-
-                UsuarioSesion usuarioSesion = new UsuarioSesion() { IdUsuario = user.IdUsuario, Nombre = user.Nombre, EsAdmin = user.EsAdmin };
-                HttpContext.Session.SetString("User", JsonSerializer.Serialize(usuarioSesion));
-                TempData["nombre"] = usuarioSesion.Nombre;
-
+                TempData["nombre"] = JsonSerializer.Deserialize<UsuarioSesion>(HttpContext.Session.GetString("User")).Nombre;
                 return Redirect(Url);
             }
 
