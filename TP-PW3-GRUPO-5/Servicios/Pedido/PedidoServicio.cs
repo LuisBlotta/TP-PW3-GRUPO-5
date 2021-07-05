@@ -87,7 +87,7 @@ namespace Servicios
 
         public List<Pedido> ObtenerPedidos(PedidoFiltro pedidoFiltro = null)
         {
-            List<Pedido> listaPedidos = context.Pedidos.Include(o=>o.IdEstadoNavigation).Include(o=>o.IdClienteNavigation).ToList();
+            List<Pedido> listaPedidos = context.Pedidos.Include(o => o.IdEstadoNavigation).Include(o => o.IdClienteNavigation).Include(o =>o.ModificadoPorNavigation).ToList();
          
 
             if (pedidoFiltro != null)

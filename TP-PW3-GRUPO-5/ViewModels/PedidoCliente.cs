@@ -42,26 +42,26 @@ namespace ViewModels
                 DateTime fechaUltimaModificacion = (DateTime)pedido.FechaModificacion;
                 double horasDiferencia = (fechaActual - fechaUltimaModificacion).TotalHours;
                 string ultimaModificacion = "";
-                string cliente = pedido.IdClienteNavigation.Nombre;
+                string usuario = pedido.ModificadoPorNavigation.Nombre;
 
 
 
                 if (horasDiferencia < 1)
                 {
                     double minutos = Math.Round(horasDiferencia * 60);
-                    ultimaModificacion = "Hace " + minutos + " minutos (" + cliente + ")";
+                    ultimaModificacion = "Hace " + minutos + " minutos (" + usuario + ")";
                 }
                 if (horasDiferencia >= 1 && horasDiferencia < 24)
                 {
-                    ultimaModificacion = "Hoy " + fechaUltimaModificacion.ToString("HH:mm") + " (" + cliente + ")";
+                    ultimaModificacion = "Hoy " + fechaUltimaModificacion.ToString("HH:mm") + " (" + usuario + ")";
                 }
                 if (horasDiferencia >= 24 && horasDiferencia < 48)
                 {
-                    ultimaModificacion = "Ayer " + fechaUltimaModificacion.ToString("HH:mm") + " (" + cliente + ")";
+                    ultimaModificacion = "Ayer " + fechaUltimaModificacion.ToString("HH:mm") + " (" + usuario + ")";
                 }
                 if (horasDiferencia >= 48)
                 {
-                    ultimaModificacion = "El día " + fechaUltimaModificacion.ToString("dd-MM-yyyy HH:mm") + " (" + cliente + ")";
+                    ultimaModificacion = "El día " + fechaUltimaModificacion.ToString("dd-MM-yyyy HH:mm") + " (" + usuario + ")";
                 }
 
                 return ultimaModificacion;
