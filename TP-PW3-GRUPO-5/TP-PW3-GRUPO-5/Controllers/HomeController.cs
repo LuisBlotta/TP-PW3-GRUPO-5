@@ -8,6 +8,7 @@ using System.Text.Json;
 using System;
 using Servicios;
 using Servicios.Login;
+using Servicios.Session;
 
 namespace TP_PW3_GRUPO_5.Controllers
 {
@@ -16,13 +17,14 @@ namespace TP_PW3_GRUPO_5.Controllers
         private IUsuarioServicio usuarioServicio;
         private ILoginServicio loginServicio;
         private _20211CTPContext context;
-        
+        private ISessionManager sessionManager;
 
-        public HomeController(_20211CTPContext ctx)
+        public HomeController(_20211CTPContext ctx,IHttpContextAccessor _httpContextAccessor)
         {
             context = ctx;
-            usuarioServicio = new UsuarioServicio(context);
-            loginServicio = new LoginServicio(context);
+            usuarioServicio = new UsuarioServicio(context, _httpContextAccessor);
+            loginServicio = new LoginServicio(context,_httpContextAccessor);
+            sessionManager = new SessionManager(_httpContextAccessor);
         }
 
         public IActionResult Index()
@@ -49,9 +51,9 @@ namespace TP_PW3_GRUPO_5.Controllers
         [HttpPost]
         public IActionResult Ingresar(string Email, string Password, string Url)
         {
-            if (loginServicio.ValidarLogin(Email,Password,HttpContext.Session))
+            if (loginServicio.ValidarLogin(Email,Password))
             {
-                TempData["nombre"] = JsonSerializer.Deserialize<UsuarioSesion>(HttpContext.Session.GetString("User")).Nombre;
+                TempData["nombre"] = sessionManager.ObtenerUsuarioLogueado().Nombre;
                 return Redirect(Url);
             }
 

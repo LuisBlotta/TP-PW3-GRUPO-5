@@ -9,6 +9,6 @@ namespace Servicios.Login
 {
     public interface ILoginServicio
     {
-        public bool ValidarLogin(string email, string password,ISession sesion);
+        public bool ValidarLogin(string email, string password);
     }
 }

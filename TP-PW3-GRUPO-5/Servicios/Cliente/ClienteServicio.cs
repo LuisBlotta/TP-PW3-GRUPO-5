@@ -1,5 +1,7 @@
 ﻿using Clases_auxiliares;
 using Contexto_de_datos.Models;
+using Microsoft.AspNetCore.Http;
+using Servicios.Session;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +13,17 @@ namespace Servicios
     public class ClienteServicio : IClienteServicio
     {
         private _20211CTPContext context;
+        private ISessionManager sessionManager;
 
-        public ClienteServicio(_20211CTPContext ctx)
+        public ClienteServicio(_20211CTPContext ctx, IHttpContextAccessor _httpContextAccessor)
         {
             context = ctx;
+            sessionManager = new SessionManager(_httpContextAccessor);
+
         }
         public void Alta(Cliente cliente)
         {
+            cliente.CreadoPor = sessionManager.ObtenerIDUsuarioLogueado();
             cliente.FechaCreacion = DateTime.Now;
             context.Clientes.Add(cliente);
             context.SaveChanges();
@@ -28,7 +34,7 @@ namespace Servicios
         {
             Cliente cliente = ObtenerPorId(id);
             cliente.FechaBorrado = DateTime.Now;
-            //FALTA BORRADO POR
+            cliente.BorradoPor = sessionManager.ObtenerIDUsuarioLogueado();
             context.SaveChanges();
         }
 
@@ -42,7 +48,7 @@ namespace Servicios
             clienteBD.Email = cliente.Email;
             clienteBD.Cuit = cliente.Cuit;
             clienteBD.FechaModificacion = DateTime.Now;
-            //FALTA AGREGAR MODIFICADO POR
+            clienteBD.ModificadoPor = sessionManager.ObtenerIDUsuarioLogueado(); 
             context.SaveChanges();
         }
 

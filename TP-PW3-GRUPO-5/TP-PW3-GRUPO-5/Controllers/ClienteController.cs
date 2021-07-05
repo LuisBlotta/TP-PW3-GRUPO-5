@@ -4,7 +4,7 @@ using Servicios;
 using System.Collections.Generic;
 using System.Text.Json;
 using Contexto_de_datos.Models;
-using Servicios.SessionManager;
+using Servicios.Session;
 using System;
 using Microsoft.AspNetCore.Http;
 
@@ -16,21 +16,18 @@ namespace TP_PW3_GRUPO_5.Controllers
         private _20211CTPContext context;
         private ISessionManager sessionManager;
 
-        public ClienteController(_20211CTPContext ctx)
+        public ClienteController(_20211CTPContext ctx, IHttpContextAccessor _httpContextAccessor)
         {
             context = ctx;
-            clienteServicio = new ClienteServicio(context);
-            sessionManager = new SessionManager();
+            clienteServicio = new ClienteServicio(context, _httpContextAccessor);
+            sessionManager = new SessionManager(_httpContextAccessor);
         }
 
         public IActionResult Index()
         {
             if (!String.IsNullOrEmpty(HttpContext.Session.GetString("User")))
             {
-                UsuarioSesion usuarioSesion = JsonSerializer.Deserialize<UsuarioSesion>(HttpContext.Session.GetString("User"));
-                SessionManager sesion = sessionManager.ValidarUsuario(usuarioSesion);
-
-                if (sesion.EsAdmin)
+                if (sessionManager.EsAdmin())
                 {
                     ViewData["selectClientes"] = clienteServicio.ObtenerSelectClientes();
                     return View(clienteServicio.ObtenerClientes());
@@ -44,10 +41,7 @@ namespace TP_PW3_GRUPO_5.Controllers
         {
             if (!String.IsNullOrEmpty(HttpContext.Session.GetString("User")))
             {
-                UsuarioSesion usuarioSesion = JsonSerializer.Deserialize<UsuarioSesion>(HttpContext.Session.GetString("User"));
-                SessionManager sesion = sessionManager.ValidarUsuario(usuarioSesion);
-
-                if (sesion.EsAdmin)
+                if (sessionManager.EsAdmin())
                 {
                     return View();
                 }
@@ -80,10 +74,7 @@ namespace TP_PW3_GRUPO_5.Controllers
         {
             if (!String.IsNullOrEmpty(HttpContext.Session.GetString("User")))
             {
-                UsuarioSesion usuarioSesion = JsonSerializer.Deserialize<UsuarioSesion>(HttpContext.Session.GetString("User"));
-                SessionManager sesion = sessionManager.ValidarUsuario(usuarioSesion);
-
-                if (sesion.EsAdmin)
+                if (sessionManager.EsAdmin())
                 {
                     Cliente miCliente = clienteServicio.ObtenerPorId(id);
                     ViewData["accion"] = accion;
@@ -112,10 +103,7 @@ namespace TP_PW3_GRUPO_5.Controllers
         {
             if (!String.IsNullOrEmpty(HttpContext.Session.GetString("User")))
             {
-                UsuarioSesion usuarioSesion = JsonSerializer.Deserialize<UsuarioSesion>(HttpContext.Session.GetString("User"));
-                SessionManager sesion = sessionManager.ValidarUsuario(usuarioSesion);
-
-                if (sesion.EsAdmin)
+                if (sessionManager.EsAdmin())
                 {
                     clienteServicio.Baja(id);
                     return RedirectToAction(nameof(Index));

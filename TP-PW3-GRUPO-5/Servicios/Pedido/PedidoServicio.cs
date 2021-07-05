@@ -1,6 +1,8 @@
 ﻿using Clases_auxiliares;
 using Contexto_de_datos.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Servicios.Session;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +14,13 @@ namespace Servicios
         private _20211CTPContext context;
         private IClienteServicio clienteServicio;
         private IArticuloServicio articuloServicio;
-        public PedidoServicio(_20211CTPContext ctx)
+        private ISessionManager sessionManager;
+        public PedidoServicio(_20211CTPContext ctx, IHttpContextAccessor _httpContextAccessor)
         {
             context = ctx;
-            clienteServicio = new ClienteServicio(context);
-            articuloServicio = new ArticuloServicio(context);
+            clienteServicio = new ClienteServicio(context, _httpContextAccessor);
+            articuloServicio = new ArticuloServicio(context, _httpContextAccessor);
+            sessionManager = new SessionManager(_httpContextAccessor);
         }
 
         public void Alta(PedidoNuevoFiltro pedidoNuevoFiltro)
@@ -27,7 +31,7 @@ namespace Servicios
             miPedido.IdEstado = 1;
             miPedido.NroPedido = ObtenerNumeroPedido();
             miPedido.Comentarios = pedidoNuevoFiltro.Comentarios;
-            //FALTA CREADO POR
+            miPedido.CreadoPor = sessionManager.ObtenerIDUsuarioLogueado();
             context.Pedidos.Add(miPedido);
             context.SaveChanges();
             int idPedido = context.Pedidos.Max(o=>o.IdPedido);
@@ -47,7 +51,7 @@ namespace Servicios
         {
             Pedido pedido = ObtenerPorId(id);
             pedido.FechaBorrado = DateTime.Now;
-            //FALTA BORRADO POR
+            pedido.BorradoPor = sessionManager.ObtenerIDUsuarioLogueado();
             context.SaveChanges();
         }
 
@@ -71,7 +75,7 @@ namespace Servicios
                 }
             }
             pedidoBD.FechaModificacion = DateTime.Now;
-            // FALTA MODIFICADO POR
+            pedidoBD.ModificadoPor = sessionManager.ObtenerIDUsuarioLogueado();
             context.SaveChanges();
 
         }

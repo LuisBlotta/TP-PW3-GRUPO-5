@@ -3,7 +3,6 @@ using Contexto_de_datos.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Servicios;
-using Servicios.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
@@ -17,15 +16,13 @@ namespace TP_PW3_GRUPO_5.Controllers
         private IClienteServicio clienteServicio;
         private IArticuloServicio articuloServicio;
         private _20211CTPContext context;
-        private ISessionManager sessionManager;
 
-        public PedidoController(_20211CTPContext ctx)
+        public PedidoController(_20211CTPContext ctx,IHttpContextAccessor _httpContextAccessor)
         {
             context = ctx;
-            pedidoServicio = new PedidoServicio(context);
-            clienteServicio = new ClienteServicio(context);
-            articuloServicio = new ArticuloServicio(context);
-            sessionManager = new SessionManager();
+            pedidoServicio = new PedidoServicio(context, _httpContextAccessor);
+            clienteServicio = new ClienteServicio(context, _httpContextAccessor);
+            articuloServicio = new ArticuloServicio(context, _httpContextAccessor);
         }
 
         public IActionResult Index()

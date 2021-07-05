@@ -30,6 +30,7 @@ namespace TP_PW3_GRUPO_5
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
             });
             services.AddControllersWithViews();
+            services.AddHttpContextAccessor();
 
         }
 
