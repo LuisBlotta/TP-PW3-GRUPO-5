@@ -1,0 +1,96 @@
+﻿[
+  {
+    "outputFileName": "wwwroot/bundles/site.min.css",
+    "inputFiles": [
+      "wwwroot/css/site.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/bundles/usuario.min.js",
+    "inputFiles": [
+      "wwwroot/js/usuario.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/bundles/pedido.min.js",
+    "inputFiles": [
+      "wwwroot/js/pedido.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/bundles/nuevoPedido.min.js",
+    "inputFiles": [
+      "wwwroot/js/nuevoPedido.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/bundles/footer.min.js",
+    "inputFiles": [
+      "wwwroot/js/footer.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/bundles/detallePedido.min.js",
+    "inputFiles": [
+      "wwwroot/js/detallePedido.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/bundles/deshabilitarInputs.min.js",
+    "inputFiles": [
+      "wwwroot/js/deshabilitarInputs.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/bundles/cliente.min.js",
+    "inputFiles": [
+      "wwwroot/js/cliente.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/bundles/articulo.min.js",
+    "inputFiles": [
+      "wwwroot/js/articulo.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

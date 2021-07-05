@@ -11,25 +11,15 @@ function GenerarTabla(resultados) {
     listado = '';
 
     resultados.forEach(resultado => {
-        listado += `<tr><td>
-                ${resultado.Nombre}
-                </td>
-                <td>
-                ${resultado.Apellido}
-                </td>
-                <td>
-                ${resultado.Email}
-                </td>
-                <td>
-                <a class="me-3" href="/usuario/detalleUsuario/ver/${resultado.IdUsuario}" data-toggle="tooltip"
-                    title="Ver"><i class="fas fa-eye"></i></a>
-                <a class="me-3" href="/usuario/detalleUsuario/editar/${resultado.IdUsuario}" data-toggle="tooltip"
-                    title="Editar"><i class="fas fa-edit"></i></a>`;
+        listado += `<tr>
+                <td>${resultado.Nombre}</td>
+                <td>${resultado.Apellido}</td>
+                <td>${resultado.Email}</td>
+                <td><a class="me-3" href="/usuario/detalleUsuario/ver/${resultado.IdUsuario}" data-toggle="tooltip" title="Ver"><i class="fas fa-eye"></i></a>
+                <a class="me-3" href="/usuario/detalleUsuario/editar/${resultado.IdUsuario}" data-toggle="tooltip" title="Editar"><i class="fas fa-edit"></i></a>`;
         if (resultado.BorradoPor == null) {
             listado += `
-            <a href="/usuario/eliminarUsuario/${resultado.IdUsuario}" data-toggle="tooltip" title="Borrar">
-                <i class="fas fa-trash-alt"></i>
-            </a>`;
+            <a href="/usuario/eliminarUsuario/${resultado.IdUsuario}" data-toggle="tooltip" title="Borrar"><i class="fas fa-trash-alt"></i></a>`;
         } else {
             listado += `<i title="Eliminado" class="fas fa-ban"></i>`;
         }

@@ -14,5 +14,6 @@ namespace Servicios
         public void Baja(int id);
         public void Modificar(Cliente cliente);
         public Cliente ObtenerPorId(int id);
+        public List<Cliente> ObtenerClientesConPedidos();
     }
 }

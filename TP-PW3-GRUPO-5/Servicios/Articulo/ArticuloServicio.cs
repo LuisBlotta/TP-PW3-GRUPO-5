@@ -1,6 +1,7 @@
 ﻿using Clases_auxiliares;
 using Contexto_de_datos.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Servicios.Session;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,7 @@ namespace Servicios
             Articulo articulo = ObtenerPorId(id);
             articulo.FechaBorrado = DateTime.Now;
             articulo.BorradoPor = sessionManager.ObtenerIDUsuarioLogueado();
+            articulo.PedidoArticulos.Clear();
             context.SaveChanges();
         }
 
@@ -78,7 +80,7 @@ namespace Servicios
 
         public Articulo ObtenerPorId(int id)
         {
-            return context.Articulos.Find(id);
+            return context.Articulos.Include(o => o.PedidoArticulos).FirstOrDefault(o=>o.IdArticulo == id);
         }
     }
 }

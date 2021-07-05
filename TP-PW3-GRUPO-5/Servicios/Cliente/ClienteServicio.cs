@@ -1,6 +1,7 @@
 ﻿using Clases_auxiliares;
 using Contexto_de_datos.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Servicios.Session;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,11 @@ namespace Servicios
             Cliente cliente = ObtenerPorId(id);
             cliente.FechaBorrado = DateTime.Now;
             cliente.BorradoPor = sessionManager.ObtenerIDUsuarioLogueado();
+            foreach (Pedido p in cliente.Pedidos)            
+            {
+                p.FechaBorrado = DateTime.Now;
+                p.BorradoPor = sessionManager.ObtenerIDUsuarioLogueado(); 
+            }
             context.SaveChanges();
         }
 
@@ -48,7 +54,7 @@ namespace Servicios
             clienteBD.Email = cliente.Email;
             clienteBD.Cuit = cliente.Cuit;
             clienteBD.FechaModificacion = DateTime.Now;
-            clienteBD.ModificadoPor = sessionManager.ObtenerIDUsuarioLogueado(); 
+            clienteBD.ModificadoPor = sessionManager.ObtenerIDUsuarioLogueado();
             context.SaveChanges();
         }
 
@@ -81,7 +87,7 @@ namespace Servicios
 
         public Cliente ObtenerPorId(int id)
         {
-            return context.Clientes.Find(id);
+            return context.Clientes.Include(o=>o.Pedidos).FirstOrDefault(o=>o.IdCliente == id);
         }
 
         public List<string> ObtenerSelectClientes()
@@ -100,6 +106,10 @@ namespace Servicios
                 }
             }
             return selectClientes;
+        }
+        public List<Cliente> ObtenerClientesConPedidos()
+        {
+            return context.Clientes.Include(o => o.Pedidos).ToList();
         }
     }
 }

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Ver Articulo";
     @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-        <script src="~/js/deshabilitarInputs.js"></script>
+        <script src="~/bundles/deshabilitarInputs.min.js"></script>
     }
     <h3 class="text-center">Ver artículo @Model.Descripcion (Cod: @Model.Codigo)</h3>
     }

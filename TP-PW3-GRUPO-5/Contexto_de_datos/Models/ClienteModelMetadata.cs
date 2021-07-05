@@ -19,9 +19,23 @@ namespace Contexto_de_datos.Models
         public int? Numero { get; set; }
 
         [Required(ErrorMessage = "Ingrese un nombre de cliente")]
+        [StringLength(200, ErrorMessage = "Excede la cantidad válida de caracteres")]
+
         public string Nombre { get; set; }
 
         [EmailAddress(ErrorMessage = "Ingrese una direccion de email valida")]
+        [StringLength(300, ErrorMessage = "Excede la cantidad válida de caracteres")]
+
         public string Email { get; set; }
+        [StringLength(50, ErrorMessage = "Excede la cantidad válida de caracteres")]
+
+        public string Telefono { get; set; }
+        [StringLength(300, ErrorMessage = "Excede la cantidad válida de caracteres")]
+
+
+        public string Direccion { get; set; }
+        [StringLength(50, ErrorMessage = "Excede la cantidad válida de caracteres")]
+
+        public string Cuit { get; set; }
     }
 }

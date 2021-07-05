@@ -60,7 +60,7 @@ namespace TP_PW3_GRUPO_5.Controllers
             {
                 ClientesArticulos clientesArticulos = ClientesArticulos.ObtenerClientesArticulos
                   (
-                  clienteServicio.ObtenerClientes(), articuloServicio.ObtenerArticulos()
+                  clienteServicio.ObtenerClientesConPedidos(), articuloServicio.ObtenerArticulos()
                   );
                 return View(clientesArticulos);
             }

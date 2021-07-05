@@ -118,7 +118,7 @@ namespace Servicios
 
         public Pedido ObtenerPorId(int id)
         {
-            return context.Pedidos.Include(o=>o.PedidoArticulos).Include(o=>o.IdClienteNavigation).Include(o=>o.IdEstadoNavigation).FirstOrDefault(o=>o.IdPedido == id);
+            return context.Pedidos.Include(o=>o.PedidoArticulos).Include(o=>o.IdClienteNavigation).Include(o=>o.IdEstadoNavigation).Include(o => o.ModificadoPorNavigation).FirstOrDefault(o=>o.IdPedido == id);
         }
         public List<PedidoArticulo> ObtenerPedidosArticulos(int id)
         {
