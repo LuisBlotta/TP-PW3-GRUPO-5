@@ -27,7 +27,7 @@ function GenerarTabla(resultados) {
                     title="Editar"><i class="fas fa-edit"></i></a>`;
         if (resultado.BorradoPor == null) {
             listado += `
-            <a href="/cliente/eliminarCliente/${resultado.IdCliente}" data-toggle="tooltip" title="Borrar">
+            <a onclick="eliminarCliente(${resultado.IdCliente},'${resultado.Nombre}')" data-toggle="tooltip" title="Borrar">
                 <i class="fas fa-trash-alt"></i>
             </a>`;
         } else {
@@ -108,5 +108,66 @@ $(document).ready(function () {
     ObtenerResultados();
 });
 
+function eliminarCliente(id, nombre) {
+    fetch('https://localhost:44344/cliente/ConsultarEstadoPedidos', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(id)
+    })
+        .then(response =>
+            response.json()
+        )
+        .then(data => {
+            if (data) {
+                swal({
+                    title: `¿Desea eliminar al cliente (${nombre})?`,
+                    text: " Tenga en cuenta que posee pedidos no eliminados. Al eliminar al cliente, también se eliminarán sus pedidos",
+                    icon: "warning",
+                    buttons: ["Cancelar", "Aceptar"],
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            window.location.href = `/Cliente/EliminarCliente/${id}`
+                        }
+                    });
+            } else {
+                swal({
+                    title: "¿Desea eliminar?",
+                    text: "¿Confirma que desea eliminar?",
+                    icon: "warning",
+                    buttons: ["Cancelar", "Aceptar"],
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            window.location.href = `/Cliente/EliminarCliente/${id}`
+                        }
+                    });
+            }
+        })
 
+            
+        
+}
 
+function ConsultarEstadoPedidos(id) {
+
+    fetch('https://localhost:44344/cliente/ConsultarEstadoPedidos', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(id)
+    })
+        .then(response =>
+            response.json()
+
+        )
+        .then(data => {
+            return data;
+        })
+
+}

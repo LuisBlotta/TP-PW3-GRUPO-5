@@ -28,7 +28,7 @@ function GenerarTabla(resultados) {
                     title="Editar"><i class="fas fa-edit"></i></a>`;
         if (!resultado.seBorro) {
             listado += `
-            <a href = "/pedido/eliminarPedido/${resultado.IdPedido}" data-toggle="tooltip" title = "Borrar" >
+            <a onclick="eliminarPedido(${resultado.IdPedido})" data-toggle="tooltip" title = "Borrar" >
                 <i class="fas fa-trash-alt"></i>
             </a > `;
         } else {
@@ -103,6 +103,21 @@ $(document).ready(function () {
     Paginacion();
     ObtenerResultados();
 });
+
+function eliminarPedido(id) {
+    swal({
+        title: "¿Desea eliminar?",
+        text: "¿Confirma que desea eliminar?",
+        icon: "warning",
+        buttons: ["Cancelar", "Aceptar"],
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                window.location.href = `/Pedido/EliminarPedido/${id}`
+            }
+        });
+}
 
 
 

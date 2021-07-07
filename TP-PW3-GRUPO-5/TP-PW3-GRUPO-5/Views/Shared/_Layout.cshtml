@@ -73,68 +73,7 @@
         </main>
     </div>
 
-    <footer class="mt-5">
-        <div class="container py-4">
-            <div class="row mb-5">
-                <div class="col-md mt-4 px-5 integrantes">
-                    <div class="mb-4 p-4">
-                        <h2>Programacion Web 3 20211C</h2>
-                        <h5>¡Somos el grupo 5!</h5>
-                        <h4 class="mt-4">Integrantes</h4>
-                        <ul class="list-unstyled text-grey">
-                            <li>Blotta Rivero Luis Eduardo</li>
-                            <li>Lopez Pacini Florencia</li>
-                            <li>Seijas Tomas</li>
-                            <li>Tries Ian</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md mt-4 px-5 navegacion">
-                    <div class="mb-4 p-4">
-                        <h2>Navegación</h2>
-                        <ul class="list-unstyled text-grey">
-                            <li><a href="/Pedido/" class="py-2 d-block">Pedidos</a></li>
-                            <li><a href="/Articulo/" class="py-2 d-block">Artículos</a></li>
-                            <li><a href="/Cliente/" class="py-2 d-block">Clientes</a></li>
-                            <li><a href="/Usuario/" class="py-2 d-block">Usuarios</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md mt-4 px-5 proyecto">
-                    <div class="mb-4 p-4">
-                        <a class="btn py-3 px-4 mb-0 ir-arriba" id="irArriba">
-                            Ir hacia arriba
-                            <i class="fas fa-long-arrow-alt-up ms-4"></i>
-                        </a>
-                        <h3 class="mt-5">Links del proyecto</h3>
-                        <ul class="list-unstyled text-grey">
-                            <li class="py-2 d-block">
-                                <i class="fab fa-github"></i>
-                                <a href="https://github.com/LuisBlotta/TP-PW3-GRUPO-5" target="_blank">
-                                    Repositorio de
-                                    GitHub
-                                </a>
-                            </li>
-                            <li class="py-2 d-block">
-                                <i class="fab fa-trello"></i>
-                                <a href="https://trello.com/b/hRJhaQQt/prog-web-3-grupo-5" target="_blank">
-                                    Tablero de
-                                    Trello
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <p>
-                        Copyright © | Hecho por el grupo <b>5</b>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <partial name="pv_Footer" />
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -142,6 +81,7 @@
     <script src="~/js/paginacion/jquery.dataTables.min.js"></script>
     <script src="~/bundles/footer.min.js"></script>
     <script src="https://kit.fontawesome.com/81ce8a99d9.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>

@@ -26,7 +26,7 @@ function GenerarTabla(resultados) {
                     title="Editar"><i class="fas fa-edit"></i></a>`;
         if (resultado.BorradoPor == null) {
             listado += `
-            <a href="/articulo/eliminarArticulo/${resultado.IdArticulo}" data-toggle="tooltip" title="Borrar">
+            <a onclick="eliminarArticulo(${resultado.IdArticulo})" data-toggle="tooltip" title="Borrar">
                 <i class="fas fa-trash-alt"></i>
             </a>`;
         } else {
@@ -100,6 +100,21 @@ $(document).ready(function () {
     Paginacion();
     ObtenerResultados();
 });
+
+function eliminarArticulo(id) {
+    swal({
+        title: "¿Desea eliminar?",
+        text: "¿Confirma que desea eliminar?",
+        icon: "warning",
+        buttons: ["Cancelar", "Aceptar"],
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                window.location.href = `/Articulo/EliminarArticulo/${id}`
+            }
+        });
+}
 
 
 

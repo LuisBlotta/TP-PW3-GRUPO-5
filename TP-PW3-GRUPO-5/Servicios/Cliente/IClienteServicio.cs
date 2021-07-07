@@ -15,5 +15,7 @@ namespace Servicios
         public void Modificar(Cliente cliente);
         public Cliente ObtenerPorId(int id);
         public List<Cliente> ObtenerClientesConPedidos();
+
+        public bool ConsultarEstadoPedidos(int id);
     }
 }

@@ -120,5 +120,13 @@ namespace TP_PW3_GRUPO_5.Controllers
             var resultado = JsonSerializer.Serialize(clientes);
             return Content(resultado);
         }
+
+        [HttpPost]
+        public IActionResult ConsultarEstadoPedidos([FromBody] int Id)
+        {
+           bool tienePedidos = clienteServicio.ConsultarEstadoPedidos(Id);
+            var resultado = JsonSerializer.Serialize(tienePedidos);
+            return Content(resultado);
+        }
     }
 }

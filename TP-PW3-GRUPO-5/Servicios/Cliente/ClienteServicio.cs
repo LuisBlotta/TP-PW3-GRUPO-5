@@ -111,5 +111,18 @@ namespace Servicios
         {
             return context.Clientes.Include(o => o.Pedidos).ToList();
         }
+
+        public bool ConsultarEstadoPedidos(int id)
+        {
+            Cliente cliente = ObtenerPorId(id);
+            foreach (Pedido pedido in cliente.Pedidos)
+            {
+                if(pedido.BorradoPor== null)
+                {
+                    return true;
+                }
+            }
+            return false; 
+        }
     }
 }

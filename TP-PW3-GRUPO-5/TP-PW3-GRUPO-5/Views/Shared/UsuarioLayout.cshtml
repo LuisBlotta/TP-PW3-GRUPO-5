@@ -1,0 +1,65 @@
+﻿@{
+    Layout = "_Layout";
+
+}
+@RenderSection("Scripts", false);
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light nav-container mb-5">
+        <div class="container">
+            <nav class="navbar navbar-light bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/Home">
+                        <img src="https://i.postimg.cc/s2pj7L19/box.png"
+                             alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                        Pedidos
+                    </a>
+                </div>
+            </nav>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Pedido">Pedidos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Articulo">Artículos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Cliente">Clientes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Usuario">Usuarios</a>
+                    </li>
+                </ul>
+                @{
+                    if (TempData.Peek("nombre") != null)
+                    {
+                        var nombreUsuario = TempData.Peek("nombre").ToString();
+                        if (!string.IsNullOrEmpty(nombreUsuario))
+                        {
+                            var Nombre = "Hola, " + nombreUsuario;
+                            <form class="d-flex align-items-center" asp-action="Salir" asp-controller="Home" method="post">
+                                <p class="mb-0 me-3">@Nombre</p>
+                                <button class="btn btn-dark" type="submit">Salir</button>
+                            </form>
+                        }
+                    }
+                    else
+                    {
+                        <form class="d-flex align-items-center">
+                            <a href="/Home/Ingresar" class="btn btn-dark">Ingresar</a>
+                        </form>
+                    }
+                }
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="container">
+    <main role="main" class="pt-3 pb-5">
+        @RenderBody()
+    </main>
+</div>
