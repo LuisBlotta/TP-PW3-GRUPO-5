@@ -14,5 +14,7 @@ namespace Servicios
         public Articulo ObtenerPorId(int id);
 
         public Articulo ObtenerPorCodigo(string codigo);
+
+        public bool ConsultarEstadoPedidos(int id);
     }
 }

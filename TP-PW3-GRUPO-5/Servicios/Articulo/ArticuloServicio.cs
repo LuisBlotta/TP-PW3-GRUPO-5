@@ -13,11 +13,13 @@ namespace Servicios
     {
         private _20211CTPContext context;
         private ISessionManager sessionManager;
+        private IPedidoServicio pedidoServicio;
 
         public ArticuloServicio(_20211CTPContext ctx,IHttpContextAccessor _httpContextAccessor)
         {
             context = ctx;
             sessionManager = new SessionManager(_httpContextAccessor);
+            pedidoServicio = new PedidoServicio(ctx, _httpContextAccessor);
         }
 
         public void Alta(Articulo articulo)
@@ -81,6 +83,21 @@ namespace Servicios
         public Articulo ObtenerPorId(int id)
         {
             return context.Articulos.Include(o => o.PedidoArticulos).FirstOrDefault(o=>o.IdArticulo == id);
+        }
+
+        public bool ConsultarEstadoPedidos(int id)
+        {
+            Articulo articulo = ObtenerPorId(id);
+            foreach (PedidoArticulo art in articulo.PedidoArticulos)
+            {
+                Pedido pedido = pedidoServicio.ObtenerPorId(art.IdPedido);
+
+                if (pedido.BorradoPor == null)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

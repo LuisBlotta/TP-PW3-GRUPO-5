@@ -19,7 +19,7 @@ function GenerarTabla(resultados) {
                 <a class="me-3" href="/usuario/detalleUsuario/editar/${resultado.IdUsuario}" data-toggle="tooltip" title="Editar"><i class="fas fa-edit"></i></a>`;
         if (resultado.BorradoPor == null) {
             listado += `
-            <a href="/usuario/eliminarUsuario/${resultado.IdUsuario}" data-toggle="tooltip" title="Borrar"><i class="fas fa-trash-alt"></i></a>`;
+            <a onclick="eliminarUsuario(${resultado.IdUsuario})" data-toggle="tooltip" title="Borrar"><i class="fas fa-trash-alt"></i></a>`;
         } else {
             listado += `<i title="Eliminado" class="fas fa-ban"></i>`;
         }
@@ -30,7 +30,6 @@ function GenerarTabla(resultados) {
 };
 
 //Obtener resultados filtrados
-
 function ObtenerResultados() {
 
     let data = {
@@ -91,6 +90,21 @@ $(document).ready(function () {
     Paginacion();
     ObtenerResultados();
 });
+
+function eliminarUsuario(id) {
+    swal({
+        title: "¿Desea eliminar?",
+        text: "¿Confirma que desea eliminar?",
+        icon: "warning",
+        buttons: ["Cancelar", "Aceptar"],
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                window.location.href = `/Usuario/EliminarUsuario/${id}`
+            }
+        });
+}
 
 
 

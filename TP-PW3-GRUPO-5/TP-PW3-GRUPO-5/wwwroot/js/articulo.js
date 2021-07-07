@@ -26,7 +26,7 @@ function GenerarTabla(resultados) {
                     title="Editar"><i class="fas fa-edit"></i></a>`;
         if (resultado.BorradoPor == null) {
             listado += `
-            <a onclick="eliminarArticulo(${resultado.IdArticulo})" data-toggle="tooltip" title="Borrar">
+            <a onclick="eliminarArticulo(${resultado.IdArticulo},'${resultado.Descripcion}')" data-toggle="tooltip" title="Borrar">
                 <i class="fas fa-trash-alt"></i>
             </a>`;
         } else {
@@ -101,20 +101,51 @@ $(document).ready(function () {
     ObtenerResultados();
 });
 
-function eliminarArticulo(id) {
-    swal({
-        title: "¿Desea eliminar?",
-        text: "¿Confirma que desea eliminar?",
-        icon: "warning",
-        buttons: ["Cancelar", "Aceptar"],
-        dangerMode: true,
+function eliminarArticulo(id, descripcion) {
+    fetch('https://localhost:44344/articulo/ConsultarEstadoPedidos', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(id)
     })
-        .then((willDelete) => {
-            if (willDelete) {
-                window.location.href = `/Articulo/EliminarArticulo/${id}`
+        .then(response =>
+            response.json()
+        )
+        .then(data => {
+            if (data) {
+                swal({
+                    title: `¿Desea eliminar al artículo (${descripcion})?`,
+                    text: " Tenga en cuenta que se encuentra en pedidos no eliminados. Al eliminar al artículo, también se eliminará de sus pedidos.",
+                    icon: "warning",
+                    buttons: ["Cancelar", "Aceptar"],
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            window.location.href = `/articulo/EliminarArticulo/${id}`
+                        }
+                    });
+            } else {
+                swal({
+                    title: "¿Desea eliminar?",
+                    text: "¿Confirma que desea eliminar?",
+                    icon: "warning",
+                    buttons: ["Cancelar", "Aceptar"],
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            window.location.href = `/articulo/EliminarArticulo/${id}`
+                        }
+                    });
             }
-        });
+        })
+
+
+
 }
+
 
 
 

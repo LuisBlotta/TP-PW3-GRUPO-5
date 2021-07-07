@@ -152,22 +152,3 @@ function eliminarCliente(id, nombre) {
             
         
 }
-
-function ConsultarEstadoPedidos(id) {
-
-    fetch('https://localhost:44344/cliente/ConsultarEstadoPedidos', {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json'
-        },
-        body: JSON.stringify(id)
-    })
-        .then(response =>
-            response.json()
-
-        )
-        .then(data => {
-            return data;
-        })
-
-}
