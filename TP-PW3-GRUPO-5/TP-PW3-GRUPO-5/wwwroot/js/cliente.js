@@ -27,7 +27,7 @@ function GenerarTabla(resultados) {
                     title="Editar"><i class="fas fa-edit"></i></a>`;
         if (resultado.BorradoPor == null) {
             listado += `
-            <a onclick="eliminarCliente(${resultado.IdCliente},'${resultado.Nombre}')" data-toggle="tooltip" title="Borrar">
+            <a onclick="eliminarCliente(${resultado.IdCliente},'${(resultado.Nombre).replace(/['"]+/g, '')}')" data-toggle="tooltip" title="Borrar">
                 <i class="fas fa-trash-alt"></i>
             </a>`;
         } else {

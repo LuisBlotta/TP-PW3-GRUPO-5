@@ -12,13 +12,11 @@ namespace Servicios
     public class PedidoServicio : IPedidoServicio
     {
         private _20211CTPContext context;
-        private IClienteServicio clienteServicio;
         private IArticuloServicio articuloServicio;
         private ISessionManager sessionManager;
         public PedidoServicio(_20211CTPContext ctx, IHttpContextAccessor _httpContextAccessor)
         {
             context = ctx;
-            clienteServicio = new ClienteServicio(context, _httpContextAccessor);
             articuloServicio = new ArticuloServicio(context, _httpContextAccessor);
             sessionManager = new SessionManager(_httpContextAccessor);
         }

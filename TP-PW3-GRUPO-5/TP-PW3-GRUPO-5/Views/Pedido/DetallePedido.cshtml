@@ -100,19 +100,19 @@ else
                         <input type="button" value="Guardar" class="btn btn-primary btnEditar" name="submit" onclick="MandarForm('guardar')" />
                     </div>
                     <div class="col">
-                        <input type="button" value="Guardar y Cerrar" class="btn btn-primary btnEditar" name="submit" onclick="MandarForm('cerrar')" />
+                        <input type="button" value="Guardar y Cerrar" class="btn btn-primary btnEditar" name="submit" onclick="cerrarPedido()" />
                     </div>
                 }
 
                 @if (Model.IdEstado != 3)
                 {
                     <div class="col">
-                        <input type="button" value="Entregado" class="btn btn-primary btnEditar" name="submit" onclick="MandarForm('entregado')" />
+                        <input type="button" value="Entregado" class="btn btn-primary btnEditar" name="submit" onclick="entregarPedido()" />
                     </div>
                 }
 
                 <div class="col">
-                    <a href="/Pedido/eliminarPedido/@Model.IdPedido" class="btn btn-primary btnEditar">Eliminar</a>
+                    <a onclick="eliminarPedido(@Model.IdPedido)" class="btn btn-primary btnEditar">Eliminar</a>
                 </div>
                 <div class="col">
                     <a class="btn btn-primary" href="/Pedido/Index">Volver</a>

@@ -26,7 +26,7 @@ function GenerarTabla(resultados) {
                     title="Editar"><i class="fas fa-edit"></i></a>`;
         if (resultado.BorradoPor == null) {
             listado += `
-            <a onclick="eliminarArticulo(${resultado.IdArticulo},'${resultado.Descripcion}')" data-toggle="tooltip" title="Borrar">
+            <a onclick="eliminarArticulo(${resultado.IdArticulo},'${(resultado.Descripcion).replace(/['"]+/g, '')}')" data-toggle="tooltip" title="Borrar">
                 <i class="fas fa-trash-alt"></i>
             </a>`;
         } else {
@@ -141,8 +141,6 @@ function eliminarArticulo(id, descripcion) {
                     });
             }
         })
-
-
 
 }
 

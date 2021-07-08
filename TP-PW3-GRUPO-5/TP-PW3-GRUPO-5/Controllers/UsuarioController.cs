@@ -53,8 +53,14 @@ namespace TP_PW3_GRUPO_5.Controllers
         {
             if (ModelState.IsValid)
             {
-                usuarioServicio.Alta(usuario);
-                return RedirectToAction(nameof(Index));
+                if (usuarioServicio.ValidarEmail(usuario.Email))
+                {
+                    usuarioServicio.Alta(usuario);
+                    return RedirectToAction(nameof(Index));
+                }
+                ViewData["mailInvalido"] = "El email ya se encuentra registrado.";
+                return View(usuario);
+                
             }
             return View(usuario);
         }

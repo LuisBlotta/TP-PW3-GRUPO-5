@@ -118,7 +118,7 @@ namespace TP_PW3_GRUPO_5.Controllers
             return Content(resultado);
         }
 
-        [HttpPost]
+       [HttpPost]
         public IActionResult ConsultarEstadoPedidos([FromBody] int Id)
         {
             bool tienePedidos = articuloServicio.ConsultarEstadoPedidos(Id);

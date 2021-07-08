@@ -89,5 +89,15 @@ namespace Servicios
 
             return listaUsuarios;
         }
+
+        public bool ValidarEmail(string email)
+        {
+            Usuario user = ObtenerPorEmail(email);
+            if (user == null)
+            {
+                return true;
+            }
+            return user.BorradoPor == null ? false : true;
+        }
     }
 }

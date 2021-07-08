@@ -179,3 +179,48 @@ function deshabilitarQuitar() {
     }
 
 }
+
+function eliminarPedido(id) {
+    swal({
+        title: "¿Desea eliminar?",
+        text: "¿Confirma que desea eliminar?",
+        icon: "warning",
+        buttons: ["Cancelar", "Aceptar"],
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                window.location.href = `/Pedido/EliminarPedido/${id}`
+            }
+        });
+}
+
+function entregarPedido() {
+    swal({
+        title: "¿Desea entregar el pedido?",
+        text: "¿Confirma que desea cambiar el estado del pedido a entregado?",
+        icon: "warning",
+        buttons: ["Cancelar", "Aceptar"],
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                MandarForm('entregado')
+            }
+        });
+}
+
+function cerrarPedido() {
+    swal({
+        title: "¿Desea cerrar el pedido?",
+        text: "¿Confirma que desea cambiar el estado del pedido a cerrado?",
+        icon: "warning",
+        buttons: ["Cancelar", "Aceptar"],
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                MandarForm('cerrar')
+            }
+        });
+}

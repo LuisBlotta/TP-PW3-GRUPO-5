@@ -27,7 +27,7 @@ namespace ViewModels
             {
                 foreach (Pedido p in c.Pedidos)
                 {
-                    if(p.IdEstado == 1)
+                    if(p.IdEstado == 1 && p.BorradoPor == null)
                     {
                         listaClientes.Add(c);
                         break;

@@ -12,5 +12,7 @@ namespace Servicios
         public void Modificar(Usuario usuario);
         public Usuario ObtenerPorId(int id);
         public Usuario ObtenerPorEmail(string email);
+
+        public bool ValidarEmail(string email);
     }
 }
