@@ -71,10 +71,8 @@ namespace TP_PW3_GRUPO_5.Controllers
         [HttpPost]
         public IActionResult Salir()
         {
-            HttpContext.Session.Remove(".MyApp.Session");
-            HttpContext.Session.Clear();
+            sessionManager.Salir();
             TempData.Remove("nombre");
-
             return RedirectToAction(nameof(Index));
         }
     }

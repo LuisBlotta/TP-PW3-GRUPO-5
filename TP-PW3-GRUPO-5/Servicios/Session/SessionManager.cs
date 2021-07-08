@@ -21,12 +21,22 @@ namespace Servicios.Session
 
         public UsuarioSesion ObtenerUsuarioLogueado()
         {
-            return JsonSerializer.Deserialize<UsuarioSesion>(sesion.GetString("User"));
+            if (!string.IsNullOrEmpty(sesion.GetString("User")))
+            {
+                return JsonSerializer.Deserialize<UsuarioSesion>(sesion.GetString("User"));
+            }
+            return new UsuarioSesion { EsAdmin = false };
         }
 
         public int ObtenerIDUsuarioLogueado()
         {
             return ObtenerUsuarioLogueado().IdUsuario;
+        }
+
+        public void Salir()
+        {
+            sesion.Remove(".MyApp.Session");
+            sesion.Clear();
         }
     }
 }

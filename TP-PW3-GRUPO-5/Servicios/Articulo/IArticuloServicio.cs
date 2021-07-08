@@ -16,5 +16,8 @@ namespace Servicios
         public Articulo ObtenerPorCodigo(string codigo);
 
         public bool ConsultarEstadoPedidos(int id);
+        public List<Articulo> FiltrarPorDescripcion(string descripcion);
+
+
     }
 }

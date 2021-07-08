@@ -138,5 +138,42 @@ namespace Servicios
 
             return articulosCantidad;
         }
+
+        public List<InfoPedido> ObtenerInfoPedidos(int idCliente, int idEstado)
+        {
+            List<Pedido> pedidos = context.Pedidos.Include(o => o.IdEstadoNavigation).Include(o=>o.ModificadoPorNavigation)
+                .Where(o => o.IdCliente == idCliente).Where(o => o.IdEstado == idEstado)
+                .ToList();
+
+            List<InfoPedido> infoPedidos = new List<InfoPedido>();
+            foreach (Pedido pedido in pedidos)
+            {
+                InfoPedido infoPedido = new InfoPedido();
+                infoPedido.IdCliente = pedido.IdCliente;
+                infoPedido.IdPedido = pedido.IdPedido;
+                infoPedido.FechaModificacion = pedido.FechaModificacion;
+                infoPedido.ModificadoPor = ObtenerUsuarioInfoPedido(pedido.ModificadoPorNavigation);
+                infoPedido.Estado = pedido.IdEstadoNavigation.Descripcion;
+                infoPedido.Articulos = ObtenerPedidoDetalle(pedido.IdPedido);
+                infoPedidos.Add(infoPedido);
+            }
+
+            return infoPedidos;
+        }
+
+        public UsuarioInfoPedido ObtenerUsuarioInfoPedido(Usuario usuario)
+        {
+            if(usuario != null)
+            {
+                UsuarioInfoPedido user = new UsuarioInfoPedido();
+                user.Nombre = usuario.Nombre;
+                user.Apellido = usuario.Apellido;
+                user.Email = usuario.Email;
+                user.FechaNacimiento = usuario.FechaNacimiento;
+                user.IdUsuario = usuario.IdUsuario;
+                return user;
+            }
+            return null;
+        }
     }
 }

@@ -9,6 +9,7 @@ using System.Linq;
 
 namespace Servicios
 {
+
     public class ArticuloServicio : IArticuloServicio
     {
         private _20211CTPContext context;
@@ -96,6 +97,12 @@ namespace Servicios
                 }
             }
             return false;
+        }
+
+        public List<Articulo> FiltrarPorDescripcion(string descripcion)
+        {
+            return ObtenerArticulos().Where(o => o.Descripcion.Contains(descripcion, StringComparison.OrdinalIgnoreCase)).ToList();
+
         }
     }
 }

@@ -15,6 +15,7 @@ namespace Servicios
         public Pedido ObtenerPorId(int id);
         public List<ArticuloCantidad> ObtenerPedidoDetalle(int id);
         public List<PedidoArticulo> ObtenerPedidosArticulos(int id);
-
+        public List<InfoPedido> ObtenerInfoPedidos(int idCliente,int idEstado);
+        public UsuarioInfoPedido ObtenerUsuarioInfoPedido(Usuario usuario);
     }
 }

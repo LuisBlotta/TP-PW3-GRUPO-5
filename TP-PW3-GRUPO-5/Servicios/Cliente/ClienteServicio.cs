@@ -124,5 +124,11 @@ namespace Servicios
             }
             return false; 
         }
+        public List<Cliente> FiltrarPorNombre(string nombre)
+        {
+
+            return ObtenerClientes().Where(o => o.Nombre.Contains(nombre, StringComparison.OrdinalIgnoreCase)).ToList();
+        }
+
     }
 }

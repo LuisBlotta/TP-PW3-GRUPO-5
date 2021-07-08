@@ -8,5 +8,6 @@ namespace Servicios.Session
         bool EsAdmin();
         UsuarioSesion ObtenerUsuarioLogueado();
         int ObtenerIDUsuarioLogueado();
+        public void Salir();
     }
 }

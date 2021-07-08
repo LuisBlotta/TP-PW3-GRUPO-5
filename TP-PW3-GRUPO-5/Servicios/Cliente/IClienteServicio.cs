@@ -17,5 +17,6 @@ namespace Servicios
         public List<Cliente> ObtenerClientesConPedidos();
 
         public bool ConsultarEstadoPedidos(int id);
+        public List<Cliente> FiltrarPorNombre(string nombre);
     }
 }

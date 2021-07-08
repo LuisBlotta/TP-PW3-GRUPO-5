@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\API\API.csproj" />
     <ProjectReference Include="..\Clases_auxiliares\Clases_auxiliares.csproj" />
     <ProjectReference Include="..\Contexto_de_datos\Contexto_de_datos.csproj" />
     <ProjectReference Include="..\Servicios\Servicios.csproj" />
