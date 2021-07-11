@@ -5,11 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Servicios;
 using Servicios.Login;
 using Servicios.Session;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace API.Controllers
 {
@@ -41,7 +37,7 @@ namespace API.Controllers
             }
             else
             {
-                return JsonSerializer.Serialize(new Usuario { Nombre = "NO ANDO" });
+                return JsonSerializer.Serialize(new MensajeJSON { Mensaje = "No se pudo iniciar sesion en el sistema"});
             }
         }
         [Route("Logout")]

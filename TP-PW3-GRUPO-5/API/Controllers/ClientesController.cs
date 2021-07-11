@@ -5,11 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Servicios;
 using Servicios.Login;
 using Servicios.Session;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace API.Controllers
 {
@@ -38,7 +34,8 @@ namespace API.Controllers
             {
                 return JsonSerializer.Serialize(clienteServicio.ObtenerClientes());
             }
-            return "No tiene permisos para acceder al sitio";
+            return JsonSerializer.Serialize(new MensajeJSON { Mensaje = "No tiene permisos para acceder al sitio." });
+
         }
         [Route("filtrar")]
         [HttpPost]
@@ -48,7 +45,8 @@ namespace API.Controllers
             {
                 return JsonSerializer.Serialize(clienteServicio.FiltrarPorNombre(Nombre));
             }
-            return "No tiene permisos para acceder al sitio";
+            return JsonSerializer.Serialize(new MensajeJSON { Mensaje = "No tiene permisos para acceder al sitio." });
+
 
         }
     }

@@ -9,6 +9,8 @@ namespace Servicios
         public List<Pedido> ObtenerPedidos(PedidoFiltro pedidoFiltro = null);
 
         public void Alta(PedidoNuevoFiltro pedidoNuevoFiltro);
+        public bool AltaPedidoPorAPI(PedidoNuevoFiltro pedidoNuevoFiltro);
+        public bool ValidarNuevoPedido(PedidoNuevoFiltro pedidoNuevoFiltro);
         public int ObtenerNumeroPedido();
         public void Baja(int id);
         public void Modificar(EditarPedido pedido);

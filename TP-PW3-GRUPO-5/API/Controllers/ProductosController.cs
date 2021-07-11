@@ -36,7 +36,8 @@ namespace API.Controllers
             {
                 return JsonSerializer.Serialize(articuloServicio.ObtenerArticulos());
             }
-            return "No tiene permisos para acceder al sitio";
+            return JsonSerializer.Serialize(new MensajeJSON { Mensaje = "No tiene permisos para acceder al sitio." });
+
         }
         [Route("filtrar")]
         [HttpPost]
@@ -46,7 +47,8 @@ namespace API.Controllers
             {
                 return JsonSerializer.Serialize(articuloServicio.FiltrarPorDescripcion(Descripcion));
             }
-            return "No tiene permisos para acceder al sitio";
+            return JsonSerializer.Serialize(new MensajeJSON { Mensaje = "No tiene permisos para acceder al sitio." });
+
 
         }
     }

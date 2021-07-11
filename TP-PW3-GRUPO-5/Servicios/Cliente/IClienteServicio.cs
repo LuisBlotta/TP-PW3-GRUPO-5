@@ -18,5 +18,7 @@ namespace Servicios
 
         public bool ConsultarEstadoPedidos(int id);
         public List<Cliente> FiltrarPorNombre(string nombre);
+        public bool TienePedidosAbiertos(int id);
+        public bool ExisteElCliente(int id);
     }
 }

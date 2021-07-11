@@ -3,13 +3,8 @@ using Contexto_de_datos.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Servicios;
-using Servicios.Login;
 using Servicios.Session;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace API.Controllers
 {
@@ -32,11 +27,29 @@ namespace API.Controllers
         [HttpPost]
         public string Buscar(BusquedaPedido busquedaPedido)
         {
-            if (sessionManager.EsAdmin())
+            if (sessionManager.EstaLogueado())
             {
                 return JsonSerializer.Serialize(pedidoServicio.ObtenerInfoPedidos(busquedaPedido.IdCliente,busquedaPedido.IdEstado));
             }
             return "No tiene permisos para acceder al sitio";
+        }
+        [Route("Guardar")]
+        [HttpPost]
+        public string Guardar(PedidoNuevoFiltro pedido)
+        {
+            if (sessionManager.EstaLogueado())
+            {
+                if(pedidoServicio.AltaPedidoPorAPI(pedido))
+                {
+                    int nroPedido = pedidoServicio.ObtenerNumeroPedido() - 1;
+                    return JsonSerializer.Serialize(new MensajeJSON { Mensaje = $"El pedido {nroPedido} se guardo con exito." });
+
+                }
+                return JsonSerializer.Serialize(new MensajeJSON { Mensaje = "No se pudo guardar el pedido." });
+
+            }
+            return JsonSerializer.Serialize(new MensajeJSON { Mensaje = "No tiene permisos para acceder al sitio." });
+
         }
     }
 }

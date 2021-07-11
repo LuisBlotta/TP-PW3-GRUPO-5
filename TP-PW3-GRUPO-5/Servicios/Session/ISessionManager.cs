@@ -9,5 +9,6 @@ namespace Servicios.Session
         UsuarioSesion ObtenerUsuarioLogueado();
         int ObtenerIDUsuarioLogueado();
         public void Salir();
+        public bool EstaLogueado();
     }
 }

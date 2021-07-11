@@ -17,6 +17,7 @@ namespace Servicios
 
         public bool ConsultarEstadoPedidos(int id);
         public List<Articulo> FiltrarPorDescripcion(string descripcion);
+        public bool ArticulosEstanEliminados(List<ArticuloCantidad> articulos);
 
 
     }

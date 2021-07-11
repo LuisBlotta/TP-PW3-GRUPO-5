@@ -19,13 +19,18 @@ namespace Servicios.Session
             return user.EsAdmin;
         }
 
+        public bool EstaLogueado()
+        {
+            return ObtenerUsuarioLogueado() != null ? true : false;
+        }
+
         public UsuarioSesion ObtenerUsuarioLogueado()
         {
             if (!string.IsNullOrEmpty(sesion.GetString("User")))
             {
                 return JsonSerializer.Deserialize<UsuarioSesion>(sesion.GetString("User"));
             }
-            return new UsuarioSesion { EsAdmin = false };
+            return null;
         }
 
         public int ObtenerIDUsuarioLogueado()

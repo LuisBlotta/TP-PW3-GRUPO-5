@@ -104,5 +104,16 @@ namespace Servicios
             return ObtenerArticulos().Where(o => o.Descripcion.Contains(descripcion, StringComparison.OrdinalIgnoreCase)).ToList();
 
         }
+        public bool ArticulosEstanEliminados(List<ArticuloCantidad> articulos)
+        {
+            foreach (ArticuloCantidad articulo in articulos)
+            {
+                if(ObtenerPorCodigo(articulo.Codigo).BorradoPor != null)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Servicios
 {
+
     public class ClienteServicio : IClienteServicio
     {
         private _20211CTPContext context;
@@ -124,11 +125,27 @@ namespace Servicios
             }
             return false; 
         }
+        public bool TienePedidosAbiertos(int id)
+        {
+            Cliente cliente = ObtenerPorId(id);
+            foreach (Pedido pedido in cliente.Pedidos)
+            {
+                if(pedido.IdEstado == 1 && pedido.BorradoPor == null)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         public List<Cliente> FiltrarPorNombre(string nombre)
         {
 
             return ObtenerClientes().Where(o => o.Nombre.Contains(nombre, StringComparison.OrdinalIgnoreCase)).ToList();
         }
 
+        public bool ExisteElCliente(int id)
+        {
+            return ObtenerPorId(id) != null ? true : false;
+        }
     }
 }

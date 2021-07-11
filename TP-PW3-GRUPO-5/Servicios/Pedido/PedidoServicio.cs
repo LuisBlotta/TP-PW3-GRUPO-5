@@ -14,11 +14,13 @@ namespace Servicios
         private _20211CTPContext context;
         private IArticuloServicio articuloServicio;
         private ISessionManager sessionManager;
+        private IClienteServicio clienteServicio;
         public PedidoServicio(_20211CTPContext ctx, IHttpContextAccessor _httpContextAccessor)
         {
             context = ctx;
             articuloServicio = new ArticuloServicio(context, _httpContextAccessor);
             sessionManager = new SessionManager(_httpContextAccessor);
+            clienteServicio = new ClienteServicio(context, _httpContextAccessor);
         }
 
         public void Alta(PedidoNuevoFiltro pedidoNuevoFiltro)
@@ -43,6 +45,45 @@ namespace Servicios
             }
             context.SaveChanges();
 
+        }
+        public bool AltaPedidoPorAPI(PedidoNuevoFiltro pedidoNuevoFiltro)
+        {
+            if (ValidarNuevoPedido(pedidoNuevoFiltro))
+            {
+                Pedido miPedido = new Pedido();
+                miPedido.FechaCreacion = DateTime.Now;
+                miPedido.IdCliente = pedidoNuevoFiltro.IdCliente;
+                miPedido.IdEstado = 1;
+                miPedido.NroPedido = ObtenerNumeroPedido();
+                miPedido.Comentarios = pedidoNuevoFiltro.Comentarios;
+                miPedido.CreadoPor = sessionManager.ObtenerIDUsuarioLogueado();
+                context.Pedidos.Add(miPedido);
+                context.SaveChanges();
+                int idPedido = context.Pedidos.Max(o => o.IdPedido);
+                foreach (ArticuloCantidad articulo in pedidoNuevoFiltro.Articulos)
+                {
+                    PedidoArticulo pedidoArticulo = new PedidoArticulo();
+                    pedidoArticulo.Cantidad = articulo.Cantidad;
+                    pedidoArticulo.IdArticulo = articuloServicio.ObtenerPorCodigo(articulo.Codigo).IdArticulo;
+                    pedidoArticulo.IdPedido = idPedido;
+                    context.PedidoArticulos.Add(pedidoArticulo);
+                }
+                context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+        public bool ValidarNuevoPedido(PedidoNuevoFiltro pedidoNuevoFiltro)
+        {
+            if (clienteServicio.ExisteElCliente(pedidoNuevoFiltro.IdCliente))
+            {
+                if (!clienteServicio.TienePedidosAbiertos(pedidoNuevoFiltro.IdCliente)
+                    && !articuloServicio.ArticulosEstanEliminados(pedidoNuevoFiltro.Articulos))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void Baja(int id)
