@@ -6,10 +6,10 @@
 <h3 class="text-center mb-2">Crear nuevo artículo</h3>
 @if (!string.IsNullOrEmpty((string)TempData["mensaje"]))
 {<div class="row">
-        <div class="col-md-4 mx-auto text-center w-75">
-            <div class="alert alert-success alert-dismissible ">
+        <div class="col-md-4 mx-auto text-center w-75" id="alert">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <label>@TempData["mensaje"]</label>
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </div>
     </div>
@@ -47,5 +47,6 @@
 </div>
 
 @section Scripts {
+    <script src="~/bundles/alert.min.js"></script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

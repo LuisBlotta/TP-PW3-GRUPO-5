@@ -27,7 +27,7 @@ namespace TP_PW3_GRUPO_5
             services.AddSession(options =>
             {
                 options.Cookie.Name = ".MyApp.Session";
-                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.IdleTimeout = TimeSpan.FromMinutes(15);
             });
             services.AddControllersWithViews();
             services.AddHttpContextAccessor();

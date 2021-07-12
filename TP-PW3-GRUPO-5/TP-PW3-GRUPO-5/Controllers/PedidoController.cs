@@ -80,8 +80,10 @@ namespace TP_PW3_GRUPO_5.Controllers
                 resultado = JsonSerializer.Serialize(accionMensaje);
                 return Content(resultado);
             }
-
-            accionMensaje.Mensaje = "El pedido ha sido creado exitosamente.";
+            string nombreCl = clienteServicio.ObtenerPorId(pedidoNuevoFiltro.IdCliente).Nombre;
+            int nroPedido = pedidoServicio.ObtenerNumeroPedido() - 1;
+            TempData["Mensaje"] = $"Pedido de {nombreCl} nro. {nroPedido} creado con exito.";
+            accionMensaje.Accion = "guardarYCrear";
             resultado = JsonSerializer.Serialize(accionMensaje);
             return Content(resultado);
         }

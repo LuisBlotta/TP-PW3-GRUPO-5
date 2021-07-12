@@ -23,6 +23,17 @@
     "sourceMap": false
   },
   {
+    "outputFileName": "wwwroot/bundles/alert.min.js",
+    "inputFiles": [
+      "wwwroot/js/alert.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
     "outputFileName": "wwwroot/bundles/pedido.min.js",
     "inputFiles": [
       "wwwroot/js/pedido.js"

@@ -125,21 +125,13 @@ function MandarForm(accion) {
                 if (data.Accion == "guardar") {
                     window.location.href = '/Pedido/Index';
                 }
-                MostrarMensaje(data.Mensaje, nombreCl);
-                ResetForm();
+                window.location.href = '/Pedido/NuevoPedido';
             })
     } else {
         let error = "Debe seleccionar un cliente y al menos un articulo.";
         $('#errorSelect').html(error);
     }
 
-}
-
-function MostrarMensaje(mensaje, nombreCl) {
-    let html = `<div class="alert alert-success alert-dismissible "><label>Pedido de ${nombreCl} nro. 123 creado con exito</label>
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    </div>`
-    $('#alert').html(html);
 }
 
 function ResetForm() {
@@ -164,7 +156,6 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    $('.alert').hide();
     CargarTabla(articulos);
 });
 

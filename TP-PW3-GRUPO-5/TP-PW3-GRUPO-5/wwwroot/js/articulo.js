@@ -145,5 +145,3 @@ function eliminarArticulo(id, descripcion) {
 }
 
 
-
-
