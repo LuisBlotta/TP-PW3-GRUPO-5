@@ -46,8 +46,13 @@
                     <input class="form-check-input" asp-for="EsAdmin" /> @Html.DisplayNameFor(model => model.EsAdmin)
                 </label>
             </div>
-            <div class="form-group d-flex justify-content-end">
-                <input type="submit" value="Crear" class="btn btn-primary" />
+            <div class="form-group row">
+                <div class="col md-6">
+                    <a href="/Usuario/Index" class="btn btn-primary mr-5">Volver</a>
+                </div>
+                <div class="col md-6 d-flex justify-content-end">
+                    <input type="submit" value="Crear" class="btn btn-primary" />
+                </div>
             </div>
         </form>
     </div>
