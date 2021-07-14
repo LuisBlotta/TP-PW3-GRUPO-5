@@ -124,8 +124,10 @@ function MandarForm(accion) {
             .then(data => {
                 if (data.Accion == "guardar") {
                     window.location.href = '/Pedido/Index';
+                } else {
+                    window.location.href = '/Pedido/NuevoPedido';
+
                 }
-                window.location.href = '/Pedido/NuevoPedido';
             })
     } else {
         let error = "Debe seleccionar un cliente y al menos un articulo.";

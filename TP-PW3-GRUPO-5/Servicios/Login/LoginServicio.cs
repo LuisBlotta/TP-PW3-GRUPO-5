@@ -26,7 +26,7 @@ namespace Servicios.Login
         public bool ValidarLogin(string email, string password)
         {
             Usuario user = usuarioServicio.ObtenerPorEmail(email);
-            if (user != null && password == user.Password)
+            if (user != null && password == user.Password && user.BorradoPor == null)
             {
                 user.FechaUltLogin = DateTime.Now;
                 context.SaveChanges();

@@ -25,6 +25,7 @@ else
         <form id="myForm">
             <input type="number" value="@Model.IdPedido" hidden id="IdPedido" />
             <input type="number" value="@Model.IdEstado" hidden id="IdEstado" />
+            <input type="text" value="@ViewData["accion"]" hidden id="Accion" />
 
             <div class="row">
                 <div class="col-md-4 d-flex justify-content-start">
@@ -68,7 +69,7 @@ else
             </div>
             <div class="row">
                 <div class="table-container">
-                    <table class="table table-hover">
+                    <table class="table table-hover" id="tableDetalle">
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col">Descripcion</th>
@@ -86,7 +87,16 @@ else
             <div class="row">
                 <div class="col form-group">
                     <div class="form-floating">
-                        <textarea class="form-control" placeholder="Escriba su comentario aqui..." id="comentarios" style="height: 100px">@Model.Comentarios</textarea>
+                        @if (ViewData["accion"].ToString() == "editar" && Model.IdEstado == 1)
+                        {
+                            <textarea class="form-control" placeholder="Escriba su comentario aqui..." id="comentarios" style="height: 100px">@Model.Comentarios</textarea>
+
+                        }
+                        else
+                        {
+                            <textarea class="form-control" disabled placeholder="Escriba su comentario aqui..." id="comentarios" style="height: 100px">@Model.Comentarios</textarea>
+
+                        }
                         <label for="comentarios">Comentarios</label>
                     </div>
                 </div>
@@ -111,9 +121,13 @@ else
                     </div>
                 }
 
-                <div class="col">
-                    <a onclick="eliminarPedido(@Model.IdPedido)" class="btn btn-primary btnEditar">Eliminar</a>
-                </div>
+                @if (Model.BorradoPor == null)
+                {
+                    <div class="col">
+                        <a onclick="eliminarPedido(@Model.IdPedido)" class="btn btn-primary btnEditar">Eliminar</a>
+                    </div>
+                }
+
                 <div class="col">
                     <a class="btn btn-primary" href="/Pedido/Index">Volver</a>
                 </div>

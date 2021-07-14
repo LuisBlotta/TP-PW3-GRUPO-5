@@ -4,7 +4,6 @@
 $(document).ready(function () {
     $('.select2Pedido').select2();
     ObtenerResultados();
-    deshabilitarQuitar();
 
 });
 
@@ -75,6 +74,9 @@ function CargarTabla(data) {
     articulos = data;
     articulos.sort(Compare);
     listado = '';
+    let estadoPedido = document.getElementById("IdEstado").value;
+    let accion = document.getElementById("Accion").value;
+
     if (articulos.length == 0) {
         listado = `<tr class="text-center">
                    <td colspan = "4" >No se cargaron articulos</td >
@@ -91,9 +93,11 @@ function CargarTabla(data) {
                 <td>
                 ${articulo.Cantidad}
                 </td>
-                <td>
-                <a class='btnQuitar' onclick="QuitarArticulo(${posicion})">Quitar</a>
-                </td>                  
+                <td>`
+            if (accion == 'editar' && estadoPedido == 1) {
+                listado += `<a class='btnQuitar' onclick="QuitarArticulo(${posicion})">Quitar</a>`
+            }
+                `</td>                  
         </tr>`
             posicion++;
         })
@@ -166,17 +170,6 @@ function ObtenerResultados() {
         .then(data => {
             CargarTabla(data);
         })
-
-}
-
-function deshabilitarQuitar() {
-    var estado = Number.parseInt(document.getElementById("IdEstado").value);
-    if (estado != 1) {
-        setTimeout(function () {
-            $(".btnQuitar").hide();
-            $("#comentarios").prop("disabled", true);
-        }, 50);
-    }
 
 }
 

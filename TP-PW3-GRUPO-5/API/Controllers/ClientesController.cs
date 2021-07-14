@@ -30,9 +30,12 @@ namespace API.Controllers
         [HttpGet]
         public string Get()
         {
-            if (sessionManager.EsAdmin())
+            if (sessionManager.EstaLogueado())
             {
-                return JsonSerializer.Serialize(clienteServicio.ObtenerClientes());
+                if (sessionManager.EsAdmin())
+                {
+                    return JsonSerializer.Serialize(clienteServicio.ObtenerClientes());
+                }
             }
             return JsonSerializer.Serialize(new MensajeJSON { Mensaje = "No tiene permisos para acceder al sitio." });
 
@@ -41,9 +44,12 @@ namespace API.Controllers
         [HttpPost]
         public string Filtrar([FromBody] string Nombre)
         {
-            if (sessionManager.EsAdmin())
+            if (sessionManager.EstaLogueado())
             {
-                return JsonSerializer.Serialize(clienteServicio.FiltrarPorNombre(Nombre));
+                if (sessionManager.EsAdmin())
+                {
+                    return JsonSerializer.Serialize(clienteServicio.FiltrarPorNombre(Nombre));
+                }
             }
             return JsonSerializer.Serialize(new MensajeJSON { Mensaje = "No tiene permisos para acceder al sitio." });
 

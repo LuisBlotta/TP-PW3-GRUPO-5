@@ -37,6 +37,11 @@ namespace Servicios
             usuario.FechaBorrado = DateTime.Now;
             usuario.BorradoPor = sessionManager.ObtenerIDUsuarioLogueado();
             context.SaveChanges();
+
+            if (sessionManager.ObtenerIDUsuarioLogueado() == id)
+            {
+                sessionManager.Salir();
+            }
         }
 
         public void Modificar(Usuario usuario)
@@ -84,8 +89,13 @@ namespace Servicios
 
             }
 
-
             listaUsuarios = listaUsuarios.OrderBy(u => u.Nombre).ToList();
+            foreach (Usuario usuario in listaUsuarios)
+            {
+                usuario.ModificadoPorNavigation = null;
+                usuario.InverseModificadoPorNavigation = null;
+            }
+
 
             return listaUsuarios;
         }
