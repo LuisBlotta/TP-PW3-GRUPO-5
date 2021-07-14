@@ -1,0 +1,229 @@
+{
+	"info": {
+		"_postman_id": "935c425d-ce73-405d-a33b-91ed50c11457",
+		"name": "API TP PW3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Email\": \"pablokuko@gmail.com\",\r\n    \"Password\": \"Pass123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/auth/login",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				},
+				"description": "Login"
+			},
+			"response": []
+		},
+		{
+			"name": "ObtenerClientes",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/api/v1/clientes/",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"clientes",
+						""
+					]
+				},
+				"description": "Obtener Clientes"
+			},
+			"response": []
+		},
+		{
+			"name": "FiltrarClientes",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\"ferre\"",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/clientes/filtrar",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"clientes",
+						"filtrar"
+					]
+				},
+				"description": "Filtrar Clientes"
+			},
+			"response": []
+		},
+		{
+			"name": "FiltrarProductos",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\"rosc\"",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/productos/filtrar",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"productos",
+						"filtrar"
+					]
+				},
+				"description": "Filtrar Productos"
+			},
+			"response": []
+		},
+		{
+			"name": "BuscarPedidos",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"IdCliente\": 1,\r\n    \"IdEstado\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/pedidos/Buscar",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"pedidos",
+						"Buscar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ObtenerProductos",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/productos/",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"productos",
+						""
+					]
+				},
+				"description": "Obtener Productos"
+			},
+			"response": []
+		},
+		{
+			"name": "GuardarPedidos",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"IdCliente\": \"4\",\r\n    \"Comentarios\": \"Entregar el Martes 20\",\r\n    \"Articulos\": [\r\n        {\r\n            \"Codigo\": \"1000/02\",\r\n            \"Cantidad\": \"20\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/pedidos/guardar",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"pedidos",
+						"guardar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/auth/logout",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
